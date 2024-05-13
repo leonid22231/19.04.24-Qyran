@@ -1,0 +1,69 @@
+{
+  "welcome_title_1": "Lorem Ipsum is simply dummy text of the printing 1",
+  "welcome_context_1": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 1",
+  "welcome_title_2": "Lorem Ipsum is simply dummy text of the printing 2",
+  "welcome_context_2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 2",
+  "welcome_title_3": "Lorem Ipsum is simply dummy text of the printing 3",
+  "welcome_context_3": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 3",
+  "skip": "Пропустить",
+  "next": "Далее",
+  "start": "Начать",
+  "sign_in": "Войти",
+  "login_signIn": "Вход",
+  "login_numberPhone": "Номер телефона",
+  "continue_": "Продолжить",
+  "or": "или",
+  "not_account": "У вас еще нет аккаунта?",
+  "register": "Зарегистрироваться",
+  "continue_in": "Продолжить с {name}",
+  "@continue_in": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "confirm_code": "Для того, чтобы продолжить, введите 4-х значный код, который мы прислали на номер +{phone}",
+  "@confirm_code": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "account": "У вас уже есть аккаунт?",
+  "error": "Ошибка",
+  "error_code": "Неверный код",
+  "bottomBar_item1": "Курсы",
+  "bottomBar_item2": "Уроки",
+  "bottomBar_item3": "Тесты",
+  "bottomBar_item4": "Новости",
+  "bottomBar_item5": "Профиль",
+  "course_section_1": "Уроки",
+  "course_section_2": "Комбо",
+  "search": "Поиск",
+  "lessons_empty": "Вы пока не записаны на курсы. Перейдите  на страницу курсов и запишитесь на нужные.",
+  "lesson_from": "От {name} {surname}",
+  "@lesson_from": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "surname": {
+        "type": "String"
+      }
+    }
+  },
+  "second_ago": "с. назад",
+  "minute_ago": "м. назад",
+  "hour_ago": "ч. назад",
+  "day_ago": "д. назад",
+  "profile_item1": "Политика конфиденциальности",
+  "profile_item2": "Пользовательское соглашение",
+  "exit": "Выйти",
+  "test_section_1": "Тесты",
+  "test_section_2": "Результаты",
+  "test_current": "Текущие тестирования",
+  "test_result_not_found": "Результатов нет",
+  "back": "Назад"
+}
