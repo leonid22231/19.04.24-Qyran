@@ -1,18 +1,36 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:qyran/api/entity/UserEntity.dart';
+import 'package:qyran/api/entity/enums/UserRole.dart';
+import 'package:qyran/controller/StorageController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/utils/globals.dart';
+import 'package:qyran/utils/globals_fun.dart';
 import 'package:qyran/widgets/custom_button.dart';
 import 'package:qyran/widgets/custom_text_field.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ProfilePage extends StatefulWidget{
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
   State<StatefulWidget> createState() => _ProfilePageState();
-
 }
-class _ProfilePageState extends State<ProfilePage>{
+
+class _ProfilePageState extends State<ProfilePage> {
+  UserEntity user = UserEntity(id: "0", phone: "79999999999", name: "Иван", surname: "Иванов", email: "ivanivanov@gmail.com", role: UserRole.user);
+
+  @override
+  void initState() {
+    super.initState();
+    context.loaderOverlay.show();
+    initProfile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,50 +47,79 @@ class _ProfilePageState extends State<ProfilePage>{
                     size: const Size.fromRadius(50),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1000),
-                      child: Image.asset("assets/profile_test.png", fit: BoxFit.fill,),
+                      child: Image.asset(
+                        "assets/profile_test.png",
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 1.h,),
-                  Text("Иван Иванов", style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600),),
-                  Text("+79999999999", style: TextStyle(color: appGray6, fontSize: mainSize),)
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Text(
+                    "${user.name} ${user.surname}",
+                    style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "+${user.phone}",
+                    style: TextStyle(color: appGray6, fontSize: mainSize),
+                  )
                 ],
               ),
+              CustomTextField(hint: user.email, readOnly: true, onChanged: (value) {}),
               CustomTextField(
-                  hint: "ivanivanov@gmail.com",
-                  readOnly: true,
-                  onChanged: (value){}
-              ),
+                  prefix: Padding(
+                    padding: EdgeInsets.all(3.w),
+                    child: SvgPicture.asset("assets/telegram.svg"),
+                  ),
+                  hint: (user.social_1 == null || user.social_1!.isEmpty) ? "@ivanov12" : user.social_1,
+                  readOnly: false,
+                  onChanged: (value) {}),
               CustomTextField(
-                  hint: "@ivanov12",
-                  readOnly: true,
-                  onChanged: (value){}
-              ),
-              CustomTextField(
-                  hint: "@ivanov12",
-                  readOnly: true,
-                  onChanged: (value){}
-              ),
-              _itemWidget(S.of(context).profile_item1, () => (){
-
+                  prefix: Padding(
+                    padding: EdgeInsets.all(3.w),
+                    child: SvgPicture.asset("assets/instagram.svg"),
+                  ),
+                  hint: (user.social_2 == null || user.social_2!.isEmpty) ? "@ivanov12" : user.social_2,
+                  readOnly: false,
+                  onChanged: (value) {}),
+              _itemWidget(S.of(context).profile_item1, () {
+                launchUrl(Uri.parse("https://google.com"));
               }),
-              _itemWidget(S.of(context).profile_item2, () => (){
-
+              _itemWidget(S.of(context).profile_item2, () {
+                launchUrl(Uri.parse("https://google.com"));
               }),
             ],
           ),
         ),
         const Spacer(),
         CustomButton(
-          onPress: (){
-
-          },
+            onPress: () {
+              logout(context);
+            },
             color: primaryColor,
-            title: S.of(context).exit
-        )
+            title: S.of(context).exit)
       ],
     );
   }
-  Widget _itemWidget(String title, Function() onTap){
+
+  Future<void> initProfile() async {
+    String? phone = await StorageController.instance.getPhone();
+    api().findProfile(phone!).then((value) {
+      context.loaderOverlay.hide();
+      setState(() {
+        if (user.social_1 != null && user.social_1!.isEmpty) {
+          user.social_1 = null;
+        }
+        if (user.social_2 != null && user.social_2!.isEmpty) {
+          user.social_2 = null;
+        }
+        user = value;
+      });
+    });
+  }
+
+  Widget _itemWidget(String title, Function() onTap) {
     return InkWell(
       onTap: onTap,
       highlightColor: primaryColor.withOpacity(0.3),
@@ -84,8 +131,14 @@ class _ProfilePageState extends State<ProfilePage>{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title, style: TextStyle(color: appGray5, fontWeight: FontWeight.w400, fontSize: mainSize),),
-            Icon(Icons.keyboard_arrow_right_outlined, color: appGray5,)
+            Text(
+              title,
+              style: TextStyle(color: appGray5, fontWeight: FontWeight.w400, fontSize: mainSize),
+            ),
+            Icon(
+              Icons.keyboard_arrow_right_outlined,
+              color: appGray5,
+            )
           ],
         ),
       ),

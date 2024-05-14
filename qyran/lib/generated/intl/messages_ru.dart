@@ -58,11 +58,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "not_account":
             MessageLookupByLibrary.simpleMessage("У вас еще нет аккаунта?"),
         "or": MessageLookupByLibrary.simpleMessage("или"),
+        "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "profile_item1":
             MessageLookupByLibrary.simpleMessage("Политика конфиденциальности"),
         "profile_item2":
             MessageLookupByLibrary.simpleMessage("Пользовательское соглашение"),
         "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+        "register_email": MessageLookupByLibrary.simpleMessage("Email"),
+        "register_name": MessageLookupByLibrary.simpleMessage("Имя"),
+        "register_password":
+            MessageLookupByLibrary.simpleMessage("Придумайте пароль"),
+        "register_social": MessageLookupByLibrary.simpleMessage("Соц. сети"),
+        "register_social_": MessageLookupByLibrary.simpleMessage("@ivanov12"),
+        "register_surname": MessageLookupByLibrary.simpleMessage("Фамилия"),
         "search": MessageLookupByLibrary.simpleMessage("Поиск"),
         "second_ago": MessageLookupByLibrary.simpleMessage("с. назад"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),

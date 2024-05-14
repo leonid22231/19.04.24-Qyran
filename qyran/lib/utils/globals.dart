@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:qyran/api/RestClient.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 Color primaryColor = const Color(0xffFFAB07);
@@ -22,3 +24,15 @@ double mainSize = 16.sp;
 double buttonTextSize = 18.sp;
 double welcomeTitleSize = 20.sp;
 double progressRadius = 30;
+String baseUrl = "http://192.168.0.11:8080";
+String _api = "api/v1";
+late RestClient _client;
+void initRestClient() {
+  debugPrint("Init API [$_api] in base url $baseUrl address to [$baseUrl/$_api]");
+  Dio dio = Dio();
+  _client = RestClient(dio, baseUrl: "$baseUrl/$_api");
+}
+
+RestClient api() {
+  return _client;
+}

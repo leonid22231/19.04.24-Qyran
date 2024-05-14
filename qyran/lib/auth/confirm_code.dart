@@ -5,16 +5,17 @@ import 'package:qyran/utils/globals_fun.dart';
 import 'package:qyran/widgets/custom_button.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:qyran/utils/globals.dart';
-class ConfirmCode extends StatefulWidget{
+
+class ConfirmCode extends StatefulWidget {
   final bool register;
   final String phone;
   final String confirmCode;
-  const ConfirmCode({required this.phone,required this.register,required this.confirmCode,super.key});
+  const ConfirmCode({required this.phone, required this.register, required this.confirmCode, super.key});
   @override
   State<StatefulWidget> createState() => _ConfirmCodeState();
 }
 
-class _ConfirmCodeState extends State<ConfirmCode>{
+class _ConfirmCodeState extends State<ConfirmCode> {
   bool register = false;
   String? code;
   @override
@@ -29,40 +30,40 @@ class _ConfirmCodeState extends State<ConfirmCode>{
               child: SizedBox(
                 height: 50.h,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween ,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset("assets/logo.png"),
-                    Text(register?S.of(context).register:S.of(context).login_signIn, style: TextStyle(fontWeight: FontWeight.w700, fontSize: buttonTextSize),),
-                    Text(S.of(context).confirm_code(widget.phone), textAlign: TextAlign.center,style: TextStyle(color: appGray4, fontSize: mainSize),),
+                    Text(
+                      register ? S.of(context).register : S.of(context).login_signIn,
+                      style: TextStyle(fontWeight: FontWeight.w700, fontSize: buttonTextSize),
+                    ),
+                    Text(
+                      S.of(context).confirm_code(widget.phone),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: appGray4, fontSize: mainSize),
+                    ),
                     Pinput(
                       length: 4,
-                      onChanged: (value){
+                      onChanged: (value) {
                         setState(() {
                           code = value;
                         });
                       },
-                      defaultPinTheme: PinTheme(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: borderPinput),
-                              borderRadius: BorderRadius.circular(8)
-                          )
-                      ),
+                      defaultPinTheme: PinTheme(width: 50, height: 50, decoration: BoxDecoration(color: Colors.white, border: Border.all(color: borderPinput), borderRadius: BorderRadius.circular(8))),
                     ),
                     CustomButton(
                         disableColor: primaryColor.withOpacity(0.24),
-                        onPress: !_success()?null:(){
-                          if(code!=widget.confirmCode){
-                            error(S.of(context).error_code).show(context);
-                          }else{
-                            Navigator.pop(context, true);
-                          }
-                        },
+                        onPress: !_success()
+                            ? null
+                            : () {
+                                if (code != widget.confirmCode) {
+                                  showError(S.of(context).error_code).show(context);
+                                } else {
+                                  Navigator.pop(context, true);
+                                }
+                              },
                         color: primaryColor,
-                        title: S.of(context).continue_
-                    ),
+                        title: S.of(context).continue_),
                   ],
                 ),
               ),
@@ -72,7 +73,8 @@ class _ConfirmCodeState extends State<ConfirmCode>{
       ),
     );
   }
-  bool _success(){
+
+  bool _success() {
     return (code != null && code!.isNotEmpty);
   }
 }

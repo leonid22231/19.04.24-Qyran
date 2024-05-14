@@ -170,6 +170,76 @@ class S {
     );
   }
 
+  /// `Имя`
+  String get register_name {
+    return Intl.message(
+      'Имя',
+      name: 'register_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Фамилия`
+  String get register_surname {
+    return Intl.message(
+      'Фамилия',
+      name: 'register_surname',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get register_email {
+    return Intl.message(
+      'Email',
+      name: 'register_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Придумайте пароль`
+  String get register_password {
+    return Intl.message(
+      'Придумайте пароль',
+      name: 'register_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Пароль`
+  String get password {
+    return Intl.message(
+      'Пароль',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Соц. сети`
+  String get register_social {
+    return Intl.message(
+      'Соц. сети',
+      name: 'register_social',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `@ivanov12`
+  String get register_social_ {
+    return Intl.message(
+      '@ivanov12',
+      name: 'register_social_',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Продолжить`
   String get continue_ {
     return Intl.message(
