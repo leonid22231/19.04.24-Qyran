@@ -17,4 +17,7 @@ public class CourseService {
     public List<CourseEntity> findAll(){
         return courseRepository.findAll();
     }
+    public CourseEntity findById(String id){
+     return courseRepository.findCourseEntityById(id);
+    }
 }

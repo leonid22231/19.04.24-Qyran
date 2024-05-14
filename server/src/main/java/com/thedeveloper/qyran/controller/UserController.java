@@ -2,7 +2,9 @@ package com.thedeveloper.qyran.controller;
 
 import com.thedeveloper.qyran.entity.UserEntity;
 import com.thedeveloper.qyran.enums.UserRole;
+import com.thedeveloper.qyran.service.TestService;
 import com.thedeveloper.qyran.service.UserService;
+import com.thedeveloper.qyran.service.VideoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.CompletableFuture;
 
+import static com.thedeveloper.qyran.util.Globals.response;
+
 @RestController
 @RequestMapping("api/v1/user")
 @EnableAsync
 @AllArgsConstructor
 public class UserController {
     UserService userService;
+    TestService testService;
+    VideoService videoService;
     PasswordEncoder passwordEncoder;
     @PostMapping("/login")
     @Async
@@ -59,5 +65,43 @@ public class UserController {
     public CompletableFuture<ResponseEntity<?>> getProfile(@RequestParam String phone) {
         UserEntity user = userService.findUserByPhone(phone);
         return CompletableFuture.completedFuture(ResponseEntity.ok().body(user));
+    }
+
+    @PostMapping("/setView")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> setView(@RequestParam String phone, @RequestParam(required = false) Long videoId, @RequestParam(required = false) Long testId) {
+        boolean change = false;
+        UserEntity user = userService.findUserByPhone(phone);
+        if(videoId!=null){
+            user.getVideoListView().add(videoService.findById(videoId));
+            change = true;
+        }
+        if(testId!=null){
+            user.getTestListView().add(testService.findById(testId));
+            change = true;
+        }
+        if(change) userService.save(user);
+        return response(HttpStatus.OK);
+    }
+    @PostMapping("/profile/social/update")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> saveProfileSocial(@RequestParam String phone, @RequestParam(required = false) String social_1, @RequestParam(required = false) String social_2){
+        UserEntity user = userService.findUserByPhone(phone);
+        if(social_1!=null){
+            if(social_1.split("")[0].equals("@")){
+                user.setSocial_1(social_1.substring(1));
+            }else{
+                user.setSocial_1(social_1);
+            }
+        }
+        if(social_2!=null){
+            if(social_2.split("")[0].equals("@")){
+                user.setSocial_2(social_2.substring(1));
+            }else{
+                user.setSocial_2(social_2);
+            }
+        };
+        userService.save(user);
+        return response(HttpStatus.OK);
     }
 }

@@ -420,10 +420,10 @@ class S {
     );
   }
 
-  /// `От {name} {surname}`
+  /// `Создатель: {name} {surname}`
   String lesson_from(String name, String surname) {
     return Intl.message(
-      'От $name $surname',
+      'Создатель: $name $surname',
       name: 'lesson_from',
       desc: '',
       args: [name, surname],
@@ -545,6 +545,26 @@ class S {
     return Intl.message(
       'Назад',
       name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сохранить`
+  String get save {
+    return Intl.message(
+      'Сохранить',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Все задания`
+  String get all_learnd {
+    return Intl.message(
+      'Все задания',
+      name: 'all_learnd',
       desc: '',
       args: [],
     );

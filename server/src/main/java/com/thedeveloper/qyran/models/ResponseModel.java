@@ -1,2 +1,9 @@
-package com.thedeveloper.qyran.models;public class ResponseModel {
+package com.thedeveloper.qyran.models;
+
+import lombok.Data;
+
+@Data
+public class ResponseModel {
+    Long id;
+    String text;
 }

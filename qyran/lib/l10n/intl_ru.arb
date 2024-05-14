@@ -50,7 +50,7 @@
   "course_section_2": "Комбо",
   "search": "Поиск",
   "lessons_empty": "Вы пока не записаны на курсы. Перейдите  на страницу курсов и запишитесь на нужные.",
-  "lesson_from": "От {name} {surname}",
+  "lesson_from": "Создатель: {name} {surname}",
   "@lesson_from": {
     "placeholders": {
       "name": {
@@ -72,5 +72,7 @@
   "test_section_2": "Результаты",
   "test_current": "Текущие тестирования",
   "test_result_not_found": "Результатов нет",
-  "back": "Назад"
+  "back": "Назад",
+  "save": "Сохранить",
+  "all_learnd": "Все задания"
 }

@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:qyran/api/entity/UserEntity.dart';
@@ -23,7 +25,10 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   UserEntity user = UserEntity(id: "0", phone: "79999999999", name: "Иван", surname: "Иванов", email: "ivanivanov@gmail.com", role: UserRole.user);
-
+  final TextEditingController _social_1 = TextEditingController();
+  final TextEditingController _social_2 = TextEditingController();
+  String? social_1;
+  String? social_2;
   @override
   void initState() {
     super.initState();
@@ -33,74 +38,110 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return SafeArea(
+        child: Stack(
+      alignment: Alignment.bottomCenter,
       children: [
-        SizedBox(
-          height: 60.h,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  SizedBox.fromSize(
-                    size: const Size.fromRadius(50),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(1000),
-                      child: Image.asset(
-                        "assets/profile_test.png",
-                        fit: BoxFit.fill,
+        CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 7.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 60.h,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox.fromSize(
+                                size: const Size.fromRadius(50),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  child: Image.asset(
+                                    "assets/profile_test.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Text(
+                                "${user.name} ${user.surname}",
+                                style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                "+${user.phone}",
+                                style: TextStyle(color: appGray6, fontSize: mainSize),
+                              )
+                            ],
+                          ),
+                          CustomTextField(hint: user.email, readOnly: true, onChanged: (value) {}),
+                          CustomTextField(
+                              controller: _social_1,
+                              prefix: Padding(
+                                padding: EdgeInsets.all(3.w),
+                                child: SvgPicture.asset("assets/telegram.svg"),
+                              ),
+                              hint: (user.social_1 == null || user.social_1!.isEmpty) ? "@ivanov12" : "@${user.social_1}",
+                              readOnly: false,
+                              onChanged: (value) {
+                                setState(() {
+                                  social_1 = value;
+                                });
+                              }),
+                          CustomTextField(
+                              controller: _social_2,
+                              prefix: Padding(
+                                padding: EdgeInsets.all(3.w),
+                                child: SvgPicture.asset("assets/instagram.svg"),
+                              ),
+                              hint: (user.social_2 == null || user.social_2!.isEmpty) ? "@ivanov12" : "@${user.social_2}",
+                              readOnly: false,
+                              onChanged: (value) {
+                                setState(() {
+                                  social_2 = value;
+                                });
+                              }),
+                          _itemWidget(S.of(context).profile_item1, () {
+                            launchUrl(Uri.parse("https://google.com"));
+                          }),
+                          _itemWidget(S.of(context).profile_item2, () {
+                            launchUrl(Uri.parse("https://google.com"));
+                          }),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Text(
-                    "${user.name} ${user.surname}",
-                    style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "+${user.phone}",
-                    style: TextStyle(color: appGray6, fontSize: mainSize),
-                  )
-                ],
+                  ],
+                ),
               ),
-              CustomTextField(hint: user.email, readOnly: true, onChanged: (value) {}),
-              CustomTextField(
-                  prefix: Padding(
-                    padding: EdgeInsets.all(3.w),
-                    child: SvgPicture.asset("assets/telegram.svg"),
-                  ),
-                  hint: (user.social_1 == null || user.social_1!.isEmpty) ? "@ivanov12" : user.social_1,
-                  readOnly: false,
-                  onChanged: (value) {}),
-              CustomTextField(
-                  prefix: Padding(
-                    padding: EdgeInsets.all(3.w),
-                    child: SvgPicture.asset("assets/instagram.svg"),
-                  ),
-                  hint: (user.social_2 == null || user.social_2!.isEmpty) ? "@ivanov12" : user.social_2,
-                  readOnly: false,
-                  onChanged: (value) {}),
-              _itemWidget(S.of(context).profile_item1, () {
-                launchUrl(Uri.parse("https://google.com"));
-              }),
-              _itemWidget(S.of(context).profile_item2, () {
-                launchUrl(Uri.parse("https://google.com"));
-              }),
-            ],
-          ),
+            )
+          ],
         ),
-        const Spacer(),
         CustomButton(
-            onPress: () {
-              logout(context);
-            },
-            color: primaryColor,
-            title: S.of(context).exit)
+            onPress: _isEdit()
+                ? () {
+                    api().saveSocial(user.phone, social_1, social_2).then((value) {
+                      initProfile().then((value) {
+                        social_1 = null;
+                        social_2 = null;
+                        _social_1.clear();
+                        _social_2.clear();
+                      });
+                    });
+                  }
+                : () {
+                    logout(context);
+                  },
+            color: _isEdit() ? appGreen : primaryColor,
+            title: _isEdit() ? S.of(context).save : S.of(context).exit)
       ],
-    );
+    ));
   }
 
   Future<void> initProfile() async {
@@ -117,6 +158,10 @@ class _ProfilePageState extends State<ProfilePage> {
         user = value;
       });
     });
+  }
+
+  bool _isEdit() {
+    return ((social_1 != null && social_1!.isNotEmpty) || (social_2 != null && social_2!.isNotEmpty));
   }
 
   Widget _itemWidget(String title, Function() onTap) {

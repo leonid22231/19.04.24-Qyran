@@ -25,12 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(name) => "Продолжить с ${name}";
 
-  static String m2(name, surname) => "От ${name} ${surname}";
+  static String m2(name, surname) => "Создатель: ${name} ${surname}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "account":
             MessageLookupByLibrary.simpleMessage("У вас уже есть аккаунт?"),
+        "all_learnd": MessageLookupByLibrary.simpleMessage("Все задания"),
         "back": MessageLookupByLibrary.simpleMessage("Назад"),
         "bottomBar_item1": MessageLookupByLibrary.simpleMessage("Курсы"),
         "bottomBar_item2": MessageLookupByLibrary.simpleMessage("Уроки"),
@@ -71,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "register_social": MessageLookupByLibrary.simpleMessage("Соц. сети"),
         "register_social_": MessageLookupByLibrary.simpleMessage("@ivanov12"),
         "register_surname": MessageLookupByLibrary.simpleMessage("Фамилия"),
+        "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
         "search": MessageLookupByLibrary.simpleMessage("Поиск"),
         "second_ago": MessageLookupByLibrary.simpleMessage("с. назад"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),

@@ -149,6 +149,7 @@ class _CoursePageState extends State<CoursePage> {
             MaterialPageRoute(
                 builder: (context) => CourseViewPage(
                       title: courseEntity.name,
+                      id: courseEntity.id,
                     )));
       },
       highlightColor: primaryColor.withOpacity(0.3),

@@ -16,6 +16,6 @@ public class CourseEntity {
     String id;
     String name;
     @JsonIgnore
-    @OneToMany(mappedBy = "title")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<LessonEntity> lessons = new ArrayList<LessonEntity>();
 }

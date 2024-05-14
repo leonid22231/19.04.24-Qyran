@@ -5,6 +5,9 @@ import com.thedeveloper.qyran.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -12,6 +15,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
+    @Column(unique = true)
     String phone;
     @JsonIgnore
     String password;
@@ -22,4 +26,10 @@ public class UserEntity {
     String social_2;
     @Enumerated(EnumType.STRING)
     UserRole role;
+    @ManyToMany
+    @JsonIgnore
+    List<VideoEntity> videoListView = new ArrayList<>();
+    @JsonIgnore
+    @ManyToMany
+    List<TestEntity> testListView = new ArrayList<>();
 }
