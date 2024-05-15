@@ -58,6 +58,23 @@ public class MainController {
         }
         return response(lesson.getThemes(), HttpStatus.OK);
     }
+    @GetMapping("/lesson/byTest")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> findLessonByTest(@RequestParam String phone, @RequestParam Long id){
+        TestEntity _test = testService.findById(id);
+        LessonEntity lesson = _test.getTheme().getLesson();
+            for(ThemeEntity theme : lesson.getThemes()){
+                for(VideoEntity video : theme.getVideoList()){
+                    video.setView(userService.isVideoView(phone, video));
+                }
+                for(TestEntity test : theme.getTestList()){
+                    test.setView(userService.isTestView(phone, test));
+                    test.setResult(testResultService.isTestResult(userService.findUserByPhone(phone), test));
+                }
+            }
+
+        return response(lesson, HttpStatus.OK);
+    }
     @GetMapping("/tests/{id}/result")
     @Async
     public CompletableFuture<ResponseEntity<?>> findTestResults(@PathVariable Long id, @RequestParam String phone){
@@ -70,6 +87,9 @@ public class MainController {
     public CompletableFuture<ResponseEntity<?>> loadTestResult(@PathVariable Long id, @RequestParam String phone, @RequestBody TestResultModel result) throws IOException {
         UserEntity user = userService.findUserByPhone(phone);
         TestEntity test = testService.findById(id);
+        if(testResultService.isTestResult(user, test)){
+            testResultService.delete(testResultService.findByUserAndTest(user, test));
+        }
         TrueTestModel trueTestModel = testsService.loadResponse(test);
         TestResultEntity testResultEntity = new TestResultEntity();
         testResultEntity.setTest(test);

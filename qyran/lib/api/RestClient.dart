@@ -37,6 +37,8 @@ abstract class RestClient {
   @POST("/user/setView")
   Future<void> setView(@Query("phone") String phone,
       @Query("videoId") int? videoId, @Query("testId") int? testId);
+  @GET("/user/tests/results")
+  Future<List<TestResultEntity>> findResults(@Query("phone") String phone);
   @GET("/courses")
   Future<List<CourseEntity>> findAllCourses();
   @GET("/courses/{id}")
@@ -44,6 +46,9 @@ abstract class RestClient {
   @GET("/lessons/{id}")
   Future<List<ThemeEntity>> findThemes(
       @Path("id") String id, @Query("phone") String? phone);
+  @GET("/lesson/byTest")
+  Future<LessonEntity> findLessonByTest(
+      @Query("phone") String phone, @Query("id") int id);
   @GET("/tests/{id}")
   Future<TestModel> findTest(@Path("id") int id);
   @GET("/tests/{id}/result")

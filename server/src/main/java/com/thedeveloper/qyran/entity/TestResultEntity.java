@@ -14,7 +14,6 @@ public class TestResultEntity {
     String goodIds;
     String badIds;
     int result;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "test", nullable = false, referencedColumnName = "id")
     TestEntity test;

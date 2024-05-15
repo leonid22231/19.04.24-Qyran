@@ -3,6 +3,7 @@ package com.thedeveloper.qyran.controller;
 import com.thedeveloper.qyran.entity.TestEntity;
 import com.thedeveloper.qyran.entity.UserEntity;
 import com.thedeveloper.qyran.enums.UserRole;
+import com.thedeveloper.qyran.service.TestResultService;
 import com.thedeveloper.qyran.service.TestService;
 import com.thedeveloper.qyran.service.UserService;
 import com.thedeveloper.qyran.service.VideoService;
@@ -29,6 +30,7 @@ public class UserController {
     UserService userService;
     TestService testService;
     VideoService videoService;
+    TestResultService testResultService;
     PasswordEncoder passwordEncoder;
     @PostMapping("/login")
     @Async
@@ -115,5 +117,11 @@ public class UserController {
         };
         userService.save(user);
         return response(HttpStatus.OK);
+    }
+    @GetMapping("/tests/results")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> findTestsResult(@RequestParam String phone){
+        UserEntity user = userService.findUserByPhone(phone);
+        return response(testResultService.findByUser(user), HttpStatus.OK);
     }
 }

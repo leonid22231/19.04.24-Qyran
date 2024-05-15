@@ -619,6 +619,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Тест должен быть сдан минимум на 60%`
+  String get error_bad_test {
+    return Intl.message(
+      'Тест должен быть сдан минимум на 60%',
+      name: 'error_bad_test',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Пересдать`
+  String get retest {
+    return Intl.message(
+      'Пересдать',
+      name: 'retest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Пройдите предыдущий материал`
+  String get lesson_error {
+    return Intl.message(
+      'Пройдите предыдущий материал',
+      name: 'lesson_error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

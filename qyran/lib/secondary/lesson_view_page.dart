@@ -10,6 +10,7 @@ import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/video_view_page.dart';
 import 'package:qyran/test/test_view_page.dart';
 import 'package:qyran/utils/globals.dart';
+import 'package:qyran/utils/globals_fun.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class LessonViewPage extends StatefulWidget {
@@ -44,7 +45,8 @@ class _LessonViewPageState extends State<LessonViewPage> {
         centerTitle: true,
         title: Text(
           lesson.course.name,
-          style: TextStyle(fontSize: welcomeTitleSize, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: welcomeTitleSize, fontWeight: FontWeight.w600),
         ),
       ),
       body: SingleChildScrollView(
@@ -72,7 +74,8 @@ class _LessonViewPageState extends State<LessonViewPage> {
                   //title
                   Text(
                     lesson.title,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: mainSize),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: mainSize),
                   ),
                   SizedBox(
                     height: 1.h,
@@ -171,7 +174,8 @@ class _LessonViewPageState extends State<LessonViewPage> {
       children: [
         Text(
           "${index + 1}. ${theme.name}",
-          style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.bold),
+          style:
+              TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.bold),
         ),
         SizedBox(
           height: 2.h,
@@ -195,10 +199,48 @@ class _LessonViewPageState extends State<LessonViewPage> {
                 borderRadius: BorderRadius.circular(20),
                 onTap: (objects[index] is VideoEntity)
                     ? () {
-                        videoClick(objects[index] as VideoEntity, objects, index, theme.name);
+                        bool check = false;
+                        if (index == 0) {
+                          check = true;
+                        } else {
+                          if (objects[index - 1] is VideoEntity) {
+                            if ((objects[index - 1] as VideoEntity).view) {
+                              check = true;
+                            }
+                          } else {
+                            if ((objects[index - 1] as TestEntity).view) {
+                              check = true;
+                            }
+                          }
+                        }
+                        if (check) {
+                          videoClick(objects[index] as VideoEntity, objects,
+                              index, theme.name);
+                        } else {
+                          showError(S.of(context).lesson_error).show(context);
+                        }
                       }
                     : () {
-                        testClick(objects[index] as TestEntity, objects, index, theme.name);
+                        bool check = false;
+                        if (index == 0) {
+                          check = true;
+                        } else {
+                          if (objects[index - 1] is VideoEntity) {
+                            if ((objects[index - 1] as VideoEntity).view) {
+                              check = true;
+                            }
+                          } else {
+                            if ((objects[index - 1] as TestEntity).view) {
+                              check = true;
+                            }
+                          }
+                        }
+                        if (check) {
+                          testClick(objects[index] as TestEntity, objects,
+                              index, theme.name);
+                        } else {
+                          showError(S.of(context).lesson_error).show(context);
+                        }
                       },
                 child: Ink(
                   padding: EdgeInsets.all(2.w),
@@ -234,7 +276,8 @@ class _LessonViewPageState extends State<LessonViewPage> {
     );
   }
 
-  void videoClick(VideoEntity video, List<Object> list, int index, String title) {
+  void videoClick(
+      VideoEntity video, List<Object> list, int index, String title) {
     debugPrint("Video Click");
     Navigator.push(
         context,

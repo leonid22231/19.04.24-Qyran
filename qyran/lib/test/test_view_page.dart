@@ -15,6 +15,7 @@ import 'package:qyran/secondary/video_view_page.dart';
 import 'package:qyran/test/TestModel.dart';
 import 'package:qyran/test/question_view_page.dart';
 import 'package:qyran/utils/globals.dart';
+import 'package:qyran/utils/globals_fun.dart';
 import 'package:qyran/widgets/custom_button.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -111,6 +112,10 @@ class _TestViewPageState extends State<TestViewPage> {
                     } else {
                       height = minus / countX;
                     }
+                    Color color = primaryColor;
+                    if (percent < 60) {
+                      color = Colors.redAccent.withOpacity(0.5);
+                    }
                     return SingleChildScrollView(
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 10.h),
@@ -191,46 +196,72 @@ class _TestViewPageState extends State<TestViewPage> {
                                     },
                                     color: primaryColor,
                                     title: S.of(context).start_test)
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                : Column(
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(S.of(context).res,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: mainSize)),
-                                          Text("$res/${test.count}")
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(S.of(context).res,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: mainSize)),
+                                              Text("$res/${test.count}")
+                                            ],
+                                          ),
+                                          Container(
+                                            width: 0.5.w,
+                                            height: 6.h,
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                            child: Center(),
+                                          ),
+                                          SizedBox.fromSize(
+                                            size: Size.fromRadius(30),
+                                            child: CircularPercentIndicator(
+                                              radius: 30,
+                                              lineWidth: 6.0,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              percent: percent / 100,
+                                              center: Text(
+                                                "$percent%",
+                                                style: GoogleFonts.raleway()
+                                                    .copyWith(
+                                                        fontSize: mainSize,
+                                                        color: color,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                              ),
+                                              progressColor: color,
+                                            ),
+                                          )
                                         ],
                                       ),
-                                      Container(
-                                        width: 0.5.w,
-                                        height: 6.h,
-                                        color: Colors.black.withOpacity(0.3),
-                                        child: Center(),
-                                      ),
-                                      SizedBox.fromSize(
-                                        size: Size.fromRadius(30),
-                                        child: CircularPercentIndicator(
-                                          radius: 30,
-                                          lineWidth: 6.0,
-                                          backgroundColor: Colors.transparent,
-                                          percent: percent / 100,
-                                          center: Text(
-                                            "$percent%",
-                                            style: GoogleFonts.raleway()
-                                                .copyWith(
-                                                    fontSize: mainSize,
-                                                    color: primaryColor,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                          ),
-                                          progressColor: primaryColor,
-                                        ),
-                                      )
+                                      percent < 70
+                                          ? CustomButton(
+                                              height: 5.h,
+                                              onPress: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            QuestionViewPage(
+                                                              firstOpen: true,
+                                                              test: test,
+                                                              index: 0,
+                                                              testEntity:
+                                                                  widget.test,
+                                                            )));
+                                              },
+                                              color: primaryColor,
+                                              title: S.of(context).retest)
+                                          : const SizedBox.shrink()
                                     ],
                                   ),
                             SizedBox(
@@ -329,35 +360,40 @@ class _TestViewPageState extends State<TestViewPage> {
                           Navigator.pop(context);
                         }
                       : () async {
-                          String? phone =
-                              await StorageController.instance.getPhone();
-                          if (!(list[global_index] as TestEntity).view) {
-                            await api().setView(phone!, null,
-                                (list[global_index] as TestEntity).id);
-                            (list[global_index] as TestEntity).view = true;
-                          }
-                          if ((list[global_index + 1] is VideoEntity)) {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => VideoPlayerPage(
-                                          video: list[global_index + 1]
-                                              as VideoEntity,
-                                          index: global_index + 1,
-                                          list: list,
-                                          title: widget.title,
-                                        )));
+                          if (percent > 70) {
+                            String? phone =
+                                await StorageController.instance.getPhone();
+                            if (!(list[global_index] as TestEntity).view) {
+                              await api().setView(phone!, null,
+                                  (list[global_index] as TestEntity).id);
+                              (list[global_index] as TestEntity).view = true;
+                            }
+                            if ((list[global_index + 1] is VideoEntity)) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => VideoPlayerPage(
+                                            video: list[global_index + 1]
+                                                as VideoEntity,
+                                            index: global_index + 1,
+                                            list: list,
+                                            title: widget.title,
+                                          )));
+                            } else {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TestViewPage(
+                                            test: list[global_index + 1]
+                                                as TestEntity,
+                                            index: global_index + 1,
+                                            list: list,
+                                            title: widget.title,
+                                          )));
+                            }
                           } else {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TestViewPage(
-                                          test: list[global_index + 1]
-                                              as TestEntity,
-                                          index: global_index + 1,
-                                          list: list,
-                                          title: widget.title,
-                                        )));
+                            showError(S.of(context).error_bad_test)
+                                .show(context);
                           }
                         },
                   color: primaryColor,
@@ -390,6 +426,7 @@ class _TestViewPageState extends State<TestViewPage> {
   }
 
   void _loadTestResults(TestResultEntity testResultEntity) async {
+    results = [];
     testResult = testResultEntity;
     List<int> goodIds = [];
     List<String> _goodIds = testResultEntity.goodIds.split(",");
