@@ -26,10 +26,10 @@ public class UserEntity {
     String social_2;
     @Enumerated(EnumType.STRING)
     UserRole role;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     List<VideoEntity> videoListView = new ArrayList<>();
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     List<TestEntity> testListView = new ArrayList<>();
 }

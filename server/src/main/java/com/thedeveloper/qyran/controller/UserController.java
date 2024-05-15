@@ -1,5 +1,6 @@
 package com.thedeveloper.qyran.controller;
 
+import com.thedeveloper.qyran.entity.TestEntity;
 import com.thedeveloper.qyran.entity.UserEntity;
 import com.thedeveloper.qyran.enums.UserRole;
 import com.thedeveloper.qyran.service.TestService;
@@ -14,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static com.thedeveloper.qyran.util.Globals.response;
@@ -77,8 +80,17 @@ public class UserController {
             change = true;
         }
         if(testId!=null){
-            user.getTestListView().add(testService.findById(testId));
-            change = true;
+            try{
+                user.getTestListView().add(testService.findById(testId));
+                change = true;
+            }catch (Exception e){
+                List<TestEntity> testListView = new ArrayList<>();
+                user.setTestListView(testListView);
+                userService.save(user);
+                user.getTestListView().add(testService.findById(testId));
+                change = true;
+            }
+
         }
         if(change) userService.save(user);
         return response(HttpStatus.OK);

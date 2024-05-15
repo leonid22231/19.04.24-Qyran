@@ -4,13 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "test_results")
 @Data
-public class TestResult {
+public class TestResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

@@ -41,11 +41,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm_code": m0,
         "continue_": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "continue_in": m1,
+        "count_answers":
+            MessageLookupByLibrary.simpleMessage("Общее количество вопросов"),
         "course_section_1": MessageLookupByLibrary.simpleMessage("Уроки"),
         "course_section_2": MessageLookupByLibrary.simpleMessage("Комбо"),
         "day_ago": MessageLookupByLibrary.simpleMessage("д. назад"),
+        "end": MessageLookupByLibrary.simpleMessage("Закончить"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "error_code": MessageLookupByLibrary.simpleMessage("Неверный код"),
+        "error_test": MessageLookupByLibrary.simpleMessage(
+            "Сначала выберите вариант ответа"),
         "exit": MessageLookupByLibrary.simpleMessage("Выйти"),
         "hour_ago": MessageLookupByLibrary.simpleMessage("ч. назад"),
         "lesson_from": m2,
@@ -72,12 +77,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "register_social": MessageLookupByLibrary.simpleMessage("Соц. сети"),
         "register_social_": MessageLookupByLibrary.simpleMessage("@ivanov12"),
         "register_surname": MessageLookupByLibrary.simpleMessage("Фамилия"),
+        "res": MessageLookupByLibrary.simpleMessage("Результат"),
         "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
         "search": MessageLookupByLibrary.simpleMessage("Поиск"),
         "second_ago": MessageLookupByLibrary.simpleMessage("с. назад"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),
         "skip": MessageLookupByLibrary.simpleMessage("Пропустить"),
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
+        "start_test":
+            MessageLookupByLibrary.simpleMessage("Начать тестирование"),
         "test_current":
             MessageLookupByLibrary.simpleMessage("Текущие тестирования"),
         "test_result_not_found":

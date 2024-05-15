@@ -24,4 +24,6 @@ public class TestEntity {
     int item;
     @Transient
     boolean view = false;
+    @Transient
+    boolean result = false;
 }

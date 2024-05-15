@@ -8,6 +8,7 @@ import 'package:qyran/api/entity/VideoEntity.dart';
 import 'package:qyran/controller/StorageController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/video_view_page.dart';
+import 'package:qyran/test/test_view_page.dart';
 import 'package:qyran/utils/globals.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -181,11 +182,14 @@ class _LessonViewPageState extends State<LessonViewPage> {
             itemBuilder: (context, index) {
               SvgPicture icon = SvgPicture.asset("assets/test_icon.svg");
               String name = "";
+              bool view = false;
               if (objects[index] is VideoEntity) {
                 icon = SvgPicture.asset("assets/video_icon.svg");
                 name = (objects[index] as VideoEntity).name;
+                view = (objects[index] as VideoEntity).view;
               } else {
                 name = (objects[index] as TestEntity).name;
+                view = (objects[index] as TestEntity).view;
               }
               return InkWell(
                 borderRadius: BorderRadius.circular(20),
@@ -194,7 +198,7 @@ class _LessonViewPageState extends State<LessonViewPage> {
                         videoClick(objects[index] as VideoEntity, objects, index, theme.name);
                       }
                     : () {
-                        testClick(objects[index] as TestEntity);
+                        testClick(objects[index] as TestEntity, objects, index, theme.name);
                       },
                 child: Ink(
                   padding: EdgeInsets.all(2.w),
@@ -204,7 +208,17 @@ class _LessonViewPageState extends State<LessonViewPage> {
                       SizedBox(
                         width: 4.w,
                       ),
-                      Text(name)
+                      Text(name),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      view
+                          ? Icon(
+                              Icons.done,
+                              color: primaryColor,
+                              size: 14,
+                            )
+                          : SizedBox.shrink()
                     ],
                   ),
                 ),
@@ -230,10 +244,19 @@ class _LessonViewPageState extends State<LessonViewPage> {
                   list: list,
                   index: index,
                   title: title,
-                )));
+                ))).then((value) => setState(() {}));
   }
 
-  void testClick(TestEntity test) {
+  void testClick(TestEntity test, List<Object> list, int index, String title) {
     debugPrint("Test Click");
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => TestViewPage(
+                  test: test,
+                  list: list,
+                  index: index,
+                  title: title,
+                ))).then((value) => setState(() {}));
   }
 }

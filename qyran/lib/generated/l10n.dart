@@ -569,6 +569,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Общее количество вопросов`
+  String get count_answers {
+    return Intl.message(
+      'Общее количество вопросов',
+      name: 'count_answers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Начать тестирование`
+  String get start_test {
+    return Intl.message(
+      'Начать тестирование',
+      name: 'start_test',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Закончить`
+  String get end {
+    return Intl.message(
+      'Закончить',
+      name: 'end',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Результат`
+  String get res {
+    return Intl.message(
+      'Результат',
+      name: 'res',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сначала выберите вариант ответа`
+  String get error_test {
+    return Intl.message(
+      'Сначала выберите вариант ответа',
+      name: 'error_test',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
