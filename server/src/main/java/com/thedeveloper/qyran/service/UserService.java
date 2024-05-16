@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserService {
     UserRepository userRepository;
+    public UserEntity findById(String id){
+        return userRepository.findUserEntityById(id);
+    }
     public boolean isVideoView(String phone, VideoEntity video){
         return userRepository.existsUserEntityByPhoneAndVideoListViewContaining(phone, video);
     }

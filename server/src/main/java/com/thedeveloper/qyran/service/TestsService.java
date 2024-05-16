@@ -1,7 +1,7 @@
 package com.thedeveloper.qyran.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thedeveloper.qyran.config.TestConfig;
+import com.thedeveloper.qyran.config.TestProperties;
 import com.thedeveloper.qyran.entity.TestEntity;
 import com.thedeveloper.qyran.models.TestModel;
 import com.thedeveloper.qyran.models.TrueTestModel;
@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 public class TestsService {
     private final Path rootLocation;
 
-    public TestsService(TestConfig properties) {
+    public TestsService(TestProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 

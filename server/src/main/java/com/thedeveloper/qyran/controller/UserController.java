@@ -4,13 +4,13 @@ import com.thedeveloper.qyran.entity.*;
 import com.thedeveloper.qyran.enums.UserRole;
 import com.thedeveloper.qyran.models.CurrentLessonModel;
 import com.thedeveloper.qyran.models.CurrentTestsModel;
-import com.thedeveloper.qyran.service.TestResultService;
-import com.thedeveloper.qyran.service.TestService;
-import com.thedeveloper.qyran.service.UserService;
-import com.thedeveloper.qyran.service.VideoService;
+import com.thedeveloper.qyran.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -35,6 +35,7 @@ public class UserController {
     TestService testService;
     VideoService videoService;
     TestResultService testResultService;
+    ImageService imageService;
     PasswordEncoder passwordEncoder;
     @PostMapping("/login")
     @Async
@@ -75,7 +76,19 @@ public class UserController {
         UserEntity user = userService.findUserByPhone(phone);
         return CompletableFuture.completedFuture(ResponseEntity.ok().body(user));
     }
-
+    @GetMapping("/profile/image")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> profileImage(@RequestParam String phone) {
+        UserEntity user = userService.findUserByPhone(phone);
+        Resource image = null;
+        if(user.getPhoto()!=null)image = imageService.loadAsResource(user.getPhoto());
+        if(image!=null){
+            return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(image));
+        }else{
+            ClassPathResource classPathResource = new ClassPathResource("profile.png");
+            return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(classPathResource));
+        }
+    }
     @PostMapping("/setView")
     @Async
     public CompletableFuture<ResponseEntity<?>> setView(@RequestParam String phone, @RequestParam(required = false) Long videoId, @RequestParam(required = false) Long testId) {

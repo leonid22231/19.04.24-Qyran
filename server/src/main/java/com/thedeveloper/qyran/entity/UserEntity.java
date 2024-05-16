@@ -24,6 +24,8 @@ public class UserEntity {
     String email;
     String social_1;
     String social_2;
+    @JsonIgnore
+    String photo;
     @Enumerated(EnumType.STRING)
     UserRole role;
     @ManyToMany(fetch = FetchType.EAGER)

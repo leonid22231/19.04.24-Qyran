@@ -8,7 +8,10 @@ import com.thedeveloper.qyran.models.TrueTestModel;
 import com.thedeveloper.qyran.service.*;
 import lombok.AllArgsConstructor;
 import org.apache.catalina.User;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -33,6 +36,7 @@ public class MainController {
     TestsService testsService;
     TestResultService testResultService;
     NewService newService;
+    ImageService imageService;
     @GetMapping("/courses")
     @Async
     public CompletableFuture<ResponseEntity<?>> findAll(@RequestParam(required = false) String phone){
@@ -77,6 +81,18 @@ public class MainController {
     @GetMapping("/combo")
     public CompletableFuture<ResponseEntity<?>> findAllCombo(){
         return response(lessonService.findAllCombo(), HttpStatus.OK);
+    }
+    @GetMapping("/teacher/image")
+    public CompletableFuture<ResponseEntity<?>> teacherProfileImage(@RequestParam String id){
+        UserEntity user = userService.findById(id);
+        Resource image = null;
+        if(user.getPhoto()!=null)image = imageService.loadAsResource(user.getPhoto());
+        if(image!=null){
+            return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(image));
+        }else{
+            ClassPathResource classPathResource = new ClassPathResource("profile.png");
+            return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(classPathResource));
+        }
     }
     @GetMapping("/lesson/byTest")
     @Async
