@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:qyran/api/entity/TestEntity.dart';
 import 'package:qyran/api/entity/VideoEntity.dart';
 import 'package:qyran/controller/StorageController.dart';
+import 'package:qyran/controller/ViewLessonController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/test/test_view_page.dart';
 import 'package:qyran/utils/globals.dart';
@@ -15,7 +16,14 @@ class VideoPlayerPage extends StatefulWidget {
   final int index;
   final List<Object> list;
   final String title;
-  const VideoPlayerPage({required this.video, required this.index, required this.list, required this.title, super.key});
+  final int themeIndex;
+  const VideoPlayerPage(
+      {required this.video,
+      required this.index,
+      required this.list,
+      required this.title,
+      required this.themeIndex,
+      super.key});
   @override
   State<StatefulWidget> createState() => _VideoPlayerPageState();
 }
@@ -65,7 +73,8 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
         centerTitle: true,
         title: Text(
           widget.title,
-          style: TextStyle(fontSize: welcomeTitleSize, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: welcomeTitleSize, fontWeight: FontWeight.w600),
         ),
       ),
       body: SafeArea(
@@ -102,11 +111,15 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                           children: [
                             Text(
                               "${widget.index + 1}. ${widget.video.name}",
-                              style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: buttonTextSize,
+                                  fontWeight: FontWeight.bold),
                             ),
                             Text(
                               "${global_index + 1}/${list.length}",
-                              style: TextStyle(color: primaryColor, fontSize: buttonTextSize),
+                              style: TextStyle(
+                                  color: primaryColor,
+                                  fontSize: buttonTextSize),
                             )
                           ],
                         ),
@@ -115,7 +128,8 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                         ),
                         Text(
                           S.of(context).all_learnd,
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: mainSize),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: mainSize),
                         ),
                         SizedBox(
                           height: 2.h,
@@ -124,19 +138,20 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                             shrinkWrap: true,
                             primary: false,
                             itemBuilder: (context, index) {
-                              SvgPicture icon = SvgPicture.asset("assets/test_icon.svg");
+                              SvgPicture icon =
+                                  SvgPicture.asset("assets/test_icon.svg");
                               String name = "";
-                              bool view = false;
                               bool current = false;
                               if (list[index] is VideoEntity) {
-                                icon = SvgPicture.asset("assets/video_icon.svg");
+                                icon =
+                                    SvgPicture.asset("assets/video_icon.svg");
                                 name = (list[index] as VideoEntity).name;
-                                view = (list[index] as VideoEntity).view;
-                                current = (list[index] as VideoEntity).item == global_index + 1;
+                                current = (list[index] as VideoEntity).item ==
+                                    global_index + 1;
                               } else {
                                 name = (list[index] as TestEntity).name;
-                                view = (list[index] as TestEntity).view;
-                                current = (list[index] as TestEntity).item == global_index + 1;
+                                current = (list[index] as TestEntity).item ==
+                                    global_index + 1;
                               }
                               return InkWell(
                                 borderRadius: BorderRadius.circular(20),
@@ -152,13 +167,27 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                                       SizedBox(
                                         width: 2.w,
                                       ),
-                                      view || current
-                                          ? Icon(
-                                              !current ? Icons.done : Icons.remove_red_eye,
-                                              color: primaryColor,
-                                              size: 14,
-                                            )
-                                          : SizedBox.shrink()
+                                      ValueListenableBuilder(
+                                          valueListenable: ViewLessonController
+                                                  .instance
+                                                  .all_themes[widget.themeIndex]
+                                              [index],
+                                          builder: (_, __, ___) {
+                                            return ViewLessonController
+                                                        .instance
+                                                        .all_themes[widget
+                                                            .themeIndex][index]
+                                                        .value ||
+                                                    current
+                                                ? Icon(
+                                                    !current
+                                                        ? Icons.done
+                                                        : Icons.remove_red_eye,
+                                                    color: primaryColor,
+                                                    size: 14,
+                                                  )
+                                                : SizedBox.shrink();
+                                          })
                                     ],
                                   ),
                                 ),
@@ -181,43 +210,59 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
               child: CustomButton(
                   onPress: list.length == global_index + 1
                       ? () async {
-                          String? phone = await StorageController.instance.getPhone();
+                          String? phone =
+                              await StorageController.instance.getPhone();
                           if (!(list[global_index] as VideoEntity).view) {
-                            api().setView(phone!, (list[global_index] as VideoEntity).id, null);
-                            (list[global_index] as VideoEntity).view = true;
+                            api().setView(phone!,
+                                (list[global_index] as VideoEntity).id, null);
+                            ViewLessonController
+                                .instance
+                                .all_themes[widget.themeIndex][global_index]
+                                .value = true;
                           }
                           Navigator.pop(context);
                         }
                       : () async {
-                          String? phone = await StorageController.instance.getPhone();
+                          String? phone =
+                              await StorageController.instance.getPhone();
                           if (!(list[global_index] as VideoEntity).view) {
-                            api().setView(phone!, (list[global_index] as VideoEntity).id, null);
-                            (list[global_index] as VideoEntity).view = true;
+                            api().setView(phone!,
+                                (list[global_index] as VideoEntity).id, null);
+                            ViewLessonController
+                                .instance
+                                .all_themes[widget.themeIndex][global_index]
+                                .value = true;
                           }
                           if ((list[global_index + 1] is VideoEntity)) {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => VideoPlayerPage(
-                                          video: list[global_index + 1] as VideoEntity,
+                                          video: list[global_index + 1]
+                                              as VideoEntity,
                                           index: global_index + 1,
                                           list: list,
                                           title: widget.title,
+                                          themeIndex: widget.themeIndex,
                                         )));
                           } else {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => TestViewPage(
-                                          test: list[global_index + 1] as TestEntity,
+                                          test: list[global_index + 1]
+                                              as TestEntity,
                                           index: global_index + 1,
                                           list: list,
                                           title: widget.title,
+                                          themeIndex: widget.themeIndex,
                                         )));
                           }
                         },
                   color: primaryColor,
-                  title: list.length == global_index + 1 ? S.of(context).exit : S.of(context).continue_),
+                  title: list.length == global_index + 1
+                      ? S.of(context).exit
+                      : S.of(context).continue_),
             )
           ],
         ),

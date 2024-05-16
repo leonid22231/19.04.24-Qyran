@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:qyran/api/entity/CourseEntity.dart';
+import 'package:qyran/controller/StorageController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/course_view_page.dart';
 import 'package:qyran/utils/globals.dart';
+import 'package:qyran/utils/globals_fun.dart';
 import 'package:qyran/widgets/custom_slider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -16,7 +18,8 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePageState extends State<CoursePage> {
-  PageController pageController = PageController(viewportFraction: 1, keepPage: true);
+  PageController pageController =
+      PageController(viewportFraction: 1, keepPage: true);
   final _mainNavigatorKey = GlobalKey<NavigatorState>();
 
   @override
@@ -28,10 +31,15 @@ class _CoursePageState extends State<CoursePage> {
         ),
         CustomSlider(
             onSelect: (value) {
-              pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.linear);
+              pageController.animateToPage(value,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.linear);
             },
             wight: 100.w - widgetPadding * 2,
-            children: [S.of(context).course_section_1, S.of(context).course_section_2]),
+            children: [
+              S.of(context).course_section_1,
+              S.of(context).course_section_2
+            ]),
         SizedBox(
           height: 2.h,
         ),
@@ -41,26 +49,34 @@ class _CoursePageState extends State<CoursePage> {
           controller: pageController,
           children: [
             FutureBuilder(
-                future: api().findAllCourses(),
-                builder: (context, snapshot) {
+                future: StorageController.instance.getPhone(),
+                builder: ((context, snapshot) {
                   if (snapshot.hasData) {
-                    List<CourseEntity> courses = snapshot.data!;
-                    return ListView.separated(
-                        itemBuilder: (context, index) {
-                          context.loaderOverlay.hide();
-                          return _itemWidget(courses[index]);
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(
-                            height: 1.h,
-                          );
-                        },
-                        itemCount: courses.length);
+                    return FutureBuilder(
+                        future: api().findAllCourses(snapshot.data),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List<CourseEntity> courses = snapshot.data!;
+                            return ListView.separated(
+                                itemBuilder: (context, index) {
+                                  context.loaderOverlay.hide();
+                                  return _itemWidget(courses[index]);
+                                },
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(
+                                    height: 1.h,
+                                  );
+                                },
+                                itemCount: courses.length);
+                          } else {
+                            context.loaderOverlay.show();
+                            return const SizedBox.shrink();
+                          }
+                        });
                   } else {
-                    context.loaderOverlay.show();
-                    return const SizedBox.shrink();
+                    return SizedBox.shrink();
                   }
-                }),
+                })),
             ListView.separated(
                 itemBuilder: (context, index) {
                   return _comboWidget();
@@ -102,7 +118,8 @@ class _CoursePageState extends State<CoursePage> {
               children: [
                 Text(
                   "Математика и информатика",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: mainSize),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: mainSize),
                 ),
                 SizedBox(
                   width: 2.w,
@@ -143,15 +160,19 @@ class _CoursePageState extends State<CoursePage> {
 
   Widget _itemWidget(CourseEntity courseEntity) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CourseViewPage(
-                      title: courseEntity.name,
-                      id: courseEntity.id,
-                    )));
-      },
+      onTap: courseEntity.sub
+          ? () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CourseViewPage(
+                            title: courseEntity.name,
+                            id: courseEntity.id,
+                          )));
+            }
+          : () {
+              showError(S.of(context).course_error).show(context);
+            },
       highlightColor: primaryColor.withOpacity(0.3),
       splashColor: primaryColor.withOpacity(0.3),
       borderRadius: BorderRadius.circular(10),
@@ -161,9 +182,28 @@ class _CoursePageState extends State<CoursePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              courseEntity.name,
-              style: TextStyle(color: appGray5, fontWeight: FontWeight.w400, fontSize: mainSize),
+            Row(
+              children: [
+                Text(
+                  courseEntity.name,
+                  style: TextStyle(
+                      color: appGray5,
+                      fontWeight: FontWeight.w400,
+                      fontSize: mainSize),
+                ),
+                courseEntity.sub
+                    ? const SizedBox.shrink()
+                    : SizedBox(
+                        width: 3.w,
+                      ),
+                courseEntity.sub
+                    ? const SizedBox.shrink()
+                    : Icon(
+                        Icons.lock,
+                        size: 5.w,
+                        color: Colors.redAccent,
+                      )
+              ],
             ),
             Icon(
               Icons.keyboard_arrow_right_outlined,

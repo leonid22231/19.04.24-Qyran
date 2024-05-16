@@ -7,6 +7,7 @@ import com.thedeveloper.qyran.models.TrueResponseModel;
 import com.thedeveloper.qyran.models.TrueTestModel;
 import com.thedeveloper.qyran.service.*;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import static com.thedeveloper.qyran.util.Globals.response;
@@ -30,10 +32,24 @@ public class MainController {
     UserService userService;
     TestsService testsService;
     TestResultService testResultService;
+    NewService newService;
     @GetMapping("/courses")
     @Async
-    public CompletableFuture<ResponseEntity<?>> findAll(){
-        return response(courseService.findAll(), HttpStatus.OK);
+    public CompletableFuture<ResponseEntity<?>> findAll(@RequestParam(required = false) String phone){
+        List<CourseEntity> list = courseService.findAll();
+        if(phone==null) return response(list, HttpStatus.OK);
+        UserEntity user = userService.findUserByPhone(phone);
+        for(CourseEntity course : list){
+            boolean check = false;
+            for(CourseEntity user_course : user.getCourseList()){
+                if(Objects.equals(course.getId(), user_course.getId())){
+                    check = true;
+                    break;
+                }
+            }
+            course.setSub(check);
+        }
+        return  response(list, HttpStatus.OK);
     }
     @GetMapping("/courses/{id}")
     @Async
@@ -140,5 +156,10 @@ public class MainController {
     public CompletableFuture<ResponseEntity<?>> findTest(@PathVariable Long id) throws IOException {
         TestEntity test = testService.findById(id);
         return response(testsService.loadTest(test), HttpStatus.OK);
+    }
+    @GetMapping("/news")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> findNews(){
+        return response(newService.findAll(), HttpStatus.OK);
     }
 }

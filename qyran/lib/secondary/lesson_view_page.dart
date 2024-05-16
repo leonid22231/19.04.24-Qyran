@@ -6,6 +6,7 @@ import 'package:qyran/api/entity/TestEntity.dart';
 import 'package:qyran/api/entity/ThemeEntity.dart';
 import 'package:qyran/api/entity/VideoEntity.dart';
 import 'package:qyran/controller/StorageController.dart';
+import 'package:qyran/controller/ViewLessonController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/video_view_page.dart';
 import 'package:qyran/test/test_view_page.dart';
@@ -125,12 +126,20 @@ class _LessonViewPageState extends State<LessonViewPage> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               List<ThemeEntity> themes = snapshot.data!;
+                              ViewLessonController.instance.dispose();
                               context.loaderOverlay.hide();
                               return ListView.separated(
                                   shrinkWrap: true,
                                   primary: false,
                                   itemBuilder: (context, index) {
-                                    return _themeWidget(themes[index], index);
+                                    ThemeEntity? predTheme;
+                                    if (index == 0) {
+                                      predTheme = null;
+                                    } else {
+                                      predTheme = themes[index - 1];
+                                    }
+                                    return _themeWidget(
+                                        predTheme, themes[index], index);
                                   },
                                   separatorBuilder: (context, index) {
                                     return Divider(
@@ -154,7 +163,24 @@ class _LessonViewPageState extends State<LessonViewPage> {
     ));
   }
 
-  Widget _themeWidget(ThemeEntity theme, int index) {
+  @override
+  void dispose() {
+    ViewLessonController.instance.dispose();
+    super.dispose();
+  }
+
+  Widget _themeWidget(ThemeEntity? predTheme, ThemeEntity theme, int index) {
+    int themeIndex = index;
+    ViewLessonController.instance.addTheme();
+    bool dost = false;
+    if (predTheme == null) {
+      dost = true;
+    } else {
+      bool checkAll = true;
+      predTheme.testList.map((e) => checkAll = e.view).toList();
+      predTheme.videoList.map((e) => checkAll = e.view).toList();
+      dost = checkAll;
+    }
     List<Object> objects = [];
     int count = theme.videoList.length + theme.testList.length;
     while (objects.length < count) {
@@ -195,6 +221,7 @@ class _LessonViewPageState extends State<LessonViewPage> {
                 name = (objects[index] as TestEntity).name;
                 view = (objects[index] as TestEntity).view;
               }
+              ViewLessonController.instance.addValue(view, themeIndex);
               return InkWell(
                 borderRadius: BorderRadius.circular(20),
                 onTap: (objects[index] is VideoEntity)
@@ -213,9 +240,9 @@ class _LessonViewPageState extends State<LessonViewPage> {
                             }
                           }
                         }
-                        if (check) {
+                        if (check && dost) {
                           videoClick(objects[index] as VideoEntity, objects,
-                              index, theme.name);
+                              index, theme.name, themeIndex);
                         } else {
                           showError(S.of(context).lesson_error).show(context);
                         }
@@ -235,9 +262,9 @@ class _LessonViewPageState extends State<LessonViewPage> {
                             }
                           }
                         }
-                        if (check) {
+                        if (check && dost) {
                           testClick(objects[index] as TestEntity, objects,
-                              index, theme.name);
+                              index, theme.name, themeIndex);
                         } else {
                           showError(S.of(context).lesson_error).show(context);
                         }
@@ -254,13 +281,19 @@ class _LessonViewPageState extends State<LessonViewPage> {
                       SizedBox(
                         width: 2.w,
                       ),
-                      view
-                          ? Icon(
-                              Icons.done,
-                              color: primaryColor,
-                              size: 14,
-                            )
-                          : SizedBox.shrink()
+                      ValueListenableBuilder(
+                          valueListenable: ViewLessonController
+                              .instance.all_themes[themeIndex][index],
+                          builder: (context, _, __) {
+                            return ViewLessonController.instance
+                                    .all_themes[themeIndex][index].value
+                                ? Icon(
+                                    Icons.done,
+                                    color: primaryColor,
+                                    size: 14,
+                                  )
+                                : SizedBox.shrink();
+                          })
                     ],
                   ),
                 ),
@@ -276,8 +309,8 @@ class _LessonViewPageState extends State<LessonViewPage> {
     );
   }
 
-  void videoClick(
-      VideoEntity video, List<Object> list, int index, String title) {
+  void videoClick(VideoEntity video, List<Object> list, int index, String title,
+      int themeIndex) {
     debugPrint("Video Click");
     Navigator.push(
         context,
@@ -287,10 +320,12 @@ class _LessonViewPageState extends State<LessonViewPage> {
                   list: list,
                   index: index,
                   title: title,
-                ))).then((value) => setState(() {}));
+                  themeIndex: themeIndex,
+                )));
   }
 
-  void testClick(TestEntity test, List<Object> list, int index, String title) {
+  void testClick(TestEntity test, List<Object> list, int index, String title,
+      int themeIndex) {
     debugPrint("Test Click");
     Navigator.push(
         context,
@@ -300,6 +335,7 @@ class _LessonViewPageState extends State<LessonViewPage> {
                   list: list,
                   index: index,
                   title: title,
-                ))).then((value) => setState(() {}));
+                  themeIndex: themeIndex,
+                )));
   }
 }

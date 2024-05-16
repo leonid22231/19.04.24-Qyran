@@ -10,6 +10,7 @@ import 'package:qyran/api/entity/TestResultEntity.dart';
 import 'package:qyran/api/entity/VideoEntity.dart';
 import 'package:qyran/controller/StorageController.dart';
 import 'package:qyran/controller/TestResultController.dart';
+import 'package:qyran/controller/ViewLessonController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/video_view_page.dart';
 import 'package:qyran/test/TestModel.dart';
@@ -24,11 +25,13 @@ class TestViewPage extends StatefulWidget {
   final int index;
   final List<Object> list;
   final String title;
+  final int themeIndex;
   const TestViewPage(
       {required this.test,
       required this.index,
       required this.list,
       required this.title,
+      required this.themeIndex,
       super.key});
   @override
   State<StatefulWidget> createState() => _TestViewPageState();
@@ -219,10 +222,10 @@ class _TestViewPageState extends State<TestViewPage> {
                                             height: 6.h,
                                             color:
                                                 Colors.black.withOpacity(0.3),
-                                            child: Center(),
+                                            child: const Center(),
                                           ),
                                           SizedBox.fromSize(
-                                            size: Size.fromRadius(30),
+                                            size: const Size.fromRadius(30),
                                             child: CircularPercentIndicator(
                                               radius: 30,
                                               lineWidth: 6.0,
@@ -230,7 +233,7 @@ class _TestViewPageState extends State<TestViewPage> {
                                                   Colors.transparent,
                                               percent: percent / 100,
                                               center: Text(
-                                                "$percent%",
+                                                "${(percent * 10).round() / 10}%",
                                                 style: GoogleFonts.raleway()
                                                     .copyWith(
                                                         fontSize: mainSize,
@@ -283,19 +286,16 @@ class _TestViewPageState extends State<TestViewPage> {
                                   SvgPicture icon =
                                       SvgPicture.asset("assets/test_icon.svg");
                                   String name = "";
-                                  bool view = false;
                                   bool current = false;
                                   if (list[index] is VideoEntity) {
                                     icon = SvgPicture.asset(
                                         "assets/video_icon.svg");
                                     name = (list[index] as VideoEntity).name;
-                                    view = (list[index] as VideoEntity).view;
                                     current =
                                         (list[index] as VideoEntity).item ==
                                             global_index + 1;
                                   } else {
                                     name = (list[index] as TestEntity).name;
-                                    view = (list[index] as TestEntity).view;
                                     current =
                                         (list[index] as TestEntity).item ==
                                             global_index + 1;
@@ -314,15 +314,29 @@ class _TestViewPageState extends State<TestViewPage> {
                                           SizedBox(
                                             width: 2.w,
                                           ),
-                                          view || current
-                                              ? Icon(
-                                                  !current
-                                                      ? Icons.done
-                                                      : Icons.remove_red_eye,
-                                                  color: primaryColor,
-                                                  size: 14,
-                                                )
-                                              : SizedBox.shrink()
+                                          ValueListenableBuilder(
+                                              valueListenable:
+                                                  ViewLessonController
+                                                          .instance.all_themes[
+                                                      widget.themeIndex][index],
+                                              builder: (_, __, ___) {
+                                                return ViewLessonController
+                                                            .instance
+                                                            .all_themes[widget
+                                                                    .themeIndex]
+                                                                [index]
+                                                            .value ||
+                                                        current
+                                                    ? Icon(
+                                                        !current
+                                                            ? Icons.done
+                                                            : Icons
+                                                                .remove_red_eye,
+                                                        color: primaryColor,
+                                                        size: 14,
+                                                      )
+                                                    : SizedBox.shrink();
+                                              })
                                         ],
                                       ),
                                     ),
@@ -355,7 +369,10 @@ class _TestViewPageState extends State<TestViewPage> {
                           if (!(list[global_index] as TestEntity).view) {
                             await api().setView(phone!, null,
                                 (list[global_index] as TestEntity).id);
-                            (list[global_index] as TestEntity).view = true;
+                            ViewLessonController
+                                .instance
+                                .all_themes[widget.themeIndex][global_index]
+                                .value = true;
                           }
                           Navigator.pop(context);
                         }
@@ -366,7 +383,10 @@ class _TestViewPageState extends State<TestViewPage> {
                             if (!(list[global_index] as TestEntity).view) {
                               await api().setView(phone!, null,
                                   (list[global_index] as TestEntity).id);
-                              (list[global_index] as TestEntity).view = true;
+                              ViewLessonController
+                                  .instance
+                                  .all_themes[widget.themeIndex][global_index]
+                                  .value = true;
                             }
                             if ((list[global_index + 1] is VideoEntity)) {
                               Navigator.pushReplacement(
@@ -378,6 +398,7 @@ class _TestViewPageState extends State<TestViewPage> {
                                             index: global_index + 1,
                                             list: list,
                                             title: widget.title,
+                                            themeIndex: widget.themeIndex,
                                           )));
                             } else {
                               Navigator.pushReplacement(
@@ -389,6 +410,7 @@ class _TestViewPageState extends State<TestViewPage> {
                                             index: global_index + 1,
                                             list: list,
                                             title: widget.title,
+                                            themeIndex: widget.themeIndex,
                                           )));
                             }
                           } else {

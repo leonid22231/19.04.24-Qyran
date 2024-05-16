@@ -32,4 +32,7 @@ public class UserEntity {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     List<TestEntity> testListView = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    List<CourseEntity> courseList = new ArrayList<>();
 }

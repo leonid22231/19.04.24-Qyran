@@ -25,11 +25,26 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     bottomBarItems = [
-      FlashyTabBarItem(icon: SvgPicture.asset("assets/home.svg"), title: Text(S.of(context).bottomBar_item1), activeColor: primaryColor),
-      FlashyTabBarItem(icon: SvgPicture.asset("assets/lessons.svg"), title: Text(S.of(context).bottomBar_item2), activeColor: primaryColor),
-      FlashyTabBarItem(icon: SvgPicture.asset("assets/tests.svg"), title: Text(S.of(context).bottomBar_item3), activeColor: primaryColor),
-      FlashyTabBarItem(icon: SvgPicture.asset("assets/news.svg"), title: Text(S.of(context).bottomBar_item4), activeColor: primaryColor),
-      FlashyTabBarItem(icon: SvgPicture.asset("assets/profile.svg"), title: Text(S.of(context).bottomBar_item5), activeColor: primaryColor),
+      FlashyTabBarItem(
+          icon: SvgPicture.asset("assets/home.svg"),
+          title: Text(S.of(context).bottomBar_item1),
+          activeColor: primaryColor),
+      FlashyTabBarItem(
+          icon: SvgPicture.asset("assets/lessons.svg"),
+          title: Text(S.of(context).bottomBar_item2),
+          activeColor: primaryColor),
+      FlashyTabBarItem(
+          icon: SvgPicture.asset("assets/tests.svg"),
+          title: Text(S.of(context).bottomBar_item3),
+          activeColor: primaryColor),
+      FlashyTabBarItem(
+          icon: SvgPicture.asset("assets/news.svg"),
+          title: Text(S.of(context).bottomBar_item4),
+          activeColor: primaryColor),
+      FlashyTabBarItem(
+          icon: SvgPicture.asset("assets/profile.svg"),
+          title: Text(S.of(context).bottomBar_item5),
+          activeColor: primaryColor),
     ];
     Text appbarTitle = bottomBarItems[pageIndex].title as Text;
     return Scaffold(
@@ -57,7 +72,8 @@ class _MainPageState extends State<MainPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(2.h).copyWith(bottom: _bottomPadding(pageIndex)),
+          padding:
+              EdgeInsets.all(2.h).copyWith(bottom: _bottomPadding(pageIndex)),
           child: LayoutBuilder(
             builder: (context, constraints) {
               return AnimatedSwitcher(
@@ -74,6 +90,10 @@ class _MainPageState extends State<MainPage> {
   double _bottomPadding(int index) {
     switch (index) {
       case 0:
+        return 0;
+      case 1:
+        return 0;
+      case 2:
         return 0;
       default:
         return widgetPadding;
@@ -96,7 +116,14 @@ class _MainPageState extends State<MainPage> {
             },
             child: const LessonsPage());
       case 2:
-        return const TestsPage();
+        return NotificationListener<NotifyCourse>(
+            onNotification: (m) {
+              pageIndex = 0;
+              setState(() {});
+              debugPrint("Notify course ");
+              return true;
+            },
+            child: const TestsPage());
       case 3:
         return const NewsPage();
       case 4:

@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:qyran/api/entity/CourseEntity.dart';
+import 'package:qyran/api/entity/CurrentTestsModel.dart';
+import 'package:qyran/api/entity/LessonCurrentModel.dart';
 import 'package:qyran/api/entity/LessonEntity.dart';
+import 'package:qyran/api/entity/NewEntity.dart';
 import 'package:qyran/api/entity/TestResultEntity.dart';
 import 'package:qyran/api/entity/ThemeEntity.dart';
 import 'package:qyran/api/entity/UserEntity.dart';
@@ -39,8 +42,14 @@ abstract class RestClient {
       @Query("videoId") int? videoId, @Query("testId") int? testId);
   @GET("/user/tests/results")
   Future<List<TestResultEntity>> findResults(@Query("phone") String phone);
+  @GET("/user/tests/current")
+  Future<List<CurrentTestsModel>> findCurrentTests(
+      @Query("phone") String phone);
+  @GET("/user/lessons/active")
+  Future<List<LessonCurrentModel>> findActiveLessons(
+      @Query("phone") String phone);
   @GET("/courses")
-  Future<List<CourseEntity>> findAllCourses();
+  Future<List<CourseEntity>> findAllCourses(@Query("phone") String? phone);
   @GET("/courses/{id}")
   Future<List<LessonEntity>> findLessons(@Path("id") String id);
   @GET("/lessons/{id}")
@@ -57,4 +66,6 @@ abstract class RestClient {
   @POST("/tests/{id}/result")
   Future<TestResultEntity> loadTestResult(@Path("id") int id,
       @Query("phone") String phone, @Body() TestResultModel result);
+  @GET("/news")
+  Future<List<NewEntity>> findNews();
 }

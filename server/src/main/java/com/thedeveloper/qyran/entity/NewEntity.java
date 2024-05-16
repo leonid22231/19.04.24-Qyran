@@ -1,11 +1,13 @@
 package com.thedeveloper.qyran.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "news")
+@Data
 public class NewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,5 +15,5 @@ public class NewEntity {
     String title;
     String description;
     String image;
-    Date created_date;
+    Date date;
 }

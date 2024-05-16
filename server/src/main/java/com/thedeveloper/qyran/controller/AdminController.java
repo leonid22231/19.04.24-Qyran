@@ -98,5 +98,26 @@ public class AdminController {
         testsService.createResponse(test, testModel);
         return response(HttpStatus.OK);
     }
+    @PostMapping("/addSubscription")
+    @Async
+    public  CompletableFuture<ResponseEntity<?>> addSubscription(@RequestParam String phone, @RequestParam String id){
+        UserEntity userEntity = userService.findUserByPhone(phone);
+        userEntity.getCourseList().add(courseService.findById(id));
+        userService.save(userEntity);
+        return response(HttpStatus.OK);
+    }
+    @PostMapping("/deleteSubscription")
+    @Async
+    public  CompletableFuture<ResponseEntity<?>> deleteSubscription(@RequestParam String phone, @RequestParam String id){
+        UserEntity userEntity = userService.findUserByPhone(phone);
+        for(int i = 0; i < userEntity.getCourseList().size(); i++){
+            if(userEntity.getCourseList().get(i).getId().equals(id)){
+                userEntity.getCourseList().remove(i);
+                break;
+            }
+        }
+        userService.save(userEntity);
+        return response(HttpStatus.OK);
+    }
 }
 

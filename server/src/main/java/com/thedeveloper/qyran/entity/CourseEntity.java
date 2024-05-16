@@ -15,6 +15,8 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
     String name;
+    @Transient
+    boolean sub = false;
     @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<LessonEntity> lessons = new ArrayList<LessonEntity>();

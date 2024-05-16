@@ -649,6 +649,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Для доступа, преобретите подписку`
+  String get course_error {
+    return Intl.message(
+      'Для доступа, преобретите подписку',
+      name: 'course_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Здесь появятся тесты, которые вы будете проходить по мере изучения материала.`
+  String get tests_not_fount {
+    return Intl.message(
+      'Здесь появятся тесты, которые вы будете проходить по мере изучения материала.',
+      name: 'tests_not_fount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Здесь будут результаты ваших тестов.`
+  String get tests_res_not_found {
+    return Intl.message(
+      'Здесь будут результаты ваших тестов.',
+      name: 'tests_res_not_found',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

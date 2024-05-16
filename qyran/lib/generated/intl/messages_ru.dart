@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "continue_in": m1,
         "count_answers":
             MessageLookupByLibrary.simpleMessage("Общее количество вопросов"),
+        "course_error": MessageLookupByLibrary.simpleMessage(
+            "Для доступа, преобретите подписку"),
         "course_section_1": MessageLookupByLibrary.simpleMessage("Уроки"),
         "course_section_2": MessageLookupByLibrary.simpleMessage("Комбо"),
         "day_ago": MessageLookupByLibrary.simpleMessage("д. назад"),
@@ -97,6 +99,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Результатов нет"),
         "test_section_1": MessageLookupByLibrary.simpleMessage("Тесты"),
         "test_section_2": MessageLookupByLibrary.simpleMessage("Результаты"),
+        "tests_not_fount": MessageLookupByLibrary.simpleMessage(
+            "Здесь появятся тесты, которые вы будете проходить по мере изучения материала."),
+        "tests_res_not_found": MessageLookupByLibrary.simpleMessage(
+            "Здесь будут результаты ваших тестов."),
         "welcome_context_1": MessageLookupByLibrary.simpleMessage(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard 1"),
         "welcome_context_2": MessageLookupByLibrary.simpleMessage(

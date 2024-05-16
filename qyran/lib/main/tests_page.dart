@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:qyran/api/entity/CurrentTestsModel.dart';
 import 'package:qyran/api/entity/LessonEntity.dart';
+import 'package:qyran/api/entity/TestEntity.dart';
 import 'package:qyran/api/entity/TestResultEntity.dart';
 import 'package:qyran/controller/StorageController.dart';
 import 'package:qyran/generated/l10n.dart';
+import 'package:qyran/main/lessons_page.dart';
 import 'package:qyran/secondary/lesson_view_page.dart';
 import 'package:qyran/utils/globals.dart';
 import 'package:qyran/utils/globals_fun.dart';
+import 'package:qyran/widgets/custom_button.dart';
 import 'package:qyran/widgets/custom_slider.dart';
 import 'package:qyran/widgets/custom_text_field.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -50,67 +55,54 @@ class _TestsPageState extends State<TestsPage> {
           physics: const NeverScrollableScrollPhysics(),
           controller: pageController,
           children: [
-            Column(
-              children: [
-                Flexible(
-                    child: ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return LinearGradient(
-                      colors: [Colors.white, Colors.white.withOpacity(0.01)],
-                      begin: Alignment.topCenter,
-                      stops: const [0.9, 1],
-                      end: Alignment.bottomCenter,
-                      tileMode: TileMode.mirror,
-                    ).createShader(bounds);
-                  },
-                  child: ListView.separated(
-                      itemCount: 5,
-                      //shrinkWrap: expanded,
-                      controller: scrollController,
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          height: 3.h,
-                        );
-                      },
-                      itemBuilder: (context, index) {
-                        return _testImageWidget();
-                      }),
-                )),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Text(
-                  S.of(context).test_current,
-                  style: TextStyle(
-                      fontSize: buttonTextSize, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Flexible(
-                    child: ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return LinearGradient(
-                      colors: [Colors.white, Colors.white.withOpacity(0.01)],
-                      begin: Alignment.topCenter,
-                      stops: const [0.9, 1],
-                      end: Alignment.bottomCenter,
-                      tileMode: TileMode.mirror,
-                    ).createShader(bounds);
-                  },
-                  child: ListView.separated(
-                      itemCount: 5,
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          height: 3.h,
-                        );
-                      },
-                      itemBuilder: (context, index) {
-                        return _testWidget();
-                      }),
-                )),
-              ],
-            ),
+            LoaderOverlay(
+                child: SingleChildScrollView(
+              child: FutureBuilder(
+                future: StorageController.instance.getPhone(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    context.loaderOverlay.show();
+                    return _buildBody(snapshot.data!);
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
+            )),
+
+            // SizedBox(
+            //   height: 2.h,
+            // ),
+            // Text(
+            //   S.of(context).test_current,
+            //   style: TextStyle(
+            //       fontSize: buttonTextSize, fontWeight: FontWeight.w600),
+            // ),
+            // SizedBox(
+            //   height: 1.h,
+            // ),
+            // Flexible(
+            //     child: ShaderMask(
+            //   shaderCallback: (Rect bounds) {
+            //     return LinearGradient(
+            //       colors: [Colors.white, Colors.white.withOpacity(0.01)],
+            //       begin: Alignment.topCenter,
+            //       stops: const [0.9, 1],
+            //       end: Alignment.bottomCenter,
+            //       tileMode: TileMode.mirror,
+            //     ).createShader(bounds);
+            //   },
+            //   child: ListView.separated(
+            //       itemCount: 5,
+            //       separatorBuilder: (context, index) {
+            //         return Divider(
+            //           height: 3.h,
+            //         );
+            //       },
+            //       itemBuilder: (context, index) {
+            //         return _testWidget();
+            //       }),
+            // )),
             FutureBuilder(
                 future: StorageController.instance.getPhone(),
                 builder: (context, snapshot) {
@@ -135,14 +127,14 @@ class _TestsPageState extends State<TestsPage> {
                             } else {
                               return Center(
                                 child: Text(
-                                  S.of(context).test_result_not_found,
+                                  S.of(context).tests_res_not_found,
                                 ),
                               );
                             }
                           } else {
                             return Center(
                               child: Text(
-                                S.of(context).test_result_not_found,
+                                S.of(context).tests_res_not_found,
                               ),
                             );
                           }
@@ -155,6 +147,80 @@ class _TestsPageState extends State<TestsPage> {
         )),
       ],
     );
+  }
+
+  Widget _buildBody(String phone) {
+    return FutureBuilder(
+        future: api().findCurrentTests(phone),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<CurrentTestsModel> list = snapshot.data!;
+            if (list.isNotEmpty) {
+              List<Widget> courseslist = [];
+              for (int i = 0; i < list.length; i++) {
+                CurrentTestsModel course = list[i];
+                courseslist.add(Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: ExpansionTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    backgroundColor: Colors.white,
+                    title: Text(course.course.name),
+                    childrenPadding: EdgeInsets.all(widgetPadding),
+                    children: [
+                      ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: course.tests.length,
+                          //shrinkWrap: expanded,
+                          controller: scrollController,
+                          separatorBuilder: (context, index) {
+                            return Divider(
+                              height: 3.h,
+                            );
+                          },
+                          itemBuilder: (context, index) {
+                            return _testImageWidget(course.tests[index]);
+                          })
+                    ],
+                  ),
+                ));
+                courseslist.add(SizedBox(
+                  height: 2.h,
+                ));
+              }
+              context.loaderOverlay.hide();
+              return Column(
+                children: courseslist,
+              );
+            } else {
+              context.loaderOverlay.hide();
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    S.of(context).tests_not_fount,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: mainSize),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  CustomButton(
+                      color: primaryColor,
+                      onPress: () {
+                        NotifyCourse().dispatch(context);
+                      },
+                      title: S.of(context).bottomBar_item1)
+                ],
+              );
+            }
+          } else {
+            return const SizedBox.shrink();
+          }
+        });
   }
 
   Widget _testResultWidget(TestResultEntity result) {
@@ -243,7 +309,7 @@ class _TestsPageState extends State<TestsPage> {
                     backgroundColor: Colors.transparent,
                     percent: percent_1 / 100,
                     center: Text(
-                      "$percent_1%",
+                      "${(percent_1 * 10).round() / 10}%",
                       style: GoogleFonts.raleway().copyWith(
                           fontSize: mainSize,
                           color: color,
@@ -295,47 +361,45 @@ class _TestsPageState extends State<TestsPage> {
     );
   }
 
-  Widget _testImageWidget() {
-    return SizedBox(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 15.w,
-            height: 15.w,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                "assets/lesson_test_image.png",
-                fit: BoxFit.fill,
-              ),
+  Widget _testImageWidget(TestEntity test) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(15),
+      onTap: () async {
+        String? phone = await StorageController.instance.getPhone();
+        LessonEntity lesson = await api().findLessonByTest(phone!, test.id);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LessonViewPage(lesson: lesson)));
+      },
+      child: Ink(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+                fit: FlexFit.tight,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      test.name,
+                      style: TextStyle(
+                          fontSize: mainSize, fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      test.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: miniSize, color: appGray6),
+                    )
+                  ],
+                )),
+            SizedBox(
+              width: 2.w,
             ),
-          ),
-          SizedBox(
-            width: 2.w,
-          ),
-          Flexible(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Тест",
-                style:
-                    TextStyle(fontSize: mainSize, fontWeight: FontWeight.w600),
-              ),
-              Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: miniSize, color: appGray6),
-              )
-            ],
-          )),
-          SizedBox(
-            width: 2.w,
-          ),
-          Icon(Icons.keyboard_arrow_right_outlined),
-        ],
+            Icon(Icons.keyboard_arrow_right_outlined),
+          ],
+        ),
       ),
     );
   }
