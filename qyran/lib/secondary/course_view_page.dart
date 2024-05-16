@@ -17,11 +17,6 @@ class CourseViewPage extends StatefulWidget {
 }
 
 class _CourseViewPageState extends State<CourseViewPage> {
-  List<String> course_images = [
-    "lesson_test_image.png",
-    "lesson_test_image1.png",
-    "lesson_test_image2.png"
-  ];
   @override
   Widget build(BuildContext context) {
     return LoaderOverlay(
@@ -94,8 +89,8 @@ class _CourseViewPageState extends State<CourseViewPage> {
               height: 20.h,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  "assets/${course_images[0]}",
+                child: Image.network(
+                  lessonImageUrl(lesson.id),
                   fit: BoxFit.fill,
                 ),
               ),

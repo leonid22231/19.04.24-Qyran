@@ -7,14 +7,14 @@ class NewEntity {
   int id;
   String title;
   String description;
-  String image;
+  String? image;
   DateTime date;
 
   NewEntity(
       {required this.id,
       required this.title,
       required this.description,
-      required this.image,
+      this.image,
       required this.date});
 
   factory NewEntity.fromJson(Map<String, dynamic> json) =>

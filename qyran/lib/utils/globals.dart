@@ -28,9 +28,26 @@ String baseUrl = "http://192.168.0.11:8080";
 String _api = "api/v1";
 late RestClient _client;
 void initRestClient() {
-  debugPrint("Init API [$_api] in base url $baseUrl address to [$baseUrl/$_api]");
+  debugPrint(
+      "Init API [$_api] in base url $baseUrl address to [$baseUrl/$_api]");
   Dio dio = Dio();
   _client = RestClient(dio, baseUrl: "$baseUrl/$_api");
+}
+
+String userPhotoUrl(String phone) {
+  return "$baseUrl/$_api/user/profile/image?phone=$phone";
+}
+
+String teacherPhotoUrl(String id) {
+  return "$baseUrl/$_api/teacher/image?id=$id";
+}
+
+String lessonImageUrl(String id) {
+  return "$baseUrl/$_api/lesson/image?id=$id";
+}
+
+String newImageUrl(int id) {
+  return "$baseUrl/$_api/new/image?id=$id";
 }
 
 RestClient api() {

@@ -79,6 +79,7 @@ public class MainController {
         return response(lesson.getThemes(), HttpStatus.OK);
     }
     @GetMapping("/combo")
+    @Async
     public CompletableFuture<ResponseEntity<?>> findAllCombo(){
         return response(lessonService.findAllCombo(), HttpStatus.OK);
     }
@@ -91,6 +92,32 @@ public class MainController {
             return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(image));
         }else{
             ClassPathResource classPathResource = new ClassPathResource("profile.png");
+            return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(classPathResource));
+        }
+    }
+    @GetMapping("/lesson/image")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> findLessonImage(@RequestParam String id){
+        LessonEntity lesson = lessonService.findById(id);
+        Resource image = null;
+        if(lesson.getImage()!=null && !lesson.getImage().isEmpty())image = imageService.loadAsResource(lesson.getImage());
+        if(image!=null){
+            return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(image));
+        }else{
+            ClassPathResource classPathResource = new ClassPathResource("lesson_image_1.png");
+            return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(classPathResource));
+        }
+    }
+    @GetMapping("/new/image")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> findNewImage(@RequestParam Long id){
+        NewEntity newEntity = newService.findById(id);
+        Resource image = null;
+        if(newEntity.getImage()!=null && !newEntity.getImage().isEmpty())image = imageService.loadAsResource(newEntity.getImage());
+        if(image!=null){
+            return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(image));
+        }else{
+            ClassPathResource classPathResource = new ClassPathResource("new_image.png");
             return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(classPathResource));
         }
     }

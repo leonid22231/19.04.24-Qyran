@@ -63,8 +63,8 @@ class _LessonViewPageState extends State<LessonViewPage> {
                     height: 20.h,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        "assets/lesson_test_image.png",
+                      child: Image.network(
+                        lessonImageUrl(lesson.id),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -94,8 +94,8 @@ class _LessonViewPageState extends State<LessonViewPage> {
                         size: const Size.fromRadius(20),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(1000),
-                          child: Image.asset(
-                            "assets/profile_test.png",
+                          child: Image.network(
+                            teacherPhotoUrl(lesson.teacher.id),
                             fit: BoxFit.fill,
                           ),
                         ),

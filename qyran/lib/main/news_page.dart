@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:qyran/api/entity/NewEntity.dart';
@@ -111,8 +113,8 @@ class _NewsPageState extends State<NewsPage> {
           height: 25.h,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              "assets/$image",
+            child: Image.network(
+              newImageUrl(entity.id),
               fit: BoxFit.fill,
             ),
           ),

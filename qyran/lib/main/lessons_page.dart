@@ -109,8 +109,8 @@ class _LessonsPageState extends State<LessonsPage> {
           height: 20.h,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              "assets/lesson_test_image.png",
+            child: Image.network(
+              lessonImageUrl(lesson.lesson.id),
               fit: BoxFit.fill,
             ),
           ),

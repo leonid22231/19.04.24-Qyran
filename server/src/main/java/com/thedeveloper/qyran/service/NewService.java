@@ -11,6 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 public class NewService {
     NewRepository newRepository;
+    public NewEntity findById(Long id){
+        return newRepository.findNewEntityById(id);
+    }
     public List<NewEntity> findAll(){
         return newRepository.findAllByOrderByDateDesc();
     }

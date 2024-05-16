@@ -129,8 +129,8 @@ class _CoursePageState extends State<CoursePage> {
               height: 20.h,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  "assets/${course_images[0]}",
+                child: Image.network(
+                  lessonImageUrl(lesson.id),
                   fit: BoxFit.fill,
                 ),
               ),

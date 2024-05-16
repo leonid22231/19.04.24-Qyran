@@ -24,7 +24,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  UserEntity user = UserEntity(id: "0", phone: "79999999999", name: "Иван", surname: "Иванов", email: "ivanivanov@gmail.com", role: UserRole.user);
+  UserEntity user = UserEntity(
+      id: "0",
+      phone: "79999999999",
+      name: "Иван",
+      surname: "Иванов",
+      email: "ivanivanov@gmail.com",
+      role: UserRole.user);
   final TextEditingController _social_1 = TextEditingController();
   final TextEditingController _social_2 = TextEditingController();
   String? social_1;
@@ -62,8 +68,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 size: const Size.fromRadius(50),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(1000),
-                                  child: Image.asset(
-                                    "assets/profile_test.png",
+                                  child: Image.network(
+                                    userPhotoUrl(user.phone),
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -73,22 +79,31 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               Text(
                                 "${user.name} ${user.surname}",
-                                style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                    fontSize: buttonTextSize,
+                                    fontWeight: FontWeight.w600),
                               ),
                               Text(
                                 "+${user.phone}",
-                                style: TextStyle(color: appGray6, fontSize: mainSize),
+                                style: TextStyle(
+                                    color: appGray6, fontSize: mainSize),
                               )
                             ],
                           ),
-                          CustomTextField(hint: user.email, readOnly: true, onChanged: (value) {}),
+                          CustomTextField(
+                              hint: user.email,
+                              readOnly: true,
+                              onChanged: (value) {}),
                           CustomTextField(
                               controller: _social_1,
                               prefix: Padding(
                                 padding: EdgeInsets.all(3.w),
                                 child: SvgPicture.asset("assets/telegram.svg"),
                               ),
-                              hint: (user.social_1 == null || user.social_1!.isEmpty) ? "@ivanov12" : "@${user.social_1}",
+                              hint: (user.social_1 == null ||
+                                      user.social_1!.isEmpty)
+                                  ? "@ivanov12"
+                                  : "@${user.social_1}",
                               readOnly: false,
                               onChanged: (value) {
                                 setState(() {
@@ -101,7 +116,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                 padding: EdgeInsets.all(3.w),
                                 child: SvgPicture.asset("assets/instagram.svg"),
                               ),
-                              hint: (user.social_2 == null || user.social_2!.isEmpty) ? "@ivanov12" : "@${user.social_2}",
+                              hint: (user.social_2 == null ||
+                                      user.social_2!.isEmpty)
+                                  ? "@ivanov12"
+                                  : "@${user.social_2}",
                               readOnly: false,
                               onChanged: (value) {
                                 setState(() {
@@ -109,10 +127,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                 });
                               }),
                           _itemWidget(S.of(context).profile_item1, () {
-                            launchUrl(Uri.parse("https://google.com"));
+                            launchUrl(Uri.parse(
+                                "https://docs.google.com/document/d/1zSyX23_L_OdER0v5fKqLSY0Kz0fs0_G7/edit"));
                           }),
                           _itemWidget(S.of(context).profile_item2, () {
-                            launchUrl(Uri.parse("https://google.com"));
+                            launchUrl(Uri.parse(
+                                "https://docs.google.com/document/d/1d_kd1rBWAX22u_rl5yptcVzZFTdVa-sz/edit?usp=sharing&ouid=110169746193702330807&rtpof=true&sd=true"));
                           }),
                         ],
                       ),
@@ -126,7 +146,9 @@ class _ProfilePageState extends State<ProfilePage> {
         CustomButton(
             onPress: _isEdit()
                 ? () {
-                    api().saveSocial(user.phone, social_1, social_2).then((value) {
+                    api()
+                        .saveSocial(user.phone, social_1, social_2)
+                        .then((value) {
                       initProfile().then((value) {
                         social_1 = null;
                         social_2 = null;
@@ -161,7 +183,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool _isEdit() {
-    return ((social_1 != null && social_1!.isNotEmpty) || (social_2 != null && social_2!.isNotEmpty));
+    return ((social_1 != null && social_1!.isNotEmpty) ||
+        (social_2 != null && social_2!.isNotEmpty));
   }
 
   Widget _itemWidget(String title, Function() onTap) {
@@ -178,7 +201,10 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Text(
               title,
-              style: TextStyle(color: appGray5, fontWeight: FontWeight.w400, fontSize: mainSize),
+              style: TextStyle(
+                  color: appGray5,
+                  fontWeight: FontWeight.w400,
+                  fontSize: mainSize),
             ),
             Icon(
               Icons.keyboard_arrow_right_outlined,

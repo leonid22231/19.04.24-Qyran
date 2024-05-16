@@ -81,7 +81,7 @@ public class UserController {
     public CompletableFuture<ResponseEntity<?>> profileImage(@RequestParam String phone) {
         UserEntity user = userService.findUserByPhone(phone);
         Resource image = null;
-        if(user.getPhoto()!=null)image = imageService.loadAsResource(user.getPhoto());
+        if(user!=null && user.getPhoto()!=null)image = imageService.loadAsResource(user.getPhoto());
         if(image!=null){
             return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(image));
         }else{

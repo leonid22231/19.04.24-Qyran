@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface NewRepository extends JpaRepository<NewEntity, Long> {
     List<NewEntity> findAllByOrderByDateDesc();
+    NewEntity findNewEntityById(Long id);
 }
