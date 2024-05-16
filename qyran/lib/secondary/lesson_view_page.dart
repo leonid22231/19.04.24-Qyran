@@ -45,7 +45,7 @@ class _LessonViewPageState extends State<LessonViewPage> {
         ),
         centerTitle: true,
         title: Text(
-          lesson.course.name,
+          lesson.course != null ? lesson.course!.name : lesson.title,
           style: TextStyle(
               fontSize: welcomeTitleSize, fontWeight: FontWeight.w600),
         ),

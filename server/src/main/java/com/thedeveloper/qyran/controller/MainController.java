@@ -74,6 +74,10 @@ public class MainController {
         }
         return response(lesson.getThemes(), HttpStatus.OK);
     }
+    @GetMapping("/combo")
+    public CompletableFuture<ResponseEntity<?>> findAllCombo(){
+        return response(lessonService.findAllCombo(), HttpStatus.OK);
+    }
     @GetMapping("/lesson/byTest")
     @Async
     public CompletableFuture<ResponseEntity<?>> findLessonByTest(@RequestParam String phone, @RequestParam Long id){

@@ -52,6 +52,8 @@ abstract class RestClient {
   Future<List<CourseEntity>> findAllCourses(@Query("phone") String? phone);
   @GET("/courses/{id}")
   Future<List<LessonEntity>> findLessons(@Path("id") String id);
+  @GET("/combo")
+  Future<List<LessonEntity>> findCombos();
   @GET("/lessons/{id}")
   Future<List<ThemeEntity>> findThemes(
       @Path("id") String id, @Query("phone") String? phone);

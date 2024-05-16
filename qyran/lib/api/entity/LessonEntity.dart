@@ -10,7 +10,7 @@ class LessonEntity {
   String description;
   String? image;
   UserEntity teacher;
-  CourseEntity course;
+  CourseEntity? course;
 
   LessonEntity({
     required this.id,
@@ -21,6 +21,7 @@ class LessonEntity {
     this.image,
   });
 
-  factory LessonEntity.fromJson(Map<String, dynamic> json) => _$LessonEntityFromJson(json);
+  factory LessonEntity.fromJson(Map<String, dynamic> json) =>
+      _$LessonEntityFromJson(json);
   Map<String, dynamic> toJson() => _$LessonEntityToJson(this);
 }

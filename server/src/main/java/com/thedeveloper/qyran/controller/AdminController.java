@@ -1,6 +1,7 @@
 package com.thedeveloper.qyran.controller;
 
 import com.thedeveloper.qyran.entity.*;
+import com.thedeveloper.qyran.enums.LessonType;
 import com.thedeveloper.qyran.models.TempTestModel;
 import com.thedeveloper.qyran.models.TestModel;
 import com.thedeveloper.qyran.models.ThemeParamModel;
@@ -55,6 +56,20 @@ public class AdminController {
         lessonEntity.setCourse(courseEntity);
         courseEntity.getLessons().add(lessonEntity);
         courseService.save(courseEntity);
+        return  response(HttpStatus.OK);
+    }
+    @PostMapping("/addCombo")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> addCombo(@RequestParam String phone,@RequestParam String title,@RequestParam String description){
+        UserEntity userEntity = userService.findUserByPhone(phone);
+        LessonEntity lessonEntity = new LessonEntity();
+        lessonEntity.setTitle(title);
+        lessonEntity.setImage("image.jpg");
+        lessonEntity.setTeacher(userEntity);
+        lessonEntity.setDescription(description);
+        lessonEntity.setTeacher(userEntity);
+        lessonEntity.setType(LessonType.combo);
+        lessonService.save(lessonEntity);
         return  response(HttpStatus.OK);
     }
     @PostMapping("/addThemeToLesson")

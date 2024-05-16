@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:qyran/api/entity/CourseEntity.dart';
+import 'package:qyran/api/entity/LessonEntity.dart';
 import 'package:qyran/controller/StorageController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/course_view_page.dart';
+import 'package:qyran/secondary/lesson_view_page.dart';
 import 'package:qyran/utils/globals.dart';
 import 'package:qyran/utils/globals_fun.dart';
 import 'package:qyran/widgets/custom_slider.dart';
@@ -21,7 +23,11 @@ class _CoursePageState extends State<CoursePage> {
   PageController pageController =
       PageController(viewportFraction: 1, keepPage: true);
   final _mainNavigatorKey = GlobalKey<NavigatorState>();
-
+  List<String> course_images = [
+    "lesson_test_image.png",
+    "lesson_test_image1.png",
+    "lesson_test_image2.png"
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -77,84 +83,93 @@ class _CoursePageState extends State<CoursePage> {
                     return SizedBox.shrink();
                   }
                 })),
-            ListView.separated(
-                itemBuilder: (context, index) {
-                  return _comboWidget();
-                },
-                separatorBuilder: (context, index) {
-                  return Divider(
-                    height: 4.h,
-                  );
-                },
-                itemCount: 10),
+            LoaderOverlay(
+                child: FutureBuilder(
+                    future: api().findCombos(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<LessonEntity> list = snapshot.data!;
+                        context.loaderOverlay.hide();
+                        return ListView.separated(
+                            itemBuilder: (context, index) {
+                              return _lessonWidget(list[index]);
+                            },
+                            separatorBuilder: (context, index) {
+                              return Divider(
+                                height: 4.h,
+                              );
+                            },
+                            itemCount: list.length);
+                      } else {
+                        context.loaderOverlay.show();
+                        return const SizedBox.shrink();
+                      }
+                    }))),
           ],
         ))
       ],
     );
   }
 
-  Widget _comboWidget() {
-    return Column(
-      children: [
-        SizedBox(
-          width: double.maxFinite,
-          height: 20.h,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              "assets/lesson_test_image.png",
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 1.h,
-        ),
-        //title
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _lessonWidget(LessonEntity lesson) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LessonViewPage(lesson: lesson)));
+      },
+      borderRadius: BorderRadius.circular(10),
+      child: Ink(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(
-                  "Математика и информатика",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: mainSize),
+            SizedBox(
+              width: double.maxFinite,
+              height: 20.h,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  "assets/${course_images[0]}",
+                  fit: BoxFit.fill,
                 ),
-                SizedBox(
-                  width: 2.w,
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: gold,
-                      size: 4.w,
-                    ),
-                    SizedBox(
-                      width: 2.w,
-                    ),
-                    Text(
-                      "4.5",
-                      style: TextStyle(color: appGray6, fontSize: miniSize),
-                    )
-                  ],
-                ),
-              ],
+              ),
             ),
-            const Icon(Icons.keyboard_arrow_right_outlined)
+            SizedBox(
+              height: 1.h,
+            ),
+            //title
+            Text(
+              lesson.title,
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: mainSize),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Text(
+              lesson.description,
+              style: TextStyle(color: appGray6, fontSize: miniSize),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                S
+                    .of(context)
+                    .lesson_from(lesson.teacher.name, lesson.teacher.surname),
+                style: TextStyle(color: appGray6, fontSize: miniSize),
+              ),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
           ],
         ),
-        SizedBox(
-          height: 1.h,
-        ),
-        Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-          style: TextStyle(color: appGray6, fontSize: miniSize),
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
+      ),
     );
   }
 

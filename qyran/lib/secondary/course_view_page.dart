@@ -17,8 +17,11 @@ class CourseViewPage extends StatefulWidget {
 }
 
 class _CourseViewPageState extends State<CourseViewPage> {
-  List<String> course_lessons = ["Интенсив по математике", "Тригонометрия", "Тригонометрия"];
-  List<String> course_images = ["lesson_test_image.png", "lesson_test_image1.png", "lesson_test_image2.png"];
+  List<String> course_images = [
+    "lesson_test_image.png",
+    "lesson_test_image1.png",
+    "lesson_test_image2.png"
+  ];
   @override
   Widget build(BuildContext context) {
     return LoaderOverlay(
@@ -41,7 +44,8 @@ class _CourseViewPageState extends State<CourseViewPage> {
         centerTitle: true,
         title: Text(
           widget.title,
-          style: TextStyle(fontSize: welcomeTitleSize, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: welcomeTitleSize, fontWeight: FontWeight.w600),
         ),
       ),
       body: Padding(
@@ -75,7 +79,10 @@ class _CourseViewPageState extends State<CourseViewPage> {
   Widget _lessonWidget(LessonEntity lesson) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => LessonViewPage(lesson: lesson)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LessonViewPage(lesson: lesson)));
       },
       borderRadius: BorderRadius.circular(10),
       child: Ink(
@@ -116,7 +123,9 @@ class _CourseViewPageState extends State<CourseViewPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                S.of(context).lesson_from(lesson.teacher.name, lesson.teacher.surname),
+                S
+                    .of(context)
+                    .lesson_from(lesson.teacher.name, lesson.teacher.surname),
                 style: TextStyle(color: appGray6, fontSize: miniSize),
               ),
             ),

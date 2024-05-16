@@ -1,6 +1,7 @@
 package com.thedeveloper.qyran.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.thedeveloper.qyran.enums.LessonType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,8 +19,11 @@ public class LessonEntity {
     @Column(columnDefinition = "TEXT")
     String description;
     String image;
+    @Enumerated(EnumType.STRING)
+    @JsonIgnore
+    LessonType type =  LessonType.classic;
     @ManyToOne
-    @JoinColumn(name = "course", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "course", nullable = true, referencedColumnName = "id")
     CourseEntity course;
     @ManyToOne
     @JoinColumn(name = "teacher", nullable = false, referencedColumnName = "phone")
