@@ -8,18 +8,15 @@ class LessonEntity {
   String id;
   String title;
   String description;
-  String? image;
   UserEntity teacher;
   CourseEntity? course;
 
-  LessonEntity({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.teacher,
-    required this.course,
-    this.image,
-  });
+  LessonEntity(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.teacher,
+      required this.course});
 
   factory LessonEntity.fromJson(Map<String, dynamic> json) =>
       _$LessonEntityFromJson(json);

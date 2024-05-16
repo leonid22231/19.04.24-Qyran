@@ -18,11 +18,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.context.Theme;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import static com.thedeveloper.qyran.util.Globals.renameImage;
 import static com.thedeveloper.qyran.util.Globals.response;
 
 @RestController
@@ -50,7 +52,7 @@ public class UserController {
     }
     @PostMapping("/register")
     @Async
-    public CompletableFuture<ResponseEntity<?>> register(@RequestParam String phone,@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) String social_1, @RequestParam(required = false) String social_2) {
+    public CompletableFuture<ResponseEntity<?>> register(@RequestParam String phone,@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) String social_1, @RequestParam(required = false) String social_2, @RequestBody(required = false) MultipartFile file) {
         UserEntity user = new UserEntity();
         user.setPhone(phone);
         user.setName(name);
@@ -60,6 +62,10 @@ public class UserController {
         user.setRole(UserRole.user);
         if(social_1!=null)user.setSocial_1(social_1);
         if(social_2!=null)user.setSocial_2(social_2);
+        if(file!=null){
+            imageService.store(file);
+            user.setPhoto(renameImage(file.getOriginalFilename(), imageService));
+        }
         userService.save(user);
         return CompletableFuture.completedFuture(new ResponseEntity<>("1111", HttpStatus.OK));
     }

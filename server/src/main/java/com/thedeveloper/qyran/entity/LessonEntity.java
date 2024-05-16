@@ -18,6 +18,7 @@ public class LessonEntity {
     String title;
     @Column(columnDefinition = "TEXT")
     String description;
+    @JsonIgnore
     String image;
     @Enumerated(EnumType.STRING)
     @JsonIgnore

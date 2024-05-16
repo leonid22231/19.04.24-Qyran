@@ -1,5 +1,6 @@
 package com.thedeveloper.qyran.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class NewEntity {
     Long id;
     String title;
     String description;
+    @JsonIgnore
     String image;
     Date date;
 }
