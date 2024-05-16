@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:qyran/admin/add_theme.dart';
 import 'package:qyran/api/entity/LessonEntity.dart';
 import 'package:qyran/api/entity/TestEntity.dart';
 import 'package:qyran/api/entity/ThemeEntity.dart';
 import 'package:qyran/api/entity/VideoEntity.dart';
+import 'package:qyran/api/entity/enums/UserRole.dart';
 import 'package:qyran/controller/StorageController.dart';
+import 'package:qyran/controller/UserController.dart';
 import 'package:qyran/controller/ViewLessonController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/video_view_page.dart';
@@ -28,6 +31,25 @@ class _LessonViewPageState extends State<LessonViewPage> {
     LessonEntity lesson = widget.lesson;
     return LoaderOverlay(
         child: Scaffold(
+      floatingActionButton: UserController.instance.role != UserRole.user
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddTheme(
+                              lessonId: widget.lesson.id,
+                            ))).then((value) => setState(() {}));
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+              backgroundColor: primaryColor,
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            )
+          : null,
       appBar: AppBar(
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -47,10 +47,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset("assets/logo.png"),
+                  Image.asset(
+                    "assets/logo.png",
+                    height: 50.w,
+                    width: 50.w,
+                  ),
                   Text(
                     S.of(context).register,
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: buttonTextSize),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: buttonTextSize),
                   ),
                   CustomTextField(
                       hint: "${S.of(context).register_name}*",
@@ -114,7 +119,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       onPress: !_success()
                           ? null
                           : () {
-                              api().register(phone, name, surname, email, password, social_1, social_2).then((value) {
+                              api()
+                                  .register(phone, name, surname, email,
+                                      password, social_1, social_2)
+                                  .then((value) {
                                 confirmRegister(phone, value, context);
                               }).onError((error, stackTrace) {
                                 if (error is DioException) {
@@ -135,6 +143,9 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   bool _success() {
-    return (name.isNotEmpty && surname.isNotEmpty && email.isNotEmpty && password.isNotEmpty);
+    return (name.isNotEmpty &&
+        surname.isNotEmpty &&
+        email.isNotEmpty &&
+        password.isNotEmpty);
   }
 }

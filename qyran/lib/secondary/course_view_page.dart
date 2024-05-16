@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:qyran/admin/add_lesson.dart';
 import 'package:qyran/api/entity/LessonEntity.dart';
+import 'package:qyran/api/entity/enums/UserRole.dart';
+import 'package:qyran/controller/UserController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/lesson_view_page.dart';
 import 'package:qyran/utils/globals.dart';
@@ -21,6 +24,25 @@ class _CourseViewPageState extends State<CourseViewPage> {
   Widget build(BuildContext context) {
     return LoaderOverlay(
         child: Scaffold(
+      floatingActionButton: UserController.instance.role != UserRole.user
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddLesson(
+                              id: widget.id,
+                            )));
+              },
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              backgroundColor: primaryColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+            )
+          : null,
       appBar: AppBar(
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +113,7 @@ class _CourseViewPageState extends State<CourseViewPage> {
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
                   lessonImageUrl(lesson.id),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),

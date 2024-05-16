@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import static com.thedeveloper.qyran.util.Globals.renameImage;
 import static com.thedeveloper.qyran.util.Globals.response;
 
 @RestController
@@ -28,6 +30,8 @@ import static com.thedeveloper.qyran.util.Globals.response;
 @EnableAsync
 @AllArgsConstructor
 public class AdminController {
+    ImageService imageService;
+    NewService newService;
     TestService testService;
     TestsService testsService;
     LessonService lessonService;
@@ -44,11 +48,14 @@ public class AdminController {
     }
     @PostMapping("/addLessonToCourse")
     @Async
-    public CompletableFuture<ResponseEntity<?>> addLesson(@RequestParam String phone,@RequestParam String course_id,@RequestParam String title,@RequestParam String description){
+    public CompletableFuture<ResponseEntity<?>> addLesson(@RequestParam String phone,@RequestParam String course_id,@RequestParam String title,@RequestParam String description, @RequestBody(required = true) MultipartFile file){
         UserEntity userEntity = userService.findUserByPhone(phone);
         LessonEntity lessonEntity = new LessonEntity();
+        if(file!=null){
+            imageService.store(file);
+            lessonEntity.setImage(renameImage(file.getOriginalFilename(), imageService));
+        }
         lessonEntity.setTitle(title);
-        lessonEntity.setImage("image.jpg");
         lessonEntity.setTeacher(userEntity);
         lessonEntity.setDescription(description);
         lessonEntity.setTeacher(userEntity);
@@ -60,11 +67,14 @@ public class AdminController {
     }
     @PostMapping("/addCombo")
     @Async
-    public CompletableFuture<ResponseEntity<?>> addCombo(@RequestParam String phone,@RequestParam String title,@RequestParam String description){
+    public CompletableFuture<ResponseEntity<?>> addCombo(@RequestParam String phone, @RequestParam String title, @RequestParam String description, @RequestBody(required = true)MultipartFile file){
         UserEntity userEntity = userService.findUserByPhone(phone);
         LessonEntity lessonEntity = new LessonEntity();
         lessonEntity.setTitle(title);
-        lessonEntity.setImage("image.jpg");
+        if(file!=null){
+            imageService.store(file);
+            lessonEntity.setImage(renameImage(file.getOriginalFilename(), imageService));
+        }
         lessonEntity.setTeacher(userEntity);
         lessonEntity.setDescription(description);
         lessonEntity.setTeacher(userEntity);
@@ -132,6 +142,20 @@ public class AdminController {
             }
         }
         userService.save(userEntity);
+        return response(HttpStatus.OK);
+    }
+    @PostMapping("/createNew")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> createNew(@RequestParam String title, @RequestParam String description,@RequestBody(required = true) MultipartFile file){
+        NewEntity newEntity = new NewEntity();
+        newEntity.setTitle(title);
+        newEntity.setDescription(description);
+        newEntity.setDate(new Date());
+        if(file!=null){
+            imageService.store(file);
+            newEntity.setImage(renameImage(file.getOriginalFilename(), imageService));
+        }
+        newService.save(newEntity);
         return response(HttpStatus.OK);
     }
 }

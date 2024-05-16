@@ -10,7 +10,11 @@ class ConfirmCode extends StatefulWidget {
   final bool register;
   final String phone;
   final String confirmCode;
-  const ConfirmCode({required this.phone, required this.register, required this.confirmCode, super.key});
+  const ConfirmCode(
+      {required this.phone,
+      required this.register,
+      required this.confirmCode,
+      super.key});
   @override
   State<StatefulWidget> createState() => _ConfirmCodeState();
 }
@@ -32,10 +36,18 @@ class _ConfirmCodeState extends State<ConfirmCode> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset("assets/logo.png"),
+                    Image.asset(
+                      "assets/logo.png",
+                      height: 50.w,
+                      width: 50.w,
+                    ),
                     Text(
-                      register ? S.of(context).register : S.of(context).login_signIn,
-                      style: TextStyle(fontWeight: FontWeight.w700, fontSize: buttonTextSize),
+                      register
+                          ? S.of(context).register
+                          : S.of(context).login_signIn,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: buttonTextSize),
                     ),
                     Text(
                       S.of(context).confirm_code(widget.phone),
@@ -49,7 +61,13 @@ class _ConfirmCodeState extends State<ConfirmCode> {
                           code = value;
                         });
                       },
-                      defaultPinTheme: PinTheme(width: 50, height: 50, decoration: BoxDecoration(color: Colors.white, border: Border.all(color: borderPinput), borderRadius: BorderRadius.circular(8))),
+                      defaultPinTheme: PinTheme(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: borderPinput),
+                              borderRadius: BorderRadius.circular(8))),
                     ),
                     CustomButton(
                         disableColor: primaryColor.withOpacity(0.24),
@@ -57,7 +75,8 @@ class _ConfirmCodeState extends State<ConfirmCode> {
                             ? null
                             : () {
                                 if (code != widget.confirmCode) {
-                                  showError(S.of(context).error_code).show(context);
+                                  showError(S.of(context).error_code)
+                                      .show(context);
                                 } else {
                                   Navigator.pop(context, true);
                                 }

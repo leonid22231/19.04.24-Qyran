@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:qyran/api/entity/CourseEntity.dart';
 import 'package:qyran/api/entity/LessonEntity.dart';
+import 'package:qyran/api/entity/enums/UserRole.dart';
 import 'package:qyran/controller/StorageController.dart';
+import 'package:qyran/controller/UserController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/course_view_page.dart';
 import 'package:qyran/secondary/lesson_view_page.dart';
@@ -23,11 +25,6 @@ class _CoursePageState extends State<CoursePage> {
   PageController pageController =
       PageController(viewportFraction: 1, keepPage: true);
   final _mainNavigatorKey = GlobalKey<NavigatorState>();
-  List<String> course_images = [
-    "lesson_test_image.png",
-    "lesson_test_image1.png",
-    "lesson_test_image2.png"
-  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,6 +34,7 @@ class _CoursePageState extends State<CoursePage> {
         ),
         CustomSlider(
             onSelect: (value) {
+              TogleCourseType(value).dispatch(context);
               pageController.animateToPage(value,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.linear);
@@ -175,7 +173,7 @@ class _CoursePageState extends State<CoursePage> {
 
   Widget _itemWidget(CourseEntity courseEntity) {
     return InkWell(
-      onTap: courseEntity.sub
+      onTap: courseEntity.sub || UserController.instance.role == UserRole.admin
           ? () {
               Navigator.push(
                   context,
@@ -186,7 +184,11 @@ class _CoursePageState extends State<CoursePage> {
                           )));
             }
           : () {
-              showError(S.of(context).course_error).show(context);
+              if (UserController.instance.role == UserRole.user) {
+                showError(S.of(context).course_error).show(context);
+              } else {
+                showError(S.of(context).edit_course).show(context);
+              }
             },
       highlightColor: primaryColor.withOpacity(0.3),
       splashColor: primaryColor.withOpacity(0.3),
@@ -206,12 +208,14 @@ class _CoursePageState extends State<CoursePage> {
                       fontWeight: FontWeight.w400,
                       fontSize: mainSize),
                 ),
-                courseEntity.sub
+                courseEntity.sub ||
+                        UserController.instance.role == UserRole.admin
                     ? const SizedBox.shrink()
                     : SizedBox(
                         width: 3.w,
                       ),
-                courseEntity.sub
+                courseEntity.sub ||
+                        UserController.instance.role == UserRole.admin
                     ? const SizedBox.shrink()
                     : Icon(
                         Icons.lock,
@@ -229,4 +233,9 @@ class _CoursePageState extends State<CoursePage> {
       ),
     );
   }
+}
+
+class TogleCourseType extends Notification {
+  int index;
+  TogleCourseType(this.index);
 }

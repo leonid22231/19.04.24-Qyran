@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qyran/api/entity/enums/UserRole.dart';
 import 'package:qyran/auth/login_page.dart';
 import 'package:qyran/controller/StorageController.dart';
+import 'package:qyran/main/splash_view.dart';
 import 'package:qyran/main_page.dart';
 import 'package:qyran/utils/globals.dart';
 import 'package:qyran/welcome/welcome_page.dart';
@@ -41,36 +43,13 @@ class MyApp extends StatelessWidget {
           Locale('ru', ''),
         ],
         locale: const Locale("ru", ''),
-        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: primaryColor), useMaterial3: true, scaffoldBackgroundColor: const Color(0xffF5F5F8), appBarTheme: const AppBarTheme(backgroundColor: Color(0xffF5F5F8)), textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)),
-        home: FutureBuilder(
-          future: StorageController.instance.getLogIn(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              bool signIn = snapshot.data!;
-              if (signIn) {
-                return const MainPage();
-              } else {
-                return FutureBuilder(
-                  future: StorageController.instance.getWelcome(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      bool welcome = snapshot.data!;
-                      if (welcome) {
-                        return const WelcomePage();
-                      } else {
-                        return const LoginPage();
-                      }
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  },
-                );
-              }
-            } else {
-              return const SizedBox.shrink();
-            }
-          },
-        ),
+        theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
+            useMaterial3: true,
+            scaffoldBackgroundColor: const Color(0xffF5F5F8),
+            appBarTheme: const AppBarTheme(backgroundColor: Color(0xffF5F5F8)),
+            textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)),
+        home: SplashView(),
       );
     });
   }

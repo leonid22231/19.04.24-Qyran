@@ -7,6 +7,7 @@ import com.thedeveloper.qyran.models.TrueResponseModel;
 import com.thedeveloper.qyran.models.TrueTestModel;
 import com.thedeveloper.qyran.service.*;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -28,6 +29,7 @@ import static com.thedeveloper.qyran.util.Globals.response;
 @RequestMapping("api/v1")
 @AllArgsConstructor
 @EnableAsync
+@Slf4j
 public class MainController {
     TestService testService;
     CourseService courseService;
@@ -108,6 +110,13 @@ public class MainController {
             return  CompletableFuture.completedFuture(ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(classPathResource));
         }
     }
+    @GetMapping("/role")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> findRole(@RequestParam String phone){
+        UserEntity user = userService.findUserByPhone(phone);
+        return response("UserRole."+user.getRole().name(), HttpStatus.OK);
+    }
+
     @GetMapping("/new/image")
     @Async
     public CompletableFuture<ResponseEntity<?>> findNewImage(@RequestParam Long id){

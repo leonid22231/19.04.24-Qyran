@@ -31,13 +31,25 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "account":
             MessageLookupByLibrary.simpleMessage("У вас уже есть аккаунт?"),
+        "add_combo": MessageLookupByLibrary.simpleMessage("Добавить комбо"),
+        "add_course": MessageLookupByLibrary.simpleMessage("Добавить курс"),
+        "add_lesson": MessageLookupByLibrary.simpleMessage("Добавить урок"),
+        "add_new": MessageLookupByLibrary.simpleMessage("Добавить новость"),
+        "add_question": MessageLookupByLibrary.simpleMessage("Добавить вопрос"),
+        "add_test": MessageLookupByLibrary.simpleMessage("+ тест"),
+        "add_test_and_video": MessageLookupByLibrary.simpleMessage(
+            "Добавьте видео и тесты, которые относятся к теме"),
+        "add_theme": MessageLookupByLibrary.simpleMessage("Добавить тему"),
+        "add_video": MessageLookupByLibrary.simpleMessage("+ видео"),
         "all_learnd": MessageLookupByLibrary.simpleMessage("Все задания"),
+        "answer": MessageLookupByLibrary.simpleMessage("Вариант ответа"),
         "back": MessageLookupByLibrary.simpleMessage("Назад"),
         "bottomBar_item1": MessageLookupByLibrary.simpleMessage("Курсы"),
         "bottomBar_item2": MessageLookupByLibrary.simpleMessage("Уроки"),
         "bottomBar_item3": MessageLookupByLibrary.simpleMessage("Тесты"),
         "bottomBar_item4": MessageLookupByLibrary.simpleMessage("Новости"),
         "bottomBar_item5": MessageLookupByLibrary.simpleMessage("Профиль"),
+        "cansel": MessageLookupByLibrary.simpleMessage("Отменить"),
         "confirm_code": m0,
         "continue_": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "continue_in": m1,
@@ -47,8 +59,21 @@ class MessageLookup extends MessageLookupByLibrary {
             "Для доступа, преобретите подписку"),
         "course_section_1": MessageLookupByLibrary.simpleMessage("Уроки"),
         "course_section_2": MessageLookupByLibrary.simpleMessage("Комбо"),
+        "crate": MessageLookupByLibrary.simpleMessage("Создать"),
         "day_ago": MessageLookupByLibrary.simpleMessage("д. назад"),
+        "desc": MessageLookupByLibrary.simpleMessage("Описание"),
+        "drag": MessageLookupByLibrary.simpleMessage(
+            "Для перетаскивания удерживайте палец на объекте"),
+        "edit_course": MessageLookupByLibrary.simpleMessage(
+            "Обратитесь к администратору для редактирования"),
+        "edit_photo": MessageLookupByLibrary.simpleMessage("Изменить картинку"),
         "end": MessageLookupByLibrary.simpleMessage("Закончить"),
+        "enter_desc": MessageLookupByLibrary.simpleMessage("Введите описание"),
+        "enter_image": MessageLookupByLibrary.simpleMessage(
+            "Выбрать картинку(Обязательно)"),
+        "enter_name": MessageLookupByLibrary.simpleMessage("Введите название"),
+        "enter_video_url": MessageLookupByLibrary.simpleMessage(
+            "Введите ссылку на доступное видео YouTube"),
         "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "error_bad_test": MessageLookupByLibrary.simpleMessage(
             "Тест должен быть сдан минимум на 60%"),
@@ -66,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Номер телефона"),
         "login_signIn": MessageLookupByLibrary.simpleMessage("Вход"),
         "minute_ago": MessageLookupByLibrary.simpleMessage("м. назад"),
+        "name": MessageLookupByLibrary.simpleMessage("Название"),
         "next": MessageLookupByLibrary.simpleMessage("Далее"),
         "not_account":
             MessageLookupByLibrary.simpleMessage("У вас еще нет аккаунта?"),
@@ -93,12 +119,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
         "start_test":
             MessageLookupByLibrary.simpleMessage("Начать тестирование"),
+        "test_answer":
+            MessageLookupByLibrary.simpleMessage("Добавьте варианты ответов"),
+        "test_answer_": MessageLookupByLibrary.simpleMessage("Добавить"),
         "test_current":
             MessageLookupByLibrary.simpleMessage("Текущие тестирования"),
+        "test_quest_error":
+            MessageLookupByLibrary.simpleMessage("Не выбран ответ !"),
+        "test_quest_error_2":
+            MessageLookupByLibrary.simpleMessage("Вопрос не может быть пустым"),
+        "test_quest_error_3":
+            MessageLookupByLibrary.simpleMessage("Ответ не может быть пустым"),
         "test_result_not_found":
             MessageLookupByLibrary.simpleMessage("Результатов нет"),
         "test_section_1": MessageLookupByLibrary.simpleMessage("Тесты"),
         "test_section_2": MessageLookupByLibrary.simpleMessage("Результаты"),
+        "test_test_": MessageLookupByLibrary.simpleMessage("Текст вопроса"),
+        "test_text":
+            MessageLookupByLibrary.simpleMessage("Введите текст вопроса"),
+        "test_true_answers": MessageLookupByLibrary.simpleMessage(
+            "Выберите правильные варианты"),
         "tests_not_fount": MessageLookupByLibrary.simpleMessage(
             "Здесь появятся тесты, которые вы будете проходить по мере изучения материала."),
         "tests_res_not_found": MessageLookupByLibrary.simpleMessage(

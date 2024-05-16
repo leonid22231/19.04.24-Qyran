@@ -11,6 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 public class NewService {
     NewRepository newRepository;
+    public void save(NewEntity newEntity){
+        newRepository.save(newEntity);
+    }
     public NewEntity findById(Long id){
         return newRepository.findNewEntityById(id);
     }

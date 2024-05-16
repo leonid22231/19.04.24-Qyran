@@ -7,6 +7,7 @@ import 'package:qyran/auth/login_page.dart';
 import 'package:qyran/auth/register_page.dart';
 import 'package:qyran/controller/StorageController.dart';
 import 'package:qyran/generated/l10n.dart';
+import 'package:qyran/main/splash_view.dart';
 import 'package:qyran/main_page.dart';
 import 'package:qyran/utils/globals.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -16,7 +17,7 @@ MotionToast showError(String error) {
   return MotionToast(
     icon: Icons.warning_amber,
     width: 80.w,
-    height: 10.h,
+    height: 15.h,
     title: Text(S.current.error),
     description: Text(error),
     position: MotionToastPosition.top,
@@ -24,7 +25,8 @@ MotionToast showError(String error) {
   );
 }
 
-Future<Null> dioError(Object? error, StackTrace stackTrace, {required BuildContext context}) async {
+Future<Null> dioError(Object? error, StackTrace stackTrace,
+    {required BuildContext context}) async {
   if (error is DioException) {
     showError(error.response!.data!).show(context);
   }
@@ -40,42 +42,67 @@ Future<void> logOUT() async {
   await StorageController.instance.setLogIn(false);
 }
 
-void continueLogin(String phone, String confirmCode, BuildContext context) {
+void continueLogin(
+    String phone, String confirmCode, BuildContext context) async {
   debugPrint("Login +$phone");
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ConfirmCode(confirmCode: confirmCode, phone: phone, register: false))).then((value) async {
-    if (value != null && value is bool) {
-      if (value) {
-        debugPrint("Login code success");
-        await logIN(phone);
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
-      } else {
-        debugPrint("Login code error");
-        showError("Какая то ошибка").show(context);
-      }
-    } else {
-      debugPrint("Login code cancel");
-    }
-  });
+  await logIN(phone);
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const SplashView()),
+      (route) => false);
+  // Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //         builder: (context) => ConfirmCode(
+  //             confirmCode: confirmCode,
+  //             phone: phone,
+  //             register: false))).then((value) async {
+  //   if (value != null && value is bool) {
+  //     if (value) {
+  //       debugPrint("Login code success");
+  //       await logIN(phone);
+  //       Navigator.of(context).pushAndRemoveUntil(
+  //           MaterialPageRoute(builder: (context) => const MainPage()),
+  //           (route) => false);
+  //     } else {
+  //       debugPrint("Login code error");
+  //       showError("Какая то ошибка").show(context);
+  //     }
+  //   } else {
+  //     debugPrint("Login code cancel");
+  //   }
+  // });
 }
 
 void logout(BuildContext context) {
   logOUT();
-  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
+  Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+      (route) => false);
 }
 
 void continueRegister(String phone, BuildContext context) {
   debugPrint("Continue register +$phone");
-  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage(phone: phone)));
+  Navigator.push(context,
+      MaterialPageRoute(builder: (context) => RegisterPage(phone: phone)));
 }
 
 void confirmRegister(String phone, String confirmCode, BuildContext context) {
   debugPrint("Confirm register +$phone");
-  Navigator.push(context, MaterialPageRoute(builder: (context) => ConfirmCode(confirmCode: confirmCode, phone: phone, register: true))).then((value) async {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ConfirmCode(
+              confirmCode: confirmCode,
+              phone: phone,
+              register: true))).then((value) async {
     if (value != null && value is bool) {
       if (value) {
         debugPrint("Register code success");
         await logIN(phone);
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const SplashView()),
+            (route) => false);
       } else {
         debugPrint("Register code error");
         showError("Какая то ошибка").show(context);

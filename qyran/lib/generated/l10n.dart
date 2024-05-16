@@ -679,6 +679,296 @@ class S {
       args: [],
     );
   }
+
+  /// `Добавить курс`
+  String get add_course {
+    return Intl.message(
+      'Добавить курс',
+      name: 'add_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить урок`
+  String get add_lesson {
+    return Intl.message(
+      'Добавить урок',
+      name: 'add_lesson',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить тему`
+  String get add_theme {
+    return Intl.message(
+      'Добавить тему',
+      name: 'add_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `+ видео`
+  String get add_video {
+    return Intl.message(
+      '+ видео',
+      name: 'add_video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `+ тест`
+  String get add_test {
+    return Intl.message(
+      '+ тест',
+      name: 'add_test',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить новость`
+  String get add_new {
+    return Intl.message(
+      'Добавить новость',
+      name: 'add_new',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить вопрос`
+  String get add_question {
+    return Intl.message(
+      'Добавить вопрос',
+      name: 'add_question',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Не выбран ответ !`
+  String get test_quest_error {
+    return Intl.message(
+      'Не выбран ответ !',
+      name: 'test_quest_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вопрос не может быть пустым`
+  String get test_quest_error_2 {
+    return Intl.message(
+      'Вопрос не может быть пустым',
+      name: 'test_quest_error_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ответ не может быть пустым`
+  String get test_quest_error_3 {
+    return Intl.message(
+      'Ответ не может быть пустым',
+      name: 'test_quest_error_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить комбо`
+  String get add_combo {
+    return Intl.message(
+      'Добавить комбо',
+      name: 'add_combo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите название`
+  String get enter_name {
+    return Intl.message(
+      'Введите название',
+      name: 'enter_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите описание`
+  String get enter_desc {
+    return Intl.message(
+      'Введите описание',
+      name: 'enter_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите ссылку на доступное видео YouTube`
+  String get enter_video_url {
+    return Intl.message(
+      'Введите ссылку на доступное видео YouTube',
+      name: 'enter_video_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Описание`
+  String get desc {
+    return Intl.message(
+      'Описание',
+      name: 'desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Название`
+  String get name {
+    return Intl.message(
+      'Название',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Создать`
+  String get crate {
+    return Intl.message(
+      'Создать',
+      name: 'crate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Обратитесь к администратору для редактирования`
+  String get edit_course {
+    return Intl.message(
+      'Обратитесь к администратору для редактирования',
+      name: 'edit_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выбрать картинку(Обязательно)`
+  String get enter_image {
+    return Intl.message(
+      'Выбрать картинку(Обязательно)',
+      name: 'enter_image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Изменить картинку`
+  String get edit_photo {
+    return Intl.message(
+      'Изменить картинку',
+      name: 'edit_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавьте видео и тесты, которые относятся к теме`
+  String get add_test_and_video {
+    return Intl.message(
+      'Добавьте видео и тесты, которые относятся к теме',
+      name: 'add_test_and_video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Для перетаскивания удерживайте палец на объекте`
+  String get drag {
+    return Intl.message(
+      'Для перетаскивания удерживайте палец на объекте',
+      name: 'drag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите текст вопроса`
+  String get test_text {
+    return Intl.message(
+      'Введите текст вопроса',
+      name: 'test_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Текст вопроса`
+  String get test_test_ {
+    return Intl.message(
+      'Текст вопроса',
+      name: 'test_test_',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавьте варианты ответов`
+  String get test_answer {
+    return Intl.message(
+      'Добавьте варианты ответов',
+      name: 'test_answer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить`
+  String get test_answer_ {
+    return Intl.message(
+      'Добавить',
+      name: 'test_answer_',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вариант ответа`
+  String get answer {
+    return Intl.message(
+      'Вариант ответа',
+      name: 'answer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выберите правильные варианты`
+  String get test_true_answers {
+    return Intl.message(
+      'Выберите правильные варианты',
+      name: 'test_true_answers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Отменить`
+  String get cansel {
+    return Intl.message(
+      'Отменить',
+      name: 'cansel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

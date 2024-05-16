@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:qyran/admin/ThemeParamModel.dart';
 import 'package:qyran/api/entity/CourseEntity.dart';
 import 'package:qyran/api/entity/CurrentTestsModel.dart';
 import 'package:qyran/api/entity/LessonCurrentModel.dart';
@@ -7,8 +10,11 @@ import 'package:qyran/api/entity/NewEntity.dart';
 import 'package:qyran/api/entity/TestResultEntity.dart';
 import 'package:qyran/api/entity/ThemeEntity.dart';
 import 'package:qyran/api/entity/UserEntity.dart';
+import 'package:qyran/api/entity/enums/UserRole.dart';
+import 'package:qyran/test/TempTestResponse.dart';
 import 'package:qyran/test/TestModel.dart';
 import 'package:qyran/test/TestResultModel.dart';
+import 'package:qyran/test/TrueTestModel.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -17,6 +23,8 @@ part 'RestClient.g.dart';
 @RestApi()
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
+
+  //USER_API
   @GET("/user/checkUser")
   Future<void> checkUser(@Query("phone") String phone);
   @POST("/user/register")
@@ -70,4 +78,31 @@ abstract class RestClient {
       @Query("phone") String phone, @Body() TestResultModel result);
   @GET("/news")
   Future<List<NewEntity>> findNews();
+  @GET("/role")
+  Future<String> findRole(@Query("phone") String phone);
+  //ADMIN_API
+  @POST("/admin/addCourse")
+  Future<void> addCourse(@Query("name") String name);
+  @POST("/admin/addLessonToCourse")
+  @MultiPart()
+  Future<void> addLessonToCourse(
+      @Query("phone") String phone,
+      @Query("course_id") String course_id,
+      @Query("title") String title,
+      @Query("description") String description,
+      @Part(name: "file") File file);
+  @GET("/admin/addCombo")
+  @MultiPart()
+  Future<void> addCombo(
+      @Query("phone") String phone,
+      @Query("title") String title,
+      @Query("description") String description,
+      @Part(name: "file") File file);
+  @POST("/admin/addThemeToLesson")
+  Future<List<TempTestResponse>> addThemeToLesson(@Query("id") String id,
+      @Query("name") String name, @Body() ThemeParamModel model);
+  @POST("/admin/createTest")
+  Future<void> createTest(@Query("id") int id, @Body() TestModel model);
+  @POST("/admin/createResponse")
+  Future<void> createResponse(@Query("id") int id, @Body() TrueTestModel model);
 }

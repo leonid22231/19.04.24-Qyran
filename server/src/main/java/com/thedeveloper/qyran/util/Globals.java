@@ -24,7 +24,7 @@ public class Globals {
         File file = new File(String.valueOf(path.toAbsolutePath()));
         if(file.exists()){
             String name = UUID.randomUUID().toString().replace("-", "");
-            String name_ = "img_"+name+"."+originalFilename.split("\\.")[1]+"_";
+            String name_ = "img_"+name+"."+originalFilename.split("\\.")[1];
             File file_copy = new File(file.getParentFile().getAbsolutePath(), name_);
             log.info("File {} copy to {}",file.getAbsolutePath(),file_copy.getAbsolutePath());
             file.renameTo(file_copy);

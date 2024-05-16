@@ -33,29 +33,43 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("assets/logo.png"),
+                Image.asset(
+                  "assets/logo.png",
+                  height: 50.w,
+                  width: 50.w,
+                ),
                 Text(
                   register ? S.of(context).register : S.of(context).sign_in,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: buttonTextSize),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700, fontSize: buttonTextSize),
                 ),
-                CustomTextField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                    hint: S.of(context).login_numberPhone,
-                    backgroundColor: Colors.white,
-                    onChanged: (value) {
-                      phoneNumber = value;
-                      setState(() {});
-                    }),
-                !register
-                    ? CustomTextField(
-                        hint: S.of(context).password,
+                Column(
+                  children: [
+                    CustomTextField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        hint: S.of(context).login_numberPhone,
                         backgroundColor: Colors.white,
                         onChanged: (value) {
-                          password = value;
+                          phoneNumber = value;
                           setState(() {});
-                        })
-                    : const SizedBox.shrink(),
+                        }),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    !register
+                        ? CustomTextField(
+                            hint: S.of(context).password,
+                            backgroundColor: Colors.white,
+                            onChanged: (value) {
+                              password = value;
+                              setState(() {});
+                            })
+                        : const SizedBox.shrink(),
+                  ],
+                ),
                 CustomButton(
                     disableColor: primaryColor.withOpacity(0.24),
                     onPress: !_success()
@@ -65,53 +79,67 @@ class _LoginPageState extends State<LoginPage> {
                             if (register) {
                               api().checkUser(phoneNumber!).then((value) {
                                 continueRegister(phoneNumber!, context);
-                              }).onError((error, stackTrace) => dioError(error, stackTrace, context: context));
+                              }).onError((error, stackTrace) => dioError(
+                                  error, stackTrace,
+                                  context: context));
                             } else {
-                              api().login(phoneNumber!, password!).then((value) {
+                              api()
+                                  .login(phoneNumber!, password!)
+                                  .then((value) {
                                 continueLogin(phoneNumber!, value, context);
-                              }).onError((error, stackTrace) => dioError(error, stackTrace, context: context));
+                              }).onError((error, stackTrace) => dioError(
+                                      error, stackTrace,
+                                      context: context));
                             }
                           },
                     color: primaryColor,
                     title: S.of(context).continue_),
-                Text(
-                  S.of(context).or,
-                  style: TextStyle(fontWeight: FontWeight.w400, color: appGray4),
-                ),
-                CustomButton(
-                    disableColor: primaryColor.withOpacity(0.24),
-                    onPress: loginWithGoogle,
-                    color: Colors.transparent,
-                    border: true,
-                    textColor: primaryColor,
-                    borderColor: primaryColor,
-                    icon: SvgPicture.asset(
-                      "assets/google.svg",
-                      width: 5.w,
-                    ),
-                    title: S.of(context).continue_in("Google")),
-                CustomButton(
-                    disableColor: primaryColor.withOpacity(0.24),
-                    color: Colors.transparent,
-                    border: true,
-                    textColor: primaryColor,
-                    borderColor: primaryColor,
-                    onPress: loginWithApple,
-                    icon: SvgPicture.asset(
-                      "assets/apple.svg",
-                      width: 5.w,
-                    ),
-                    title: S.of(context).continue_in("Apple")),
+                // Text(
+                //   S.of(context).or,
+                //   style:
+                //       TextStyle(fontWeight: FontWeight.w400, color: appGray4),
+                // ),
+                // CustomButton(
+                //     disableColor: primaryColor.withOpacity(0.24),
+                //     onPress: loginWithGoogle,
+                //     color: Colors.transparent,
+                //     border: true,
+                //     textColor: primaryColor,
+                //     borderColor: primaryColor,
+                //     icon: SvgPicture.asset(
+                //       "assets/google.svg",
+                //       width: 5.w,
+                //     ),
+                //     title: S.of(context).continue_in("Google")),
+                // CustomButton(
+                //     disableColor: primaryColor.withOpacity(0.24),
+                //     color: Colors.transparent,
+                //     border: true,
+                //     textColor: primaryColor,
+                //     borderColor: primaryColor,
+                //     onPress: loginWithApple,
+                //     icon: SvgPicture.asset(
+                //       "assets/apple.svg",
+                //       width: 5.w,
+                //     ),
+                //     title: S.of(context).continue_in("Apple")),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
-                    register ? S.of(context).account : S.of(context).not_account,
+                    register
+                        ? S.of(context).account
+                        : S.of(context).not_account,
                     style: TextStyle(fontSize: miniSize),
                   ),
                   SizedBox(
                     width: 2.w,
                   ),
                   TextButton(
-                    style: TextButton.styleFrom(surfaceTintColor: Colors.transparent, padding: EdgeInsets.zero, minimumSize: const Size(50, 30), tapTargetSize: MaterialTapTargetSize.shrinkWrap, alignment: Alignment.centerLeft),
+                    style: TextButton.styleFrom(
+                        surfaceTintColor: Colors.transparent,
+                        padding: EdgeInsets.zero,
+                        minimumSize: const Size(50, 30),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        alignment: Alignment.centerLeft),
                     onPressed: () {
                       setState(() {
                         register = !register;
@@ -132,6 +160,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   bool _success() {
-    return (phoneNumber != null && phoneNumber!.isNotEmpty && (password != null && password!.isNotEmpty || register));
+    return (phoneNumber != null &&
+        phoneNumber!.isNotEmpty &&
+        (password != null && password!.isNotEmpty || register));
   }
 }

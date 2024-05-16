@@ -16,7 +16,19 @@ class CustomTextField extends StatelessWidget {
   final Function(String value) onChanged;
   final Widget? prefix;
   final TextEditingController? controller;
-  const CustomTextField({this.controller, this.prefix, this.readOnly, this.inputFormatters, this.keyboardType, required this.onChanged, this.backgroundColor, this.search, this.height, this.width, this.hint, super.key});
+  const CustomTextField(
+      {this.controller,
+      this.prefix,
+      this.readOnly,
+      this.inputFormatters,
+      this.keyboardType,
+      required this.onChanged,
+      this.backgroundColor,
+      this.search,
+      this.height,
+      this.width,
+      this.hint,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +53,17 @@ class CustomTextField extends StatelessWidget {
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
         onChanged: onChanged,
-        decoration: InputDecoration(filled: true, prefixIcon: prefix, fillColor: backgroundColor ?? secondaryColor, hintText: hint, hintStyle: TextStyle(fontSize: mainSize, color: appGray2), enabledBorder: border, focusedBorder: border),
+        expands: height != null,
+        maxLines: height == null ? 1 : null,
+        textAlignVertical: TextAlignVertical.top,
+        decoration: InputDecoration(
+            filled: true,
+            prefixIcon: prefix,
+            fillColor: backgroundColor ?? secondaryColor,
+            hintText: hint,
+            hintStyle: TextStyle(fontSize: mainSize, color: appGray2),
+            enabledBorder: border,
+            focusedBorder: border),
       ),
     );
   }

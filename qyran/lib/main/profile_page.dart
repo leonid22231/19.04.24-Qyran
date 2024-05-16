@@ -8,6 +8,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:qyran/api/entity/UserEntity.dart';
 import 'package:qyran/api/entity/enums/UserRole.dart';
 import 'package:qyran/controller/StorageController.dart';
+import 'package:qyran/controller/UserController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/utils/globals.dart';
 import 'package:qyran/utils/globals_fun.dart';
@@ -24,13 +25,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  UserEntity user = UserEntity(
-      id: "0",
-      phone: "79999999999",
-      name: "Иван",
-      surname: "Иванов",
-      email: "ivanivanov@gmail.com",
-      role: UserRole.user);
+  UserEntity user = UserController.instance.user;
   final TextEditingController _social_1 = TextEditingController();
   final TextEditingController _social_2 = TextEditingController();
   String? social_1;
@@ -38,8 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    context.loaderOverlay.show();
-    initProfile();
   }
 
   @override
@@ -149,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     api()
                         .saveSocial(user.phone, social_1, social_2)
                         .then((value) {
-                      initProfile().then((value) {
+                      updateProfile().then((value) {
                         social_1 = null;
                         social_2 = null;
                         _social_1.clear();
@@ -166,20 +159,10 @@ class _ProfilePageState extends State<ProfilePage> {
     ));
   }
 
-  Future<void> initProfile() async {
-    String? phone = await StorageController.instance.getPhone();
-    api().findProfile(phone!).then((value) {
-      context.loaderOverlay.hide();
-      setState(() {
-        if (user.social_1 != null && user.social_1!.isEmpty) {
-          user.social_1 = null;
-        }
-        if (user.social_2 != null && user.social_2!.isEmpty) {
-          user.social_2 = null;
-        }
-        user = value;
-      });
-    });
+  Future<void> updateProfile() async {
+    await UserController.instance.init();
+    user = UserController.instance.user;
+    setState(() {});
   }
 
   bool _isEdit() {
