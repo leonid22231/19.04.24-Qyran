@@ -105,4 +105,17 @@ abstract class RestClient {
   Future<void> createTest(@Query("id") int id, @Body() TestModel model);
   @POST("/admin/createResponse")
   Future<void> createResponse(@Query("id") int id, @Body() TrueTestModel model);
+  @POST("/admin/createNew")
+  Future<void> addNew(@Query("title") String title,
+      @Query("description") String description, @Body() File file);
+  @GET("/admin/users")
+  Future<List<UserEntity>> findAllUsers();
+  @GET("/admin/users/{id}/courses")
+  Future<List<CourseEntity>> findUserCourses(@Path("id") String id);
+  @POST("/admin/addSubscription")
+  Future<void> addSub(@Query("phone") String phone, @Query("id") String id);
+  @POST("/admin/deleteSubscription")
+  Future<void> deleteSub(@Query("phone") String phone, @Query("id") String id);
+  @GET("/admin/users/{id}/availableCourses")
+  Future<List<CourseEntity>> findAvailableCourses(@Path("id") String id);
 }

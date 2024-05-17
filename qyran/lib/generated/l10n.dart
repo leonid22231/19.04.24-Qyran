@@ -969,6 +969,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Пользователи`
+  String get users {
+    return Intl.message(
+      'Пользователи',
+      name: 'users',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Поиск по номеру`
+  String get search_by_number {
+    return Intl.message(
+      'Поиск по номеру',
+      name: 'search_by_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Доступные курсы`
+  String get user_courses {
+    return Intl.message(
+      'Доступные курсы',
+      name: 'user_courses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Предоставить доступ к курсу`
+  String get user_add_course {
+    return Intl.message(
+      'Предоставить доступ к курсу',
+      name: 'user_add_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Забрать доступ к курсу`
+  String get user_delete_course {
+    return Intl.message(
+      'Забрать доступ к курсу',
+      name: 'user_delete_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Нет доступных курсов`
+  String get courses_not_found {
+    return Intl.message(
+      'Нет доступных курсов',
+      name: 'courses_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выберите курс`
+  String get enter_course {
+    return Intl.message(
+      'Выберите курс',
+      name: 'enter_course',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

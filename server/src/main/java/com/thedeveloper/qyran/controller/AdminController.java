@@ -131,6 +131,7 @@ public class AdminController {
         userService.save(userEntity);
         return response(HttpStatus.OK);
     }
+
     @PostMapping("/deleteSubscription")
     @Async
     public  CompletableFuture<ResponseEntity<?>> deleteSubscription(@RequestParam String phone, @RequestParam String id){
@@ -157,6 +158,36 @@ public class AdminController {
         }
         newService.save(newEntity);
         return response(HttpStatus.OK);
+    }
+    @GetMapping("/users")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> findAllUsers(){
+        return response(userService.findAll(), HttpStatus.OK);
+    }
+    @GetMapping("/users/{id}/courses")
+    @Async
+    public  CompletableFuture<ResponseEntity<?>> findById(@PathVariable String id){
+        return response(userService.findById(id).getCourseList(), HttpStatus.OK);
+    }
+    @GetMapping("/users/{id}/availableCourses")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> findAvailableCourses(@PathVariable String id){
+        UserEntity userEntity = userService.findById(id);
+        List<CourseEntity> list = new ArrayList<>();
+        List<CourseEntity> allCourses = courseService.findAll();
+        for(CourseEntity courseEntity : allCourses){
+            boolean check = false;
+            for(CourseEntity course : userEntity.getCourseList()){
+                if(courseEntity.getId().equals(course.getId())){
+                    check = true;
+                    break;
+                }
+            }
+            if(!check){
+                list.add(courseEntity);
+            }
+        }
+        return response(list, HttpStatus.OK);
     }
 }
 

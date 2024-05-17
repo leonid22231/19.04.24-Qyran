@@ -24,7 +24,9 @@ class _AddLessonState extends State<AddLesson> {
   @override
   Widget build(BuildContext context) {
     return CusstomScaffold(
-        title: S.of(context).add_lesson,
+        title: widget.id == "null"
+            ? S.of(context).add_combo
+            : S.of(context).add_lesson,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -59,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Для доступа, преобретите подписку"),
         "course_section_1": MessageLookupByLibrary.simpleMessage("Уроки"),
         "course_section_2": MessageLookupByLibrary.simpleMessage("Комбо"),
+        "courses_not_found":
+            MessageLookupByLibrary.simpleMessage("Нет доступных курсов"),
         "crate": MessageLookupByLibrary.simpleMessage("Создать"),
         "day_ago": MessageLookupByLibrary.simpleMessage("д. назад"),
         "desc": MessageLookupByLibrary.simpleMessage("Описание"),
@@ -68,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Обратитесь к администратору для редактирования"),
         "edit_photo": MessageLookupByLibrary.simpleMessage("Изменить картинку"),
         "end": MessageLookupByLibrary.simpleMessage("Закончить"),
+        "enter_course": MessageLookupByLibrary.simpleMessage("Выберите курс"),
         "enter_desc": MessageLookupByLibrary.simpleMessage("Введите описание"),
         "enter_image": MessageLookupByLibrary.simpleMessage(
             "Выбрать картинку(Обязательно)"),
@@ -113,6 +116,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "retest": MessageLookupByLibrary.simpleMessage("Пересдать"),
         "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
         "search": MessageLookupByLibrary.simpleMessage("Поиск"),
+        "search_by_number":
+            MessageLookupByLibrary.simpleMessage("Поиск по номеру"),
         "second_ago": MessageLookupByLibrary.simpleMessage("с. назад"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),
         "skip": MessageLookupByLibrary.simpleMessage("Пропустить"),
@@ -143,6 +148,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Здесь появятся тесты, которые вы будете проходить по мере изучения материала."),
         "tests_res_not_found": MessageLookupByLibrary.simpleMessage(
             "Здесь будут результаты ваших тестов."),
+        "user_add_course":
+            MessageLookupByLibrary.simpleMessage("Предоставить доступ к курсу"),
+        "user_courses": MessageLookupByLibrary.simpleMessage("Доступные курсы"),
+        "user_delete_course":
+            MessageLookupByLibrary.simpleMessage("Забрать доступ к курсу"),
+        "users": MessageLookupByLibrary.simpleMessage("Пользователи"),
         "welcome_context_1": MessageLookupByLibrary.simpleMessage(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard 1"),
         "welcome_context_2": MessageLookupByLibrary.simpleMessage(

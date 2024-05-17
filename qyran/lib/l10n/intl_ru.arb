@@ -114,5 +114,12 @@
   "test_answer_": "Добавить",
   "answer": "Вариант ответа",
   "test_true_answers": "Выберите правильные варианты",
-  "cansel": "Отменить"
+  "cansel": "Отменить",
+  "users": "Пользователи",
+  "search_by_number": "Поиск по номеру",
+  "user_courses": "Доступные курсы",
+  "user_add_course": "Предоставить доступ к курсу",
+  "user_delete_course": "Забрать доступ к курсу",
+  "courses_not_found": "Нет доступных курсов",
+  "enter_course": "Выберите курс"
 }

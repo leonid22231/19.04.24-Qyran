@@ -5,7 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:qyran/admin/add_course.dart';
 import 'package:qyran/admin/add_lesson.dart';
+import 'package:qyran/admin/add_new.dart';
+import 'package:qyran/admin/users.dart';
 import 'package:qyran/api/entity/enums/UserRole.dart';
+import 'package:qyran/controller/ToggleCourseController.dart';
 import 'package:qyran/controller/UserController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/main/course_page.dart';
@@ -30,6 +33,7 @@ class _MainPageState extends State<MainPage> {
   List<FlashyTabBarItem> bottomBarItems = [];
   @override
   void initState() {
+    ToggleCourseController.instance.init();
     super.initState();
   }
 
@@ -139,14 +143,7 @@ class _MainPageState extends State<MainPage> {
     if (UserController.instance.role == UserRole.user) {
       switch (index) {
         case 0:
-          return LoaderOverlay(
-            child: NotificationListener<TogleCourseType>(
-                onNotification: (m) {
-                  courseType = m.index;
-                  return true;
-                },
-                child: const CoursePage()),
-          );
+          return const LoaderOverlay(child: CoursePage());
         case 1:
           return NotificationListener<NotifyCourse>(
               onNotification: (m) {
@@ -193,37 +190,71 @@ class _MainPageState extends State<MainPage> {
       if (UserController.instance.role == UserRole.admin) {
         switch (pageIndex) {
           case 0:
-            return courseType == 0
-                ? FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AddCourse()));
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                  )
-                : FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AddLesson(
-                                    id: "null",
-                                  )));
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                  );
+            return ValueListenableBuilder(
+                valueListenable: ToggleCourseController.instance.currentTab,
+                builder: (_, __, ___) {
+                  return ToggleCourseController.instance.currentTab.value == 0
+                      ? FloatingActionButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddCourse()));
+                          },
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100)),
+                        )
+                      : FloatingActionButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const AddLesson(
+                                          id: "null",
+                                        )));
+                          },
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100)),
+                        );
+                });
+          case 1:
+            return FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => AddNew()));
+              },
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              backgroundColor: primaryColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+            );
+          case 2:
+            return FloatingActionButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UsersPage()));
+              },
+              child: const Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.greenAccent.withOpacity(0.5),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+            );
           default:
             return null;
         }

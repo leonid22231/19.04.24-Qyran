@@ -5,6 +5,7 @@ import com.thedeveloper.qyran.enums.UserRole;
 import com.thedeveloper.qyran.models.CurrentLessonModel;
 import com.thedeveloper.qyran.models.CurrentTestsModel;
 import com.thedeveloper.qyran.service.*;
+import com.thedeveloper.qyran.util.MessageUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
@@ -20,8 +21,11 @@ import org.springframework.ui.context.Theme;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 import static com.thedeveloper.qyran.util.Globals.renameImage;
@@ -52,7 +56,7 @@ public class UserController {
     }
     @PostMapping("/register")
     @Async
-    public CompletableFuture<ResponseEntity<?>> register(@RequestParam String phone,@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) String social_1, @RequestParam(required = false) String social_2, @RequestBody(required = false) MultipartFile file) {
+    public CompletableFuture<ResponseEntity<?>> register(@RequestParam String phone,@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) String social_1, @RequestParam(required = false) String social_2, @RequestBody(required = false) MultipartFile file) throws IOException, URISyntaxException, InterruptedException {
         UserEntity user = new UserEntity();
         user.setPhone(phone);
         user.setName(name);
@@ -67,7 +71,9 @@ public class UserController {
             user.setPhoto(renameImage(file.getOriginalFilename(), imageService));
         }
         userService.save(user);
-        return CompletableFuture.completedFuture(new ResponseEntity<>("1111", HttpStatus.OK));
+        String code = codeGenerator();
+        MessageUtils.sendMessageRegisterCode("+"+phone, code);
+        return CompletableFuture.completedFuture(new ResponseEntity<>(code, HttpStatus.OK));
     }
     @GetMapping("/checkUser")
     @Async
@@ -75,6 +81,10 @@ public class UserController {
         UserEntity user = userService.findUserByPhone(phone);
         if(user==null) return CompletableFuture.completedFuture(ResponseEntity.ok().build());
         else return CompletableFuture.completedFuture(new ResponseEntity<>("Пользователь существует", HttpStatus.BAD_REQUEST));
+    }
+    public static String codeGenerator(){
+        Random random = new Random();
+        return  String.format("%04d", random.nextInt(10000));
     }
     @GetMapping("/profile")
     @Async

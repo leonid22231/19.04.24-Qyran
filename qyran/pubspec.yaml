@@ -34,6 +34,8 @@ dependencies:
   youtube_player_flutter: ^8.1.2
   image_picker: ^1.1.1
   animated_list_plus: ^0.5.2
+  searchable_listview: ^2.12.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -41,6 +43,19 @@ dev_dependencies:
   retrofit_generator: '>=7.0.0 <8.0.0'
   build_runner: '>=2.3.0 <4.0.0'
   json_serializable: ^6.6.2
+  icons_launcher: ^2.1.7
+  
+icons_launcher:
+  image_path: "assets/icon.png"
+  platforms:
+    android:
+      image_path: 'assets/icon_border.png'
+      adaptive_background_image: 'assets/background.png'
+      adaptive_foreground_image: 'assets/icon_foregraund.png'
+      adaptive_round_image: 'assets/icon_round.png'
+      enable: true
+    ios:
+      enable: true
 
 flutter:
   uses-material-design: true

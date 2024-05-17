@@ -7,10 +7,15 @@ import com.thedeveloper.qyran.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserService {
     UserRepository userRepository;
+    public List<UserEntity> findAll(){
+        return userRepository.findAll();
+    }
     public UserEntity findById(String id){
         return userRepository.findUserEntityById(id);
     }

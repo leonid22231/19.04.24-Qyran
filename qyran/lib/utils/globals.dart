@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:qyran/api/RestClient.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+int currenTabCourse = 0;
 Color primaryColor = const Color(0xffFFAB07);
 Color gold = const Color(0xffFFC107);
 Color secondaryColor = const Color(0xffF6F6F6);

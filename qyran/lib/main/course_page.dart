@@ -6,6 +6,7 @@ import 'package:qyran/api/entity/CourseEntity.dart';
 import 'package:qyran/api/entity/LessonEntity.dart';
 import 'package:qyran/api/entity/enums/UserRole.dart';
 import 'package:qyran/controller/StorageController.dart';
+import 'package:qyran/controller/ToggleCourseController.dart';
 import 'package:qyran/controller/UserController.dart';
 import 'package:qyran/generated/l10n.dart';
 import 'package:qyran/secondary/course_view_page.dart';
@@ -34,7 +35,8 @@ class _CoursePageState extends State<CoursePage> {
         ),
         CustomSlider(
             onSelect: (value) {
-              TogleCourseType(value).dispatch(context);
+              debugPrint("ON select ${value}");
+              ToggleCourseController.instance.currentTab.value = value;
               pageController.animateToPage(value,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.linear);
@@ -73,36 +75,37 @@ class _CoursePageState extends State<CoursePage> {
                                 },
                                 itemCount: courses.length);
                           } else {
-                            context.loaderOverlay.show();
+                            if (!context.loaderOverlay.visible) {
+                              context.loaderOverlay.show();
+                            }
                             return const SizedBox.shrink();
                           }
                         });
                   } else {
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
                   }
                 })),
-            LoaderOverlay(
-                child: FutureBuilder(
-                    future: api().findCombos(),
-                    builder: ((context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<LessonEntity> list = snapshot.data!;
-                        context.loaderOverlay.hide();
-                        return ListView.separated(
-                            itemBuilder: (context, index) {
-                              return _lessonWidget(list[index]);
-                            },
-                            separatorBuilder: (context, index) {
-                              return Divider(
-                                height: 4.h,
-                              );
-                            },
-                            itemCount: list.length);
-                      } else {
-                        context.loaderOverlay.show();
-                        return const SizedBox.shrink();
-                      }
-                    }))),
+            FutureBuilder(
+                future: api().findCombos(),
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<LessonEntity> list = snapshot.data!;
+                    context.loaderOverlay.hide();
+                    return ListView.separated(
+                        itemBuilder: (context, index) {
+                          return _lessonWidget(list[index]);
+                        },
+                        separatorBuilder: (context, index) {
+                          return Divider(
+                            height: 4.h,
+                          );
+                        },
+                        itemCount: list.length);
+                  } else {
+                    context.loaderOverlay.show();
+                    return const SizedBox.shrink();
+                  }
+                })),
           ],
         ))
       ],
