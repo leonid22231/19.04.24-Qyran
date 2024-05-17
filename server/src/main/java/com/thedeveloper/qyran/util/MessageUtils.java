@@ -16,7 +16,7 @@ public class MessageUtils {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://smsc.kz/sys/send.php?login="+API_LOGIN+"&psw="+API_PSW+"&phones="+number))
-                .POST(HttpRequest.BodyPublishers.ofString("mes=Qyran Подтверждение: "+code))
+                .POST(HttpRequest.BodyPublishers.ofString("mes=Qyran.app Подтверждение: "+code))
                 .setHeader("cache-control", "no-cache")
                 .setHeader("content-type", "application/x-www-form-urlencoded")
                 .build();

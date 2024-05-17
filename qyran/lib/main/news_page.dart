@@ -58,7 +58,8 @@ class _NewsPageState extends State<NewsPage> {
                               controller: controller,
                               itemBuilder: (context, index) {
                                 return _itemNew(
-                                    "new_test_image.png", compactList[index]);
+                                    newImageUrl(compactList[index].id),
+                                    compactList[index]);
                               },
                             ),
                             SmoothPageIndicator(
@@ -85,7 +86,8 @@ class _NewsPageState extends State<NewsPage> {
                     shrinkWrap: true,
                     primary: false,
                     itemBuilder: (context, index) {
-                      return _itemNew("new_test_image2.png", mainView[index]);
+                      return _itemNew(
+                          newImageUrl(mainView[index].id), mainView[index]);
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(

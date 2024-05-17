@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:qyran/api/entity/UserEntity.dart';
 import 'package:qyran/api/entity/enums/UserRole.dart';
@@ -30,6 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _social_2 = TextEditingController();
   String? social_1;
   String? social_2;
+  File? file;
   @override
   void initState() {
     super.initState();
@@ -57,13 +61,58 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Column(
                             children: [
-                              SizedBox.fromSize(
-                                size: const Size.fromRadius(50),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(1000),
-                                  child: Image.network(
-                                    userPhotoUrl(user.phone),
-                                    fit: BoxFit.fill,
+                              InkWell(
+                                borderRadius: BorderRadius.circular(100),
+                                onTap: () async {
+                                  HapticFeedback.vibrate();
+                                  ImagePicker picker = ImagePicker();
+                                  XFile? image = await picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  if (image != null) {
+                                    file = File(image.path);
+                                    setState(() {});
+                                  }
+                                },
+                                child: Ink(
+                                  child: Stack(
+                                    alignment: Alignment.bottomRight,
+                                    children: [
+                                      SizedBox.fromSize(
+                                        size: const Size.fromRadius(50),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(1000),
+                                          child: file == null
+                                              ? Image.network(
+                                                  userPhotoUrl(user.phone),
+                                                  fit: BoxFit.fitWidth,
+                                                )
+                                              : Image.file(
+                                                  file!,
+                                                  fit: BoxFit.fitWidth,
+                                                ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(1.w),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.8),
+                                                  blurRadius: 1.w,
+                                                  blurStyle: BlurStyle.solid,
+                                                  offset: Offset(-1, 1))
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(100)),
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: primaryColor,
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                               ),
@@ -139,16 +188,25 @@ class _ProfilePageState extends State<ProfilePage> {
         CustomButton(
             onPress: _isEdit()
                 ? () {
-                    api()
-                        .saveSocial(user.phone, social_1, social_2)
-                        .then((value) {
-                      updateProfile().then((value) {
-                        social_1 = null;
-                        social_2 = null;
-                        _social_1.clear();
-                        _social_2.clear();
+                    if (_social_1 != null && _social_2 != null) {
+                      api()
+                          .saveSocial(user.phone, social_1, social_2)
+                          .then((value) {
+                        updateProfile().then((value) {
+                          social_1 = null;
+                          social_2 = null;
+                          _social_1.clear();
+                          _social_2.clear();
+                        });
                       });
-                    });
+                    }
+                    if (file != null) {
+                      api()
+                          .changePhoto(user.phone, file!)
+                          .then((value) => setState(() {
+                                file = null;
+                              }));
+                    }
                   }
                 : () {
                     logout(context);
@@ -167,7 +225,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   bool _isEdit() {
     return ((social_1 != null && social_1!.isNotEmpty) ||
-        (social_2 != null && social_2!.isNotEmpty));
+            (social_2 != null && social_2!.isNotEmpty)) ||
+        file != null;
   }
 
   Widget _itemWidget(String title, Function() onTap) {

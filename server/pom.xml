@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.thedeveloper</groupId>
     <artifactId>qyran</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>server</name>
     <description>server</description>
     <properties>
@@ -66,6 +66,7 @@
                     <env>
                         <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
                     </env>
+                        <createdDate>${maven.build.timestamp}</createdDate>
                 </image>
                     <excludes>
                         <exclude>

@@ -278,7 +278,7 @@ class _UsersPageState extends State<UsersPage> {
                   borderRadius: BorderRadius.circular(1000),
                   child: Image.network(
                     teacherPhotoUrl(user.id),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.fitWidth,
                   ),
                 ),
               ),

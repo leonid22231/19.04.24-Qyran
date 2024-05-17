@@ -45,6 +45,10 @@ abstract class RestClient {
   @POST("/user/profile/social/update")
   Future<void> saveSocial(@Query("phone") String phone,
       @Query("social_1") String? social_1, @Query("social_2") String? social_2);
+  @POST("/user/profile/image/update")
+  @MultiPart()
+  Future<void> changePhoto(
+      @Query("phone") String phone, @Part(name: "file") File file);
   @POST("/user/setView")
   Future<void> setView(@Query("phone") String phone,
       @Query("videoId") int? videoId, @Query("testId") int? testId);
@@ -106,8 +110,9 @@ abstract class RestClient {
   @POST("/admin/createResponse")
   Future<void> createResponse(@Query("id") int id, @Body() TrueTestModel model);
   @POST("/admin/createNew")
+  @MultiPart()
   Future<void> addNew(@Query("title") String title,
-      @Query("description") String description, @Body() File file);
+      @Query("description") String description, @Part(name: "file") File file);
   @GET("/admin/users")
   Future<List<UserEntity>> findAllUsers();
   @GET("/admin/users/{id}/courses")

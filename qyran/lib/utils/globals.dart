@@ -25,7 +25,7 @@ double mainSize = 16.sp;
 double buttonTextSize = 18.sp;
 double welcomeTitleSize = 20.sp;
 double progressRadius = 30;
-String baseUrl = "http://192.168.0.11:8080";
+String baseUrl = "http://86.104.73.36:8080";
 String _api = "api/v1";
 late RestClient _client;
 void initRestClient() {

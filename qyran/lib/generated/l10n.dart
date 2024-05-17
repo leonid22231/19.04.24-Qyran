@@ -50,60 +50,60 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Lorem Ipsum is simply dummy text of the printing 1`
+  /// `ВЫСОКИЕ ДОСТИЖЕНИЯ`
   String get welcome_title_1 {
     return Intl.message(
-      'Lorem Ipsum is simply dummy text of the printing 1',
+      'ВЫСОКИЕ ДОСТИЖЕНИЯ',
       name: 'welcome_title_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 1`
+  /// `Если вы потратите дополнительное время на правильную подготовку, это проложит путь к большему успеху.`
   String get welcome_context_1 {
     return Intl.message(
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard 1',
+      'Если вы потратите дополнительное время на правильную подготовку, это проложит путь к большему успеху.',
       name: 'welcome_context_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lorem Ipsum is simply dummy text of the printing 2`
+  /// `ЛЕГКО ПОНИМАТЬ ТЕМЫ`
   String get welcome_title_2 {
     return Intl.message(
-      'Lorem Ipsum is simply dummy text of the printing 2',
+      'ЛЕГКО ПОНИМАТЬ ТЕМЫ',
       name: 'welcome_title_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 2`
+  /// `Вы можете смотреть бесплатные или платные уроки по вашему желанию.`
   String get welcome_context_2 {
     return Intl.message(
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard 2',
+      'Вы можете смотреть бесплатные или платные уроки по вашему желанию.',
       name: 'welcome_context_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lorem Ipsum is simply dummy text of the printing 3`
+  /// `УДАЧИ`
   String get welcome_title_3 {
     return Intl.message(
-      'Lorem Ipsum is simply dummy text of the printing 3',
+      'УДАЧИ',
       name: 'welcome_title_3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 3`
+  /// `Высокие вершины могут покорить только те, кто стремится двигаться вперед.`
   String get welcome_context_3 {
     return Intl.message(
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard 3',
+      'Высокие вершины могут покорить только те, кто стремится двигаться вперед.',
       name: 'welcome_context_3',
       desc: '',
       args: [],

@@ -130,6 +130,15 @@ public class UserController {
         if(change) userService.save(user);
         return response(HttpStatus.OK);
     }
+    @PostMapping("/profile/image/update")
+    @Async
+    public CompletableFuture<ResponseEntity<?>> changePhoto(@RequestParam String phone,@RequestBody(required = true) MultipartFile file ){
+        UserEntity user = userService.findUserByPhone(phone);
+        imageService.store(file);
+        user.setPhoto(renameImage(file.getOriginalFilename(), imageService));
+        userService.save(user);
+        return response(HttpStatus.OK);
+    }
     @PostMapping("/profile/social/update")
     @Async
     public CompletableFuture<ResponseEntity<?>> saveProfileSocial(@RequestParam String phone, @RequestParam(required = false) String social_1, @RequestParam(required = false) String social_2){

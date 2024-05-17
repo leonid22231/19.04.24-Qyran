@@ -155,16 +155,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Забрать доступ к курсу"),
         "users": MessageLookupByLibrary.simpleMessage("Пользователи"),
         "welcome_context_1": MessageLookupByLibrary.simpleMessage(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard 1"),
+            "Если вы потратите дополнительное время на правильную подготовку, это проложит путь к большему успеху."),
         "welcome_context_2": MessageLookupByLibrary.simpleMessage(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard 2"),
+            "Вы можете смотреть бесплатные или платные уроки по вашему желанию."),
         "welcome_context_3": MessageLookupByLibrary.simpleMessage(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard 3"),
-        "welcome_title_1": MessageLookupByLibrary.simpleMessage(
-            "Lorem Ipsum is simply dummy text of the printing 1"),
-        "welcome_title_2": MessageLookupByLibrary.simpleMessage(
-            "Lorem Ipsum is simply dummy text of the printing 2"),
-        "welcome_title_3": MessageLookupByLibrary.simpleMessage(
-            "Lorem Ipsum is simply dummy text of the printing 3")
+            "Высокие вершины могут покорить только те, кто стремится двигаться вперед."),
+        "welcome_title_1":
+            MessageLookupByLibrary.simpleMessage("ВЫСОКИЕ ДОСТИЖЕНИЯ"),
+        "welcome_title_2":
+            MessageLookupByLibrary.simpleMessage("ЛЕГКО ПОНИМАТЬ ТЕМЫ"),
+        "welcome_title_3": MessageLookupByLibrary.simpleMessage("УДАЧИ")
       };
 }

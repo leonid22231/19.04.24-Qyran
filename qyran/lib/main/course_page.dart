@@ -62,6 +62,7 @@ class _CoursePageState extends State<CoursePage> {
                         future: api().findAllCourses(snapshot.data),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
+                            context.loaderOverlay.hide();
                             List<CourseEntity> courses = snapshot.data!;
                             return ListView.separated(
                                 itemBuilder: (context, index) {

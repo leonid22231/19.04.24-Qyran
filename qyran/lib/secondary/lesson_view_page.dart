@@ -118,7 +118,7 @@ class _LessonViewPageState extends State<LessonViewPage> {
                           borderRadius: BorderRadius.circular(1000),
                           child: Image.network(
                             teacherPhotoUrl(lesson.teacher.id),
-                            fit: BoxFit.fill,
+                            fit: BoxFit.fitWidth,
                           ),
                         ),
                       ),
