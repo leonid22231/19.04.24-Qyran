@@ -58,9 +58,10 @@ icons_launcher:
       enable: true
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/
 flutter_intl:
   enabled: true
-  main_locale: ru
+  main_locale: kk

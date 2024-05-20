@@ -50,140 +50,140 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `ВЫСОКИЕ ДОСТИЖЕНИЯ`
+  /// `ЖОҒАРЫ ЖЕТІСТІКТЕР`
   String get welcome_title_1 {
     return Intl.message(
-      'ВЫСОКИЕ ДОСТИЖЕНИЯ',
+      'ЖОҒАРЫ ЖЕТІСТІКТЕР',
       name: 'welcome_title_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Если вы потратите дополнительное время на правильную подготовку, это проложит путь к большему успеху.`
+  /// `Қосымша уақыт бөліп, дұрыс дайындық жасауға жоғары жетістіктерге жол ашады.`
   String get welcome_context_1 {
     return Intl.message(
-      'Если вы потратите дополнительное время на правильную подготовку, это проложит путь к большему успеху.',
+      'Қосымша уақыт бөліп, дұрыс дайындық жасауға жоғары жетістіктерге жол ашады.',
       name: 'welcome_context_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `ЛЕГКО ПОНИМАТЬ ТЕМЫ`
+  /// `ТАҚЫРЫПТАРДЫ ТҮСІНУГЕ ЫҢҒАЙЛЫ МҮМКІНДІК`
   String get welcome_title_2 {
     return Intl.message(
-      'ЛЕГКО ПОНИМАТЬ ТЕМЫ',
+      'ТАҚЫРЫПТАРДЫ ТҮСІНУГЕ ЫҢҒАЙЛЫ МҮМКІНДІК',
       name: 'welcome_title_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Вы можете смотреть бесплатные или платные уроки по вашему желанию.`
+  /// `Тегін немесе ақылы сабақтарды өз қалауыңызға қарай көрсеңіз болады.`
   String get welcome_context_2 {
     return Intl.message(
-      'Вы можете смотреть бесплатные или платные уроки по вашему желанию.',
+      'Тегін немесе ақылы сабақтарды өз қалауыңызға қарай көрсеңіз болады.',
       name: 'welcome_context_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `УДАЧИ`
+  /// `СӘТТІЛІК`
   String get welcome_title_3 {
     return Intl.message(
-      'УДАЧИ',
+      'СӘТТІЛІК',
       name: 'welcome_title_3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Высокие вершины могут покорить только те, кто стремится двигаться вперед.`
+  /// `Биік шыңды тек қана алдыға жүруге ұмтылатын жандар бағындыра алады.`
   String get welcome_context_3 {
     return Intl.message(
-      'Высокие вершины могут покорить только те, кто стремится двигаться вперед.',
+      'Биік шыңды тек қана алдыға жүруге ұмтылатын жандар бағындыра алады.',
       name: 'welcome_context_3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Пропустить`
+  /// `Өткізу`
   String get skip {
     return Intl.message(
-      'Пропустить',
+      'Өткізу',
       name: 'skip',
       desc: '',
       args: [],
     );
   }
 
-  /// `Далее`
+  /// `Әрі қарай`
   String get next {
     return Intl.message(
-      'Далее',
+      'Әрі қарай',
       name: 'next',
       desc: '',
       args: [],
     );
   }
 
-  /// `Начать`
+  /// `Бастау`
   String get start {
     return Intl.message(
-      'Начать',
+      'Бастау',
       name: 'start',
       desc: '',
       args: [],
     );
   }
 
-  /// `Войти`
+  /// `Кіру`
   String get sign_in {
     return Intl.message(
-      'Войти',
+      'Кіру',
       name: 'sign_in',
       desc: '',
       args: [],
     );
   }
 
-  /// `Вход`
+  /// `Кіру`
   String get login_signIn {
     return Intl.message(
-      'Вход',
+      'Кіру',
       name: 'login_signIn',
       desc: '',
       args: [],
     );
   }
 
-  /// `Номер телефона`
+  /// `Телефон нөмірі`
   String get login_numberPhone {
     return Intl.message(
-      'Номер телефона',
+      'Телефон нөмірі',
       name: 'login_numberPhone',
       desc: '',
       args: [],
     );
   }
 
-  /// `Имя`
+  /// `Аты`
   String get register_name {
     return Intl.message(
-      'Имя',
+      'Аты',
       name: 'register_name',
       desc: '',
       args: [],
     );
   }
 
-  /// `Фамилия`
+  /// `Тегі`
   String get register_surname {
     return Intl.message(
-      'Фамилия',
+      'Тегі',
       name: 'register_surname',
       desc: '',
       args: [],
@@ -200,10 +200,10 @@ class S {
     );
   }
 
-  /// `Придумайте пароль`
+  /// `Пароль`
   String get register_password {
     return Intl.message(
-      'Придумайте пароль',
+      'Пароль',
       name: 'register_password',
       desc: '',
       args: [],
@@ -240,130 +240,130 @@ class S {
     );
   }
 
-  /// `Продолжить`
+  /// `Жалғастыру`
   String get continue_ {
     return Intl.message(
-      'Продолжить',
+      'Жалғастыру',
       name: 'continue_',
       desc: '',
       args: [],
     );
   }
 
-  /// `или`
+  /// `немесе`
   String get or {
     return Intl.message(
-      'или',
+      'немесе',
       name: 'or',
       desc: '',
       args: [],
     );
   }
 
-  /// `У вас еще нет аккаунта?`
+  /// `Сіз әлі тіркелмегенсізбе?`
   String get not_account {
     return Intl.message(
-      'У вас еще нет аккаунта?',
+      'Сіз әлі тіркелмегенсізбе?',
       name: 'not_account',
       desc: '',
       args: [],
     );
   }
 
-  /// `Зарегистрироваться`
+  /// `Тіркелу`
   String get register {
     return Intl.message(
-      'Зарегистрироваться',
+      'Тіркелу',
       name: 'register',
       desc: '',
       args: [],
     );
   }
 
-  /// `Продолжить с {name}`
+  /// `Жалғастыру {name}`
   String continue_in(String name) {
     return Intl.message(
-      'Продолжить с $name',
+      'Жалғастыру $name',
       name: 'continue_in',
       desc: '',
       args: [name],
     );
   }
 
-  /// `Для того, чтобы продолжить, введите 4-х значный код, который мы прислали на номер +{phone}`
+  /// `Жалғастыру үшін нөмірге біз жіберген 4 таңбалы кодты енгізіңіз +{phone}`
   String confirm_code(String phone) {
     return Intl.message(
-      'Для того, чтобы продолжить, введите 4-х значный код, который мы прислали на номер +$phone',
+      'Жалғастыру үшін нөмірге біз жіберген 4 таңбалы кодты енгізіңіз +$phone',
       name: 'confirm_code',
       desc: '',
       args: [phone],
     );
   }
 
-  /// `У вас уже есть аккаунт?`
+  /// `Мен тіркелген аккаунт бар`
   String get account {
     return Intl.message(
-      'У вас уже есть аккаунт?',
+      'Мен тіркелген аккаунт бар',
       name: 'account',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ошибка`
+  /// `Қате`
   String get error {
     return Intl.message(
-      'Ошибка',
+      'Қате',
       name: 'error',
       desc: '',
       args: [],
     );
   }
 
-  /// `Неверный код`
+  /// `Қате код`
   String get error_code {
     return Intl.message(
-      'Неверный код',
+      'Қате код',
       name: 'error_code',
       desc: '',
       args: [],
     );
   }
 
-  /// `Курсы`
+  /// `Курстар`
   String get bottomBar_item1 {
     return Intl.message(
-      'Курсы',
+      'Курстар',
       name: 'bottomBar_item1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Уроки`
+  /// `Сабақтар`
   String get bottomBar_item2 {
     return Intl.message(
-      'Уроки',
+      'Сабақтар',
       name: 'bottomBar_item2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Тесты`
+  /// `Тест`
   String get bottomBar_item3 {
     return Intl.message(
-      'Тесты',
+      'Тест',
       name: 'bottomBar_item3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Новости`
+  /// `Жаңалықтар`
   String get bottomBar_item4 {
     return Intl.message(
-      'Новости',
+      'Жаңалықтар',
       name: 'bottomBar_item4',
       desc: '',
       args: [],
@@ -380,10 +380,10 @@ class S {
     );
   }
 
-  /// `Уроки`
+  /// `Сабақтар`
   String get course_section_1 {
     return Intl.message(
-      'Уроки',
+      'Сабақтар',
       name: 'course_section_1',
       desc: '',
       args: [],
@@ -400,310 +400,310 @@ class S {
     );
   }
 
-  /// `Поиск`
+  /// `Іздеу`
   String get search {
     return Intl.message(
-      'Поиск',
+      'Іздеу',
       name: 'search',
       desc: '',
       args: [],
     );
   }
 
-  /// `Вы пока не записаны на курсы. Перейдите  на страницу курсов и запишитесь на нужные.`
+  /// `Сіз әлі курстарға тіркелген жоқсыз. Курстар бетіне өтіп, қажетті курстарға жазылыңыз.`
   String get lessons_empty {
     return Intl.message(
-      'Вы пока не записаны на курсы. Перейдите  на страницу курсов и запишитесь на нужные.',
+      'Сіз әлі курстарға тіркелген жоқсыз. Курстар бетіне өтіп, қажетті курстарға жазылыңыз.',
       name: 'lessons_empty',
       desc: '',
       args: [],
     );
   }
 
-  /// `Создатель: {name} {surname}`
+  /// `Тіркелуші: {name} {surname}`
   String lesson_from(String name, String surname) {
     return Intl.message(
-      'Создатель: $name $surname',
+      'Тіркелуші: $name $surname',
       name: 'lesson_from',
       desc: '',
       args: [name, surname],
     );
   }
 
-  /// `с. назад`
+  /// `сек. бұрын`
   String get second_ago {
     return Intl.message(
-      'с. назад',
+      'сек. бұрын',
       name: 'second_ago',
       desc: '',
       args: [],
     );
   }
 
-  /// `м. назад`
+  /// `мин. бұрын`
   String get minute_ago {
     return Intl.message(
-      'м. назад',
+      'мин. бұрын',
       name: 'minute_ago',
       desc: '',
       args: [],
     );
   }
 
-  /// `ч. назад`
+  /// `сағ. бұрын`
   String get hour_ago {
     return Intl.message(
-      'ч. назад',
+      'сағ. бұрын',
       name: 'hour_ago',
       desc: '',
       args: [],
     );
   }
 
-  /// `д. назад`
+  /// `күн. бұрын`
   String get day_ago {
     return Intl.message(
-      'д. назад',
+      'күн. бұрын',
       name: 'day_ago',
       desc: '',
       args: [],
     );
   }
 
-  /// `Политика конфиденциальности`
+  /// `Құпиялылық саясаты`
   String get profile_item1 {
     return Intl.message(
-      'Политика конфиденциальности',
+      'Құпиялылық саясаты',
       name: 'profile_item1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Пользовательское соглашение`
+  /// `Қолдану ережелері`
   String get profile_item2 {
     return Intl.message(
-      'Пользовательское соглашение',
+      'Қолдану ережелері',
       name: 'profile_item2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Выйти`
+  /// `Шығу`
   String get exit {
     return Intl.message(
-      'Выйти',
+      'Шығу',
       name: 'exit',
       desc: '',
       args: [],
     );
   }
 
-  /// `Тесты`
+  /// `Тест`
   String get test_section_1 {
     return Intl.message(
-      'Тесты',
+      'Тест',
       name: 'test_section_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Результаты`
+  /// `Нәтижелер`
   String get test_section_2 {
     return Intl.message(
-      'Результаты',
+      'Нәтижелер',
       name: 'test_section_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Текущие тестирования`
+  /// `Ағымдағы тестілеу`
   String get test_current {
     return Intl.message(
-      'Текущие тестирования',
+      'Ағымдағы тестілеу',
       name: 'test_current',
       desc: '',
       args: [],
     );
   }
 
-  /// `Результатов нет`
+  /// `Нәтижелер жоқ`
   String get test_result_not_found {
     return Intl.message(
-      'Результатов нет',
+      'Нәтижелер жоқ',
       name: 'test_result_not_found',
       desc: '',
       args: [],
     );
   }
 
-  /// `Назад`
+  /// `Артқа`
   String get back {
     return Intl.message(
-      'Назад',
+      'Артқа',
       name: 'back',
       desc: '',
       args: [],
     );
   }
 
-  /// `Сохранить`
+  /// `Сақтау`
   String get save {
     return Intl.message(
-      'Сохранить',
+      'Сақтау',
       name: 'save',
       desc: '',
       args: [],
     );
   }
 
-  /// `Все задания`
+  /// `Барлық тапсырмалар`
   String get all_learnd {
     return Intl.message(
-      'Все задания',
+      'Барлық тапсырмалар',
       name: 'all_learnd',
       desc: '',
       args: [],
     );
   }
 
-  /// `Общее количество вопросов`
+  /// `Сұрақтардың жалпы саны`
   String get count_answers {
     return Intl.message(
-      'Общее количество вопросов',
+      'Сұрақтардың жалпы саны',
       name: 'count_answers',
       desc: '',
       args: [],
     );
   }
 
-  /// `Начать тестирование`
+  /// `Тестілеуді бастаңыз`
   String get start_test {
     return Intl.message(
-      'Начать тестирование',
+      'Тестілеуді бастаңыз',
       name: 'start_test',
       desc: '',
       args: [],
     );
   }
 
-  /// `Закончить`
+  /// `Аяқтау`
   String get end {
     return Intl.message(
-      'Закончить',
+      'Аяқтау',
       name: 'end',
       desc: '',
       args: [],
     );
   }
 
-  /// `Результат`
+  /// `Нәтиже`
   String get res {
     return Intl.message(
-      'Результат',
+      'Нәтиже',
       name: 'res',
       desc: '',
       args: [],
     );
   }
 
-  /// `Сначала выберите вариант ответа`
+  /// `Алдымен жауапты таңдаңыз`
   String get error_test {
     return Intl.message(
-      'Сначала выберите вариант ответа',
+      'Алдымен жауапты таңдаңыз',
       name: 'error_test',
       desc: '',
       args: [],
     );
   }
 
-  /// `Тест должен быть сдан минимум на 60%`
+  /// `Сынақтан кем дегенде 60% өту керек`
   String get error_bad_test {
     return Intl.message(
-      'Тест должен быть сдан минимум на 60%',
+      'Сынақтан кем дегенде 60% өту керек',
       name: 'error_bad_test',
       desc: '',
       args: [],
     );
   }
 
-  /// `Пересдать`
+  /// `Қайта оту`
   String get retest {
     return Intl.message(
-      'Пересдать',
+      'Қайта оту',
       name: 'retest',
       desc: '',
       args: [],
     );
   }
 
-  /// `Пройдите предыдущий материал`
+  /// `Өткен материалды қарап шығу`
   String get lesson_error {
     return Intl.message(
-      'Пройдите предыдущий материал',
+      'Өткен материалды қарап шығу',
       name: 'lesson_error',
       desc: '',
       args: [],
     );
   }
 
-  /// `Для доступа, преобретите подписку`
+  /// `Қол жеткізу үшін курсты сатып алыңыз`
   String get course_error {
     return Intl.message(
-      'Для доступа, преобретите подписку',
+      'Қол жеткізу үшін курсты сатып алыңыз',
       name: 'course_error',
       desc: '',
       args: [],
     );
   }
 
-  /// `Здесь появятся тесты, которые вы будете проходить по мере изучения материала.`
+  /// `Бұл жерде оқитын сабақтарыңыз бойынша тесттер алынады`
   String get tests_not_fount {
     return Intl.message(
-      'Здесь появятся тесты, которые вы будете проходить по мере изучения материала.',
+      'Бұл жерде оқитын сабақтарыңыз бойынша тесттер алынады',
       name: 'tests_not_fount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Здесь будут результаты ваших тестов.`
+  /// `Сіздің текст нәтижелеріңіз осында болады.`
   String get tests_res_not_found {
     return Intl.message(
-      'Здесь будут результаты ваших тестов.',
+      'Сіздің текст нәтижелеріңіз осында болады.',
       name: 'tests_res_not_found',
       desc: '',
       args: [],
     );
   }
 
-  /// `Добавить курс`
+  /// `Курс қосу`
   String get add_course {
     return Intl.message(
-      'Добавить курс',
+      'Курс қосу',
       name: 'add_course',
       desc: '',
       args: [],
     );
   }
 
-  /// `Добавить урок`
+  /// `Сабақ қосу`
   String get add_lesson {
     return Intl.message(
-      'Добавить урок',
+      'Сабақ қосу',
       name: 'add_lesson',
       desc: '',
       args: [],
     );
   }
 
-  /// `Добавить тему`
+  /// `Тақырып қосу`
   String get add_theme {
     return Intl.message(
-      'Добавить тему',
+      'Тақырып қосу',
       name: 'add_theme',
       desc: '',
       args: [],
@@ -730,270 +730,270 @@ class S {
     );
   }
 
-  /// `Добавить новость`
+  /// `Жаңалық қосу`
   String get add_new {
     return Intl.message(
-      'Добавить новость',
+      'Жаңалық қосу',
       name: 'add_new',
       desc: '',
       args: [],
     );
   }
 
-  /// `Добавить вопрос`
+  /// `Сұрақ қосыңыз`
   String get add_question {
     return Intl.message(
-      'Добавить вопрос',
+      'Сұрақ қосыңыз',
       name: 'add_question',
       desc: '',
       args: [],
     );
   }
 
-  /// `Не выбран ответ !`
+  /// `Жауап таңдалмаған !`
   String get test_quest_error {
     return Intl.message(
-      'Не выбран ответ !',
+      'Жауап таңдалмаған !',
       name: 'test_quest_error',
       desc: '',
       args: [],
     );
   }
 
-  /// `Вопрос не может быть пустым`
+  /// `Сұрақ бос болуы мүмкін емес`
   String get test_quest_error_2 {
     return Intl.message(
-      'Вопрос не может быть пустым',
+      'Сұрақ бос болуы мүмкін емес',
       name: 'test_quest_error_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ответ не может быть пустым`
+  /// `Жауап бос болуы мүмкін емес`
   String get test_quest_error_3 {
     return Intl.message(
-      'Ответ не может быть пустым',
+      'Жауап бос болуы мүмкін емес',
       name: 'test_quest_error_3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Добавить комбо`
+  /// `Комбо қосыңыз`
   String get add_combo {
     return Intl.message(
-      'Добавить комбо',
+      'Комбо қосыңыз',
       name: 'add_combo',
       desc: '',
       args: [],
     );
   }
 
-  /// `Введите название`
+  /// `Тақырыпты енгізіңіз`
   String get enter_name {
     return Intl.message(
-      'Введите название',
+      'Тақырыпты енгізіңіз',
       name: 'enter_name',
       desc: '',
       args: [],
     );
   }
 
-  /// `Введите описание`
+  /// `Сипаттама енгізіңіз`
   String get enter_desc {
     return Intl.message(
-      'Введите описание',
+      'Сипаттама енгізіңіз',
       name: 'enter_desc',
       desc: '',
       args: [],
     );
   }
 
-  /// `Введите ссылку на доступное видео YouTube`
+  /// `Қолжетімді YouTube бейнесіне сілтеме енгізіңіз`
   String get enter_video_url {
     return Intl.message(
-      'Введите ссылку на доступное видео YouTube',
+      'Қолжетімді YouTube бейнесіне сілтеме енгізіңіз',
       name: 'enter_video_url',
       desc: '',
       args: [],
     );
   }
 
-  /// `Описание`
+  /// `Сипаттама`
   String get desc {
     return Intl.message(
-      'Описание',
+      'Сипаттама',
       name: 'desc',
       desc: '',
       args: [],
     );
   }
 
-  /// `Название`
+  /// `Аты`
   String get name {
     return Intl.message(
-      'Название',
+      'Аты',
       name: 'name',
       desc: '',
       args: [],
     );
   }
 
-  /// `Создать`
+  /// `Жасау`
   String get crate {
     return Intl.message(
-      'Создать',
+      'Жасау',
       name: 'crate',
       desc: '',
       args: [],
     );
   }
 
-  /// `Обратитесь к администратору для редактирования`
+  /// `Өңдеу үшін админстраторға хабарласыңыз`
   String get edit_course {
     return Intl.message(
-      'Обратитесь к администратору для редактирования',
+      'Өңдеу үшін админстраторға хабарласыңыз',
       name: 'edit_course',
       desc: '',
       args: [],
     );
   }
 
-  /// `Выбрать картинку(Обязательно)`
+  /// `Суретті таңдау(міндетті түрде)`
   String get enter_image {
     return Intl.message(
-      'Выбрать картинку(Обязательно)',
+      'Суретті таңдау(міндетті түрде)',
       name: 'enter_image',
       desc: '',
       args: [],
     );
   }
 
-  /// `Изменить картинку`
+  /// `Суретті өзгерту`
   String get edit_photo {
     return Intl.message(
-      'Изменить картинку',
+      'Суретті өзгерту',
       name: 'edit_photo',
       desc: '',
       args: [],
     );
   }
 
-  /// `Добавьте видео и тесты, которые относятся к теме`
+  /// `Тақырыпқа қатысты бейнелер мен тесттерді қосыңыз`
   String get add_test_and_video {
     return Intl.message(
-      'Добавьте видео и тесты, которые относятся к теме',
+      'Тақырыпқа қатысты бейнелер мен тесттерді қосыңыз',
       name: 'add_test_and_video',
       desc: '',
       args: [],
     );
   }
 
-  /// `Для перетаскивания удерживайте палец на объекте`
+  /// `Жылжыту үшін нұсқауды нысанда ұстаңыз`
   String get drag {
     return Intl.message(
-      'Для перетаскивания удерживайте палец на объекте',
+      'Жылжыту үшін нұсқауды нысанда ұстаңыз',
       name: 'drag',
       desc: '',
       args: [],
     );
   }
 
-  /// `Введите текст вопроса`
+  /// `Сұрақ мәтінін енгізіңіз`
   String get test_text {
     return Intl.message(
-      'Введите текст вопроса',
+      'Сұрақ мәтінін енгізіңіз',
       name: 'test_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `Текст вопроса`
+  /// `Сұрақ мәтіні`
   String get test_test_ {
     return Intl.message(
-      'Текст вопроса',
+      'Сұрақ мәтіні',
       name: 'test_test_',
       desc: '',
       args: [],
     );
   }
 
-  /// `Добавьте варианты ответов`
+  /// `Жауап варианттарын енгізу`
   String get test_answer {
     return Intl.message(
-      'Добавьте варианты ответов',
+      'Жауап варианттарын енгізу',
       name: 'test_answer',
       desc: '',
       args: [],
     );
   }
 
-  /// `Добавить`
+  /// `Қосу`
   String get test_answer_ {
     return Intl.message(
-      'Добавить',
+      'Қосу',
       name: 'test_answer_',
       desc: '',
       args: [],
     );
   }
 
-  /// `Вариант ответа`
+  /// `Жауап варианты`
   String get answer {
     return Intl.message(
-      'Вариант ответа',
+      'Жауап варианты',
       name: 'answer',
       desc: '',
       args: [],
     );
   }
 
-  /// `Выберите правильные варианты`
+  /// `Дұрыс вариантты таңдаңыз`
   String get test_true_answers {
     return Intl.message(
-      'Выберите правильные варианты',
+      'Дұрыс вариантты таңдаңыз',
       name: 'test_true_answers',
       desc: '',
       args: [],
     );
   }
 
-  /// `Отменить`
+  /// `Болдырмау`
   String get cansel {
     return Intl.message(
-      'Отменить',
+      'Болдырмау',
       name: 'cansel',
       desc: '',
       args: [],
     );
   }
 
-  /// `Пользователи`
+  /// `Пайдаланушылар`
   String get users {
     return Intl.message(
-      'Пользователи',
+      'Пайдаланушылар',
       name: 'users',
       desc: '',
       args: [],
     );
   }
 
-  /// `Поиск по номеру`
+  /// `Нөмір бойынша іздеу`
   String get search_by_number {
     return Intl.message(
-      'Поиск по номеру',
+      'Нөмір бойынша іздеу',
       name: 'search_by_number',
       desc: '',
       args: [],
     );
   }
 
-  /// `Доступные курсы`
+  /// `Қолжетімді курстар`
   String get user_courses {
     return Intl.message(
-      'Доступные курсы',
+      'Қолжетімді курстар',
       name: 'user_courses',
       desc: '',
       args: [],
@@ -1020,20 +1020,20 @@ class S {
     );
   }
 
-  /// `Нет доступных курсов`
+  /// `Қолжетімді курс жок`
   String get courses_not_found {
     return Intl.message(
-      'Нет доступных курсов',
+      'Қолжетімді курс жок',
       name: 'courses_not_found',
       desc: '',
       args: [],
     );
   }
 
-  /// `Выберите курс`
+  /// `Курсты таңдау`
   String get enter_course {
     return Intl.message(
-      'Выберите курс',
+      'Курсты таңдау',
       name: 'enter_course',
       desc: '',
       args: [],
@@ -1046,6 +1046,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
+      Locale.fromSubtags(languageCode: 'kk'),
       Locale.fromSubtags(languageCode: 'ru'),
     ];
   }

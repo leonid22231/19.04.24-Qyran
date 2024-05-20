@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     return ResponsiveSizer(builder: (_, __, ___) {
       return MaterialApp(
         navigatorKey: _mainNavigatorKey,
-        title: 'Flutter Demo',
+        title: 'Qyran',
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -39,10 +39,8 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         debugShowCheckedModeBanner: false,
-        supportedLocales: const [
-          Locale('ru', ''),
-        ],
-        locale: const Locale("ru", ''),
+        supportedLocales: const [Locale('ru', ''), Locale('kk', '')],
+        locale: const Locale("kk", ''),
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
             useMaterial3: true,
