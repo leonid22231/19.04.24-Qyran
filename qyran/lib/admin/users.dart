@@ -64,29 +64,32 @@ class _UsersPageState extends State<UsersPage> {
         return AlertDialog(
           title: Text(S.of(context).enter_course),
           content: SingleChildScrollView(
-            child: ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.pop(context, list[index]);
-                    },
-                    borderRadius: BorderRadius.circular(15),
-                    child: Ink(
-                      padding: EdgeInsets.all(3.w),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Text("${index + 1} ${list[index].name}"),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: 1.h,
-                  );
-                },
-                itemCount: list.length),
+            child: SizedBox(
+              width: double.maxFinite,
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pop(context, list[index]);
+                      },
+                      borderRadius: BorderRadius.circular(15),
+                      child: Ink(
+                        padding: EdgeInsets.all(3.w),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Text("${index + 1} ${list[index].name}"),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      height: 1.h,
+                    );
+                  },
+                  itemCount: list.length),
+            ),
           ),
           actions: [
             TextButton(
@@ -111,137 +114,156 @@ class _UsersPageState extends State<UsersPage> {
         return AlertDialog(
           title: Text("${user.name} ${user.surname}"),
           content: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(S.of(context).user_courses),
-                FutureBuilder(
-                    future: api().findUserCourses(user.id),
-                    builder: (_, snapshot) {
-                      userC = snapshot.data!;
-                      return ListView.separated(
-                          shrinkWrap: true,
-                          primary: false,
-                          itemBuilder: (context, index) {
-                            return Text(
-                                "${index + 1}. ${snapshot.data![index].name}");
-                          },
-                          separatorBuilder: (_, __) {
-                            return SizedBox(
-                              height: 1.h,
+            child: SizedBox(
+              width: double.maxFinite,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(S.of(context).user_courses),
+                  FutureBuilder(
+                      future: api().findUserCourses(user.id),
+                      builder: (_, snapshot) {
+                        if (snapshot.hasData) {
+                          userC = snapshot.data!;
+                          return ListView.separated(
+                              shrinkWrap: true,
+                              primary: false,
+                              itemBuilder: (context, index) {
+                                return Text(
+                                    "${index + 1}. ${snapshot.data![index].name}");
+                              },
+                              separatorBuilder: (_, __) {
+                                return SizedBox(
+                                  height: 1.h,
+                                );
+                              },
+                              itemCount: snapshot.data!.length);
+                        } else {
+                          debugPrint("Errror ${snapshot.error}");
+                          return SizedBox.shrink();
+                        }
+                      }),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  TextButton(
+                      onPressed: () async {
+                        List<CourseEntity> getAv =
+                            await api().findAvailableCourses(user.id);
+
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(S.of(context).enter_course),
+                              content: SingleChildScrollView(
+                                child: SizedBox(
+                                  width: double.maxFinite,
+                                  child: ListView.separated(
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            Navigator.pop(
+                                                context, getAv[index]);
+                                          },
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Ink(
+                                            padding: EdgeInsets.all(3.w),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Text(
+                                                "${index + 1} ${getAv[index].name}"),
+                                          ),
+                                        );
+                                      },
+                                      separatorBuilder: (context, index) {
+                                        return SizedBox(
+                                          height: 1.h,
+                                        );
+                                      },
+                                      itemCount: getAv.length),
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: Text(S.of(context).cansel),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
                             );
                           },
-                          itemCount: snapshot.data!.length);
-                    }),
-                SizedBox(
-                  height: 1.h,
-                ),
-                TextButton(
-                    onPressed: () async {
-                      List<CourseEntity> getAv =
-                          await api().findAvailableCourses(user.id);
-
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(S.of(context).enter_course),
-                            content: SingleChildScrollView(
-                              child: ListView.separated(
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.pop(context, getAv[index]);
+                        ).then((value) {
+                          if (value != null) {
+                            api().addSub(user.phone, value.id);
+                          }
+                        });
+                      },
+                      child: Text(S.of(context).user_add_course)),
+                  TextButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(S.of(context).enter_course),
+                              content: SingleChildScrollView(
+                                child: SizedBox(
+                                  width: double.maxFinite,
+                                  child: ListView.separated(
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            Navigator.pop(
+                                                context, userC[index]);
+                                          },
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Ink(
+                                            padding: EdgeInsets.all(3.w),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Text(
+                                                "${index + 1} ${userC[index].name}"),
+                                          ),
+                                        );
                                       },
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Ink(
-                                        padding: EdgeInsets.all(3.w),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        child: Text(
-                                            "${index + 1} ${getAv[index].name}"),
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(
-                                      height: 1.h,
-                                    );
-                                  },
-                                  itemCount: getAv.length),
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text(S.of(context).cansel),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      ).then((value) {
-                        if (value != null) {
-                          api().addSub(user.phone, value.id);
-                        }
-                      });
-                    },
-                    child: Text(S.of(context).user_add_course)),
-                TextButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(S.of(context).enter_course),
-                            content: SingleChildScrollView(
-                              child: ListView.separated(
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.pop(context, userC[index]);
+                                      separatorBuilder: (context, index) {
+                                        return SizedBox(
+                                          height: 1.h,
+                                        );
                                       },
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Ink(
-                                        padding: EdgeInsets.all(3.w),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        child: Text(
-                                            "${index + 1} ${userC[index].name}"),
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(
-                                      height: 1.h,
-                                    );
-                                  },
-                                  itemCount: userC.length),
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text(S.of(context).cansel),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
+                                      itemCount: userC.length),
+                                ),
                               ),
-                            ],
-                          );
-                        },
-                      ).then((value) {
-                        if (value != null) {
-                          api().deleteSub(user.phone, value.id);
-                        }
-                      });
-                    },
-                    child: Text(S.of(context).user_delete_course))
-              ],
+                              actions: [
+                                TextButton(
+                                  child: Text(S.of(context).cansel),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        ).then((value) {
+                          if (value != null) {
+                            api().deleteSub(user.phone, value.id);
+                          }
+                        });
+                      },
+                      child: Text(S.of(context).user_delete_course))
+                ],
+              ),
             ),
           ),
           actions: [
