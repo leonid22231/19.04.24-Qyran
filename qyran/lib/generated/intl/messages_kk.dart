@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Қолжетімді курс жок"),
         "crate": MessageLookupByLibrary.simpleMessage("Жасау"),
         "day_ago": MessageLookupByLibrary.simpleMessage("күн. бұрын"),
+        "delete_account":
+            MessageLookupByLibrary.simpleMessage("Есептік жазбаны жою"),
         "desc": MessageLookupByLibrary.simpleMessage("Сипаттама"),
         "drag": MessageLookupByLibrary.simpleMessage(
             "Жылжыту үшін нұсқауды нысанда ұстаңыз"),

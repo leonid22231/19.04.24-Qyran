@@ -121,5 +121,6 @@
   "user_add_course": "Предоставить доступ к курсу",
   "user_delete_course": "Забрать доступ к курсу",
   "courses_not_found": "Нет доступных курсов",
-  "enter_course": "Выберите курс"
+  "enter_course": "Выберите курс",
+  "delete_account": "Удалить аккаунт"
 }

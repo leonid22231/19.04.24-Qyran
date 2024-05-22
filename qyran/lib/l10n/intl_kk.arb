@@ -121,5 +121,6 @@
     "user_add_course": "Предоставить доступ к курсу",
     "user_delete_course": "Забрать доступ к курсу",
     "courses_not_found": "Қолжетімді курс жок",
-    "enter_course": "Курсты таңдау"
+    "enter_course": "Курсты таңдау",
+    "delete_account": "Есептік жазбаны жою"
 }

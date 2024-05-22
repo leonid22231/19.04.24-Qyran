@@ -1039,6 +1039,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Есептік жазбаны жою`
+  String get delete_account {
+    return Intl.message(
+      'Есептік жазбаны жою',
+      name: 'delete_account',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

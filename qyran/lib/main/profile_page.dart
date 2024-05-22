@@ -176,6 +176,10 @@ class _ProfilePageState extends State<ProfilePage> {
                             launchUrl(Uri.parse(
                                 "https://docs.google.com/document/d/1d_kd1rBWAX22u_rl5yptcVzZFTdVa-sz/edit?usp=sharing&ouid=110169746193702330807&rtpof=true&sd=true"));
                           }),
+                          _itemWidget(S.of(context).delete_account, () {
+                            launchUrl(Uri.parse(
+                                "https://forms.gle/7kxoJZxwBGWsbLoy8"));
+                          }),
                         ],
                       ),
                     ),

@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Нет доступных курсов"),
         "crate": MessageLookupByLibrary.simpleMessage("Создать"),
         "day_ago": MessageLookupByLibrary.simpleMessage("д. назад"),
+        "delete_account":
+            MessageLookupByLibrary.simpleMessage("Удалить аккаунт"),
         "desc": MessageLookupByLibrary.simpleMessage("Описание"),
         "drag": MessageLookupByLibrary.simpleMessage(
             "Для перетаскивания удерживайте палец на объекте"),
